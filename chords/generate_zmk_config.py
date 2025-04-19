@@ -10,7 +10,7 @@ KEYMAP_FILE = Path(__file__).parent.parent / "config" / "glove80.keymap"
 CHORD_MAP_FILE = Path(__file__).parent / "chordable_map.json"
 OUTPUT_MACROS_FILE = Path(__file__).parent.parent / "config" / "generated_macros.dtsi"
 OUTPUT_COMBOS_FILE = Path(__file__).parent.parent / "config" / "generated_combos.dtsi"
-DEFAULT_COMBO_TIMEOUT = 50 # ms, timeout for combos # <<< Adjusted timeout as per your diff
+DEFAULT_COMBO_TIMEOUT = 100 # ms, timeout for combos # <<< Increased timeout for testing 3+ key combos
 
 # --- ZMK Keycode Mapping ---
 # Maps lowercase characters/symbols to ZMK keycodes used in &kp bindings
