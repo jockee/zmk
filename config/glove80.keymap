@@ -18,6 +18,9 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
+#include "generated_macros.dtsi"
+#include "generated_combos.dtsi"
+
 
 /* On demand includes */
 
