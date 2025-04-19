@@ -327,19 +327,19 @@ combos_dtsi_content = """
 """
 combos_generated_count = 0
 
+# --- TEST: Limit number of generated combos ---
+max_combos_to_generate = 5
+
 # --- Generate Combos from stored data ---
 for item in combo_generation_data:
+    if combos_generated_count >= max_combos_to_generate:
+        print(f"DEBUG: Reached max combos limit ({max_combos_to_generate}). Stopping combo generation.")
+        break
+
     combo_name = item["combo_name"]
     macro_name = item["macro_name"]
     chord_str = item["chord"]
     original_text = item["original"] # For logging/debug purposes
-
-    # --- TEST: Skip specific conflicting combos ---
-    conflicts_to_skip = {"the", "th", "te"}
-    if original_text in conflicts_to_skip:
-        print(f"DEBUG: Skipping generation of combo for '{original_text}' due to conflict test.")
-        continue
-    # --- End TEST ---
     positions = []
     valid_combo = True
     unique_chars_in_chord = set(chord_str)
