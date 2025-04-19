@@ -67,22 +67,40 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
     # Remove C++-style comments // ...
     bindings_str = re.sub(r"//.*", "", bindings_str)
     # Split into individual bindings, handles multiple spaces/newlines
-    bindings = bindings_str.split()
+    # bindings = bindings_str.split() # OLD METHOD - Incorrect for multi-part bindings
+    bindings_str = bindings_str.strip() # Remove leading/trailing whitespace
 
     key_positions = {}
     position_index = 0
     # Assuming Glove80 has 80 keys (positions 0-79) based on keymap #defines
     max_expected_positions = 80
 
-    print(f"Found {len(bindings)} raw bindings in layer_Base.")
+    # --- New Parsing Logic using regex ---
+    # Find all starting points of bindings (& followed by word chars)
+    binding_starts = list(re.finditer(r"&\w+", bindings_str))
 
-    for binding in bindings:
+    print(f"Found {len(binding_starts)} potential binding starts.")
+
+    # Check if the number of found bindings matches expectations
+    if len(binding_starts) != max_expected_positions:
+         print(f"Warning: Found {len(binding_starts)} binding starts, but expected {max_expected_positions}. Keymap structure might be unusual or parsing may be inaccurate.", file=sys.stderr)
+         # If the count is drastically wrong, it might be better to abort
+         # if abs(len(binding_starts) - max_expected_positions) > 5: # Example threshold
+         #     print("Error: Significant mismatch in expected binding count. Aborting.", file=sys.stderr)
+         #     sys.exit(1)
+
+    for i, match in enumerate(binding_starts):
         if position_index >= max_expected_positions:
-            print(f"Warning: Found more bindings ({len(bindings)}) than expected ({max_expected_positions}). Stopping parse at position {position_index}.", file=sys.stderr)
+            print(f"Warning: Processed {max_expected_positions} bindings. Stopping parse.", file=sys.stderr)
             break
 
-        # Match only &kp bindings (direct key presses)
-        kp_match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
+        # Determine the full binding string for this position
+        start_pos = match.start()
+        end_pos = binding_starts[i+1].start() if i + 1 < len(binding_starts) else len(bindings_str)
+        full_binding = bindings_str[start_pos:end_pos].strip()
+
+        # Check if this full binding is a &kp binding
+        kp_match = re.match(r"&kp\s+([A-Z0-9_]+)", full_binding)
         if kp_match:
             keycode = kp_match.group(1)
             char = keycode_to_char.get(keycode)
@@ -97,11 +115,12 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
             # else: # Optional: Warn if a keycode doesn't map back to a known char
             #     print(f"Debug: Keycode '{keycode}' at position {position_index} not found in ZMK_KEYCODE_MAP inverse.", file=sys.stderr)
 
-        # Increment position index regardless of whether it was a &kp binding we could map
+        # Increment position index for every binding start found
         position_index += 1
 
-    if position_index < max_expected_positions:
-         print(f"Warning: Parsed only {position_index} bindings, expected {max_expected_positions}. Keymap might be incomplete or parsing stopped early.", file=sys.stderr)
+    # This warning might be less relevant now if we iterate based on found bindings
+    # if position_index < max_expected_positions:
+    #      print(f"Warning: Processed only {position_index} bindings, expected {max_expected_positions}.", file=sys.stderr)
 
     # Debug output
     print(f"Successfully mapped {len(key_positions)} unique keys to positions from keymap.")
