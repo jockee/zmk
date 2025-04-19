@@ -20,7 +20,11 @@ ZMK_KEYCODE_MAP = {
     'h': 'H', 'i': 'I', 'j': 'J', 'k': 'K', 'l': 'L', 'm': 'M', 'n': 'N',
     'o': 'O', 'p': 'P', 'q': 'Q', 'r': 'R', 's': 'S', 't': 'T', 'u': 'U',
     'v': 'V', 'w': 'W', 'x': 'X', 'y': 'Y', 'z': 'Z',
-    'å': 'ARNG', 'ä': 'ADIA', 'ö': 'ODIA', # Swedish keys (adjust if different)
+    # Map Swedish characters to keys that exist in the base layer for combo position mapping.
+    # The macro will still type the correct character.
+    'å': 'LBKT',  # Using Left Bracket based on keymap inspection (was RBKT, but LBKT is unused)
+    'ä': 'SQT',   # Map to single quote key
+    'ö': 'SEMI',  # Map to semicolon key
     '1': 'N1', '2': 'N2', '3': 'N3', '4': 'N4', '5': 'N5',
     '6': 'N6', '7': 'N7', '8': 'N8', '9': 'N9', '0': 'N0',
     ';': 'SEMI', '=': 'EQUAL', ',': 'COMMA', '.': 'DOT', '/': 'FSLH',
