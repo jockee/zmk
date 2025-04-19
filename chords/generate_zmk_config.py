@@ -100,6 +100,17 @@ def generate_zmk_name(base_name: str, prefix: str) -> str:
     # ZMK identifiers have length limits, truncate if necessary (e.g., 31 chars typical max)
     name = name[:25]  # Leave room for uniqueness suffix
 
+    # Reserved ZMK behavior names to avoid
+    reserved_names = {
+        'mo', 'lt', 'to', 'kp', 'key_repeat', 'caps_word', 'bt', 'out', 'rgb_ug',
+        'sk', 'sticky_key', 'dt', 'hold_tap', 'mod_morph', 'tap_dance', 'key_toggle',
+        'layer_tap', 'mod_tap', 'macro', 'behavior', 'combo', 'keymap', 'sensor'
+    }
+
+    # If the name is a reserved ZMK name, prefix it
+    if name in reserved_names:
+        name = f"{prefix}_{name}"
+
     # Add a unique suffix if this name has been used before
     if name in generate_zmk_name.used_names:
         counter = generate_zmk_name.used_names[name]
