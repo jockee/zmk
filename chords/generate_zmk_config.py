@@ -327,7 +327,7 @@ combos_dtsi_content = """
 combos_generated_count = 0
 
 # --- Limit number of generated combos ---
-MAX_COMBOS_TO_GENERATE = 100
+MAX_COMBOS_TO_GENERATE = 50
 
 # --- Generate Combos from stored data ---
 for item in combo_generation_data:
