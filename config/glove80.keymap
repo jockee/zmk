@@ -199,7 +199,8 @@
     combos {
         compatible = "zmk,combos";
 
-        combo_test_direct {
+        // Very simple test combo
+        simple_test {
             timeout-ms = <1000>; // Very long timeout for testing
             key-positions = <25 26>; // S and R keys
             bindings = <&kp SPACE>;
@@ -209,8 +210,8 @@
 };
 
 /* Include generated chords */
-#include "generated_macros.dtsi"
-#include "generated_combos.dtsi"
+/* #include "generated_macros.dtsi" */
+/* #include "generated_combos.dtsi" */
 
 /* #define for key positions */
 #define POS_LH_T1 52
