@@ -10,7 +10,6 @@ KEYMAP_FILE = Path(__file__).parent.parent / "config" / "glove80.keymap"
 CHORD_MAP_FILE = Path(__file__).parent / "chordable_map.json"
 OUTPUT_MACROS_FILE = Path(__file__).parent.parent / "config" / "generated_macros.dtsi"
 OUTPUT_COMBOS_FILE = Path(__file__).parent.parent / "config" / "generated_combos.dtsi"
-DEFAULT_COMBO_TIMEOUT = 100 # ms, timeout for combos # <<< Increased timeout for testing 3+ key combos
 
 # --- ZMK Keycode Mapping ---
 # Maps lowercase characters/symbols to ZMK keycodes used in &kp bindings
@@ -327,14 +326,9 @@ combos_dtsi_content = """
 """
 combos_generated_count = 0
 
-# --- TEST: Limit number of generated combos ---
-max_combos_to_generate = 5
-
 # --- Generate Combos from stored data ---
 for item in combo_generation_data:
-    if combos_generated_count >= max_combos_to_generate:
-        print(f"DEBUG: Reached max combos limit ({max_combos_to_generate}). Stopping combo generation.")
-        break
+    # Removed the max_combos_to_generate limit check
 
     combo_name = item["combo_name"]
     macro_name = item["macro_name"]
@@ -355,13 +349,23 @@ for item in combo_generation_data:
 
     if valid_combo and len(positions) >= 2: # Need at least 2 keys for a combo
         position_str = " ".join(sorted(positions, key=int)) # Sort positions numerically
+        num_keys = len(positions) # Use length of mapped positions
+
+        # Determine timeout based on number of keys
+        if num_keys == 2:
+            timeout_ms = 40
+        elif num_keys == 3:
+            timeout_ms = 60
+        else: # 4 or more keys
+            timeout_ms = 80
+
         # Add a comment indicating the original word/ngram
         comment = f"// Combo for {item['type']}: {original_text} (Chord: {chord_str})"
         combos_dtsi_content += f"""
         {comment}
         {combo_name}: {combo_name} {{
             key-positions = <{position_str}>;
-            timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>; /* Explicit timeout */
+            timeout-ms = <{timeout_ms}>; /* Timeout based on key count */
             bindings = <&{macro_name}>;
         }};
 """
@@ -370,9 +374,6 @@ for item in combo_generation_data:
         # Only print info for multi-character words/ngrams or if zero keys were found
         if len(original_text) > 1 or len(positions) == 0:
             print(f"Info: Skipping combo for '{original_text}' as chord '{chord_str}' results in less than 2 mapped key positions ({positions}).", file=sys.stderr)
-
-# Add default timeout definition at the top of the file if not already there
-# (Assuming DEFAULT_COMBO_TIMEOUT = 50 is defined near the top)
 
 combos_dtsi_content += """
     }; // end of combos
