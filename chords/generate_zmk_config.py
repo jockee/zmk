@@ -10,7 +10,7 @@ KEYMAP_FILE = Path(__file__).parent.parent / "config" / "glove80.keymap"
 CHORD_MAP_FILE = Path(__file__).parent / "chordable_map.json"
 OUTPUT_MACROS_FILE = Path(__file__).parent.parent / "config" / "generated_macros.dtsi"
 OUTPUT_COMBOS_FILE = Path(__file__).parent.parent / "config" / "generated_combos.dtsi"
-DEFAULT_COMBO_TIMEOUT = 250 # ms, timeout for combos
+DEFAULT_COMBO_TIMEOUT = 500 # ms, timeout for combos
 
 # --- ZMK Keycode Mapping ---
 # Maps lowercase characters/symbols to ZMK keycodes used in &kp bindings
@@ -289,6 +289,7 @@ for word, chord_str in word_to_chord.items():
     if valid_combo and len(positions) >= 2: # Need at least 2 keys for a combo
         macro_name = combo_to_macro_map[combo_name]
         position_str = " ".join(sorted(positions, key=int)) # Sort positions numerically
+        print(f"DEBUG: Combo for '{word}' using chord '{chord_str}' maps to positions: {position_str}", file=sys.stderr) # Add debug print
         combos_dtsi_content += f"""
         {combo_name}: {combo_name} {{
             timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>;
@@ -339,6 +340,15 @@ for ngram in ngrams:
     elif len(positions) < 2:
          print(f"Info: Skipping combo for ngram '{ngram}' as it results in less than 2 mapped key positions ({positions}).", file=sys.stderr)
 
+# Add a test combo at the end of the combos section
+combos_dtsi_content += f"""
+        test_combo: test_combo {{
+            timeout-ms = <500>;
+            key-positions = <25 26>; // Adjacent keys on left half (S and R)
+            bindings = <&kp SPACE>;
+            layers = <0>;
+        }};
+"""
 
 combos_dtsi_content += """
     }; // end of combos
