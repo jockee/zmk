@@ -130,45 +130,47 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
 
     return key_positions
 
+# Initialize the dictionary to track used names (outside the function)
+_used_zmk_names = {}
+
 def generate_zmk_name(base_name: str, prefix: str) -> str:
     """Creates a ZMK-compatible node name (macro or combo)."""
+    global _used_zmk_names # Use a global or class member to track used names
+
     # Filter out Swedish characters completely
-    name = base_name.replace('å', '').replace('ä', '').replace('ö', '')
+    cleaned_name = base_name.replace('å', '').replace('ä', '').replace('ö', '')
     # Replace remaining invalid chars with underscore
-    name = re.sub(r'[^a-zA-Z0-9_]', '_', name)
+    cleaned_name = re.sub(r'[^a-zA-Z0-9_]', '_', cleaned_name)
     # Remove leading/trailing underscores
-    name = name.strip('_')
-    if not name: # Handle empty string case after cleaning
-        name = f"{prefix}_empty"
+    cleaned_name = cleaned_name.strip('_')
+    if not cleaned_name: # Handle empty string case after cleaning
+        cleaned_name = "empty"
+
+    # Construct the base ZMK name with prefix
+    zmk_base_name = f"{prefix}_{cleaned_name}"
+
     # Ensure starts with letter
-    if not name[0].isalpha():
-        name = f'{prefix}_' + name
+    if not zmk_base_name[0].isalpha():
+         # This case should be rare now with the prefix, but handle defensively
+         zmk_base_name = f'{prefix}_' + zmk_base_name[len(prefix)+1:]
+
     # ZMK identifiers have length limits, truncate if necessary (e.g., 31 chars typical max)
-    name = name[:25]  # Leave room for uniqueness suffix
+    zmk_base_name = zmk_base_name[:25]  # Leave room for uniqueness suffix
 
-    # Reserved ZMK behavior names to avoid
-    reserved_names = {
-        'mo', 'lt', 'to', 'kp', 'key_repeat', 'caps_word', 'bt', 'out', 'rgb_ug',
-        'sk', 'sticky_key', 'dt', 'hold_tap', 'mod_morph', 'tap_dance', 'key_toggle',
-        'layer_tap', 'mod_tap', 'macro', 'behavior', 'combo', 'keymap', 'sensor'
-    }
-
-    # If the name is a reserved ZMK name, prefix it
-    if name in reserved_names:
-        name = f"{prefix}_{name}"
+    # Note: Checking against reserved names might be less critical now with prefixes,
+    # but could be added back here if needed, operating on zmk_base_name.
 
     # Add a unique suffix if this name has been used before
-    if name in generate_zmk_name.used_names:
-        counter = generate_zmk_name.used_names[name]
-        generate_zmk_name.used_names[name] += 1
-        name = f"{name}_{counter}"
+    # Use zmk_base_name for uniqueness tracking
+    final_name = zmk_base_name
+    if zmk_base_name in _used_zmk_names:
+        counter = _used_zmk_names[zmk_base_name]
+        _used_zmk_names[zmk_base_name] += 1
+        final_name = f"{zmk_base_name}_{counter}" # Append suffix
     else:
-        generate_zmk_name.used_names[name] = 1
+        _used_zmk_names[zmk_base_name] = 1
 
-    return name
-
-# Initialize the static dictionary to track used names
-generate_zmk_name.used_names = {}
+    return final_name
 
 def create_macro_bindings(text: str, add_space: bool) -> str:
     """Generates the ZMK macro bindings string for given text."""
