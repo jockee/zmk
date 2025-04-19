@@ -168,9 +168,9 @@ for word, chord_str in word_to_chord.items():
         print(f"Warning: Skipping invalid word/chord entry: word='{word}', chord='{chord_str}'", file=sys.stderr)
         continue
 
-    # Skip words containing Swedish characters
-    if 'å' in word or 'ä' in word or 'ö' in word:
-        print(f"Info: Skipping word '{word}' as it contains Swedish characters.", file=sys.stderr)
+    # Skip words containing Swedish characters in the word or the chord definition
+    if 'å' in word or 'ä' in word or 'ö' in word or 'å' in chord_str or 'ä' in chord_str or 'ö' in chord_str:
+        print(f"Info: Skipping word '{word}' as it or its chord '{chord_str}' contains Swedish characters.", file=sys.stderr)
         continue
 
     macro_name = generate_zmk_name(word, "m")
@@ -197,7 +197,7 @@ for ngram in ngrams:
         print("Warning: Skipping empty ngram string.", file=sys.stderr)
         continue
 
-    # Skip ngrams containing Swedish characters
+    # Skip ngrams containing Swedish characters (ngrams are their own chords)
     if 'å' in ngram or 'ä' in ngram or 'ö' in ngram:
         print(f"Info: Skipping ngram '{ngram}' as it contains Swedish characters.", file=sys.stderr)
         continue
