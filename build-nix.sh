@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to build the Glove80 ZMK firmware locally using Nix,
 # mirroring the GitHub Actions workflow.
