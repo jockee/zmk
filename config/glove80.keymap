@@ -66,6 +66,14 @@
             bindings
                 = <&rgb_ug RGB_STATUS>;
         };
+
+        // Add this test macro
+        test_macro: test_macro {
+            label = "TEST_MACRO";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp T &macro_tap &kp E &macro_tap &kp S &macro_tap &kp T &macro_tap &kp SPACE>;
+        };
     };
 };
 
