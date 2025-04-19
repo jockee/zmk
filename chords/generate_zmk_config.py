@@ -98,7 +98,20 @@ def generate_zmk_name(base_name: str, prefix: str) -> str:
     if not name[0].isalpha():
         name = f'{prefix}_' + name
     # ZMK identifiers have length limits, truncate if necessary (e.g., 31 chars typical max)
-    return name[:31]
+    name = name[:25]  # Leave room for uniqueness suffix
+
+    # Add a unique suffix if this name has been used before
+    if name in generate_zmk_name.used_names:
+        counter = generate_zmk_name.used_names[name]
+        generate_zmk_name.used_names[name] += 1
+        name = f"{name}_{counter}"
+    else:
+        generate_zmk_name.used_names[name] = 1
+
+    return name
+
+# Initialize the static dictionary to track used names
+generate_zmk_name.used_names = {}
 
 def create_macro_bindings(text: str, add_space: bool) -> str:
     """Generates the ZMK macro bindings string for given text."""
