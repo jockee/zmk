@@ -256,7 +256,14 @@ for word, chord_str in word_to_chord.items():
             bindings = <{macro_binding_str}>;
         }};
 """
-        combo_to_macro_map[combo_name] = macro_name
+        # Store data needed for combo generation later
+        combo_generation_data.append({
+            "type": "word",
+            "original": word,
+            "chord": chord_str,
+            "combo_name": combo_name, # The unique name generated here
+            "macro_name": macro_name  # The unique name generated here
+        })
         macros_generated_count += 1
     else:
          print(f"Warning: Could not generate macro bindings for word '{word}'. Skipping combo.", file=sys.stderr)
@@ -285,7 +292,14 @@ for ngram in ngrams:
             bindings = <{macro_binding_str}>;
         }};
 """
-        combo_to_macro_map[combo_name] = macro_name
+        # Store data needed for combo generation later
+        combo_generation_data.append({
+            "type": "ngram",
+            "original": ngram,
+            "chord": ngram, # For ngrams, the chord IS the ngram
+            "combo_name": combo_name,
+            "macro_name": macro_name
+        })
         macros_generated_count += 1
     else:
         print(f"Warning: Could not generate macro bindings for ngram '{ngram}'. Skipping combo.", file=sys.stderr)
@@ -311,72 +325,46 @@ combos_dtsi_content = """
 """
 combos_generated_count = 0
 
-# Word Combos
-for word, chord_str in word_to_chord.items():
-    combo_name = generate_zmk_name(word, "c")
-    if combo_name not in combo_to_macro_map: continue # Skip if macro failed
+# --- Generate Combos from stored data ---
+for item in combo_generation_data:
+    combo_name = item["combo_name"]
+    macro_name = item["macro_name"]
+    chord_str = item["chord"]
+    original_text = item["original"] # For logging/debug purposes
 
     positions = []
     valid_combo = True
-    unique_chars_in_chord = set(chord_str) # Use set to handle duplicate chars in chord string if any
+    unique_chars_in_chord = set(chord_str)
 
     for char in unique_chars_in_chord:
         pos = key_to_pos.get(char.lower())
         if pos is not None:
             positions.append(str(pos))
         else:
-            print(f"Warning: Key '{char}' in chord string '{chord_str}' for word '{word}' not found in keymap base layer. Skipping combo.", file=sys.stderr)
+            print(f"Warning: Key '{char}' in chord string '{chord_str}' for '{original_text}' not found in keymap base layer. Skipping combo.", file=sys.stderr)
             valid_combo = False
             break
 
     if valid_combo and len(positions) >= 2: # Need at least 2 keys for a combo
-        macro_name = combo_to_macro_map[combo_name]
         position_str = " ".join(sorted(positions, key=int)) # Sort positions numerically
-        print(f"DEBUG: Combo for '{word}' using chord '{chord_str}' maps to positions: {position_str}", file=sys.stderr) # Add debug print
+        # Add a comment indicating the original word/ngram
+        comment = f"// Combo for {item['type']}: {original_text} (Chord: {chord_str})"
         combos_dtsi_content += f"""
+        {comment}
         {combo_name}: {combo_name} {{
             key-positions = <{position_str}>;
+            timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>; /* Explicit timeout */
             bindings = <&{macro_name}>;
         }};
 """
         combos_generated_count += 1
     elif len(positions) < 2:
-         # Don't warn for single-letter words if they exist in the map and have < 2 keys
-         if len(word) > 1 or len(positions) == 0: # Warn if multi-letter word has < 2 keys OR 0 keys found
-             print(f"Info: Skipping combo for '{word}' as chord '{chord_str}' results in less than 2 mapped key positions ({positions}).", file=sys.stderr)
+        # Only print info for multi-character words/ngrams or if zero keys were found
+        if len(original_text) > 1 or len(positions) == 0:
+            print(f"Info: Skipping combo for '{original_text}' as chord '{chord_str}' results in less than 2 mapped key positions ({positions}).", file=sys.stderr)
 
-
-# Ngram Combos
-for ngram in ngrams:
-    combo_name = generate_zmk_name(ngram, "c")
-    if combo_name not in combo_to_macro_map: continue # Skip if macro failed
-
-    positions = []
-    valid_combo = True
-    # For ngrams, the chord keys are the letters of the ngram itself
-    unique_chars_in_ngram = set(ngram)
-
-    for char in unique_chars_in_ngram:
-        pos = key_to_pos.get(char.lower())
-        if pos is not None:
-            positions.append(str(pos))
-        else:
-            print(f"Warning: Key '{char}' in ngram '{ngram}' not found in keymap base layer. Skipping combo.", file=sys.stderr)
-            valid_combo = False
-            break
-
-    if valid_combo and len(positions) >= 2:
-        macro_name = combo_to_macro_map[combo_name]
-        position_str = " ".join(sorted(positions, key=int))
-        combos_dtsi_content += f"""
-        {combo_name}: {combo_name} {{
-            key-positions = <{position_str}>;
-            bindings = <&{macro_name}>;
-        }};
-"""
-        combos_generated_count += 1
-    elif len(positions) < 2:
-         print(f"Info: Skipping combo for ngram '{ngram}' as it results in less than 2 mapped key positions ({positions}).", file=sys.stderr)
+# Add default timeout definition at the top of the file if not already there
+# (Assuming DEFAULT_COMBO_TIMEOUT = 50 is defined near the top)
 
 combos_dtsi_content += """
     }; // end of combos
