@@ -42,14 +42,39 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
 
     # Manually define key positions based on the keymap file
     # This is based on the working combo that uses positions 36 and 37 for 'S' and 'R'
-key_positions = {
-    'q': 23, 'w': 24, 'f': 25, 'p': 26, 'b': 27,
-    'j': 28, 'l': 29, 'u': 30, 'y': 31, ';': 32,
-    'a': 35, 'r': 36, 's': 37, 't': 38, 'g': 39,
-    'm': 40, 'n': 41, 'e': 42, 'i': 43, 'o': 44,
-    'z': 47, 'x': 48, 'c': 49, 'd': 50, 'v': 51,
-    'k': 52, 'h': 59, ',': 54, '.': 55, '/': 56,
+    key_positions = {
+    'q': 23,
+    'w': 24,
+    'f': 25,
+    'p': 26,
+    'b': 27,
+    'a': 35,
+    'r': 36,
+    's': 37,
+    't': 38,
+    'g': 39,
+    'z': 47,
+    'x': 48,
+    'c': 49,
+    'd': 50,
+    'v': 51,
+    'j': 28,
+    'l': 29,
+    'u': 30,
+    'y': 31,
+    ';': 32,
+    'm': 40,
+    'n': 41,
+    'e': 42,
+    'i': 43,
+    'o': 44,
+    'k': 45,
+    'h': 59,
+    ',': 60,
+    '.': 61,
+    '/': 62
 }
+
 
     # Debug output
     print(f"Successfully mapped {len(key_positions)} unique keys to positions.")
@@ -226,15 +251,15 @@ print(f"Generated {macros_generated_count} macros.")
 
 # 4. Generate Combos
 print("Generating combos...")
-combos_dtsi_content = f"""
+combos_dtsi_content = """
 /*
  * Generated ZMK Combos
  * Automatically included by glove80.keymap
  * DO NOT EDIT MANUALLY - Run generate_zmk_config.py instead
  */
 
-/ {{
-    combos {{
+/ {
+    combos {
         compatible = "zmk,combos";
 """
 combos_generated_count = 0
