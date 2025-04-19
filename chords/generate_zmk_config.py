@@ -42,14 +42,14 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
 
     # Manually define key positions based on the keymap file
     # This is based on the working combo that uses positions 36 and 37 for 'S' and 'R'
-    key_positions = {
-        'q': 23, 'w': 24, 'f': 25, 'p': 26, 'b': 27,
-        'j': 28, 'l': 29, 'u': 30, 'y': 31, ';': 32,
-        'a': 35, 'r': 36, 's': 37, 't': 38, 'g': 39,
-        'm': 40, 'n': 41, 'e': 42, 'i': 43, 'o': 44,
-        'z': 47, 'x': 48, 'c': 49, 'd': 50, 'v': 51,
-        'k': 52, 'h': 53, ',': 54, '.': 55, '/': 56,
-    }
+key_positions = {
+    'q': 23, 'w': 24, 'f': 25, 'p': 26, 'b': 27,
+    'j': 28, 'l': 29, 'u': 30, 'y': 31, ';': 32,
+    'a': 35, 'r': 36, 's': 37, 't': 38, 'g': 39,
+    'm': 40, 'n': 41, 'e': 42, 'i': 43, 'o': 44,
+    'z': 47, 'x': 48, 'c': 49, 'd': 50, 'v': 51,
+    'k': 52, 'h': 59, ',': 54, '.': 55, '/': 56,
+}
 
     # Debug output
     print(f"Successfully mapped {len(key_positions)} unique keys to positions.")
