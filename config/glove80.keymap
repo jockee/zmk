@@ -293,7 +293,19 @@
 };
 
 /* Automatically generated combos definitions */
+/ {
+    combos {
+        compatible = "zmk,combos";
 
+        // Add this test combo
+        combo_test {
+            timeout-ms = <500>;
+            key-positions = <25 26>; // S and R keys (Positions based on LH_C3R3 and LH_C2R3)
+            bindings = <&test_macro>;
+            layers = <0>;
+        };
+    };
+};
 
 /* Automatically generated keymap */
 / {
