@@ -195,6 +195,19 @@
     };
 };
 
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        combo_test_direct {
+            timeout-ms = <1000>; // Very long timeout for testing
+            key-positions = <25 26>; // S and R keys
+            bindings = <&kp SPACE>;
+            layers = <0>;
+        };
+    };
+};
+
 /* Include generated chords */
 #include "generated_macros.dtsi"
 #include "generated_combos.dtsi"
