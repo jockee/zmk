@@ -326,9 +326,14 @@ combos_dtsi_content = """
 """
 combos_generated_count = 0
 
+# --- Limit number of generated combos ---
+MAX_COMBOS_TO_GENERATE = 100
+
 # --- Generate Combos from stored data ---
 for item in combo_generation_data:
-    # Removed the max_combos_to_generate limit check
+    if combos_generated_count >= MAX_COMBOS_TO_GENERATE:
+        print(f"DEBUG: Reached max combos limit ({MAX_COMBOS_TO_GENERATE}). Stopping combo generation.", file=sys.stderr)
+        break
 
     combo_name = item["combo_name"]
     macro_name = item["macro_name"]
