@@ -40,44 +40,71 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
         print(f"Error: Keymap file not found at {keymap_path}", file=sys.stderr)
         sys.exit(1)
 
-    # Manually define key positions based on the keymap file
-    # This is based on the working combo that uses positions 36 and 37 for 'S' and 'R'
-    key_positions = {
-    'q': 23,
-    'w': 24,
-    'f': 25,
-    'p': 26,
-    'b': 27,
-    'a': 35,
-    'r': 36,
-    's': 37,
-    't': 38,
-    'g': 39,
-    'z': 47,
-    'x': 48,
-    'c': 49,
-    'd': 50,
-    'v': 51,
-    'j': 28,
-    'l': 29,
-    'u': 30,
-    'y': 31,
-    ';': 32,
-    'm': 40,
-    'n': 41,
-    'e': 42,
-    'i': 43,
-    'o': 44,
-    'k': 45,
-    'h': 59,
-    ',': 60,
-    '.': 61,
-    '/': 62
-}
+    try:
+        keymap_content = keymap_path.read_text(encoding="utf-8")
+    except IOError as e:
+        print(f"Error reading keymap file {keymap_path}: {e}", file=sys.stderr)
+        sys.exit(1)
 
+    # --- Create inverse map from ZMK_KEYCODE_MAP ---
+    # Maps ZMK Keycode (e.g., 'A', 'SEMI') back to character (e.g., 'a', ';')
+    keycode_to_char = {v: k for k, v in ZMK_KEYCODE_MAP.items()}
+
+    # --- Extract base layer bindings ---
+    # Regex to find the bindings array within the layer_Base definition
+    base_layer_match = re.search(
+        r"layer_Base\s*\{.*?bindings\s*=\s*<\s*(.*?)\s*>\s*;",
+        keymap_content,
+        re.DOTALL | re.IGNORECASE
+    )
+    if not base_layer_match:
+        print(f"Error: Could not find layer_Base bindings in {keymap_path}", file=sys.stderr)
+        sys.exit(1)
+
+    bindings_str = base_layer_match.group(1)
+    # Remove C-style comments /* ... */
+    bindings_str = re.sub(r"/\*.*?\*/", "", bindings_str, flags=re.DOTALL)
+    # Remove C++-style comments // ...
+    bindings_str = re.sub(r"//.*", "", bindings_str)
+    # Split into individual bindings, handles multiple spaces/newlines
+    bindings = bindings_str.split()
+
+    key_positions = {}
+    position_index = 0
+    # Assuming Glove80 has 80 keys (positions 0-79) based on keymap #defines
+    max_expected_positions = 80
+
+    print(f"Found {len(bindings)} raw bindings in layer_Base.")
+
+    for binding in bindings:
+        if position_index >= max_expected_positions:
+            print(f"Warning: Found more bindings ({len(bindings)}) than expected ({max_expected_positions}). Stopping parse at position {position_index}.", file=sys.stderr)
+            break
+
+        # Match only &kp bindings (direct key presses)
+        kp_match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
+        if kp_match:
+            keycode = kp_match.group(1)
+            char = keycode_to_char.get(keycode)
+            if char:
+                # Check for duplicates - might indicate an issue in the keymap or logic
+                if char in key_positions:
+                    # Allow duplicate mappings if they point to the same position (unlikely but possible)
+                    if key_positions[char] != position_index:
+                        print(f"Warning: Character '{char}' is mapped to multiple positions ({key_positions[char]} and {position_index}). Using the first encountered: {key_positions[char]}.", file=sys.stderr)
+                else:
+                    key_positions[char] = position_index
+            # else: # Optional: Warn if a keycode doesn't map back to a known char
+            #     print(f"Debug: Keycode '{keycode}' at position {position_index} not found in ZMK_KEYCODE_MAP inverse.", file=sys.stderr)
+
+        # Increment position index regardless of whether it was a &kp binding we could map
+        position_index += 1
+
+    if position_index < max_expected_positions:
+         print(f"Warning: Parsed only {position_index} bindings, expected {max_expected_positions}. Keymap might be incomplete or parsing stopped early.", file=sys.stderr)
 
     # Debug output
-    print(f"Successfully mapped {len(key_positions)} unique keys to positions.")
+    print(f"Successfully mapped {len(key_positions)} unique keys to positions from keymap.")
     print("Key position mapping:")
     for char, pos in sorted(key_positions.items()):
         print(f"  '{char}' -> position {pos}")
