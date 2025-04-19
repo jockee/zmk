@@ -85,8 +85,10 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
 
 def generate_zmk_name(base_name: str, prefix: str) -> str:
     """Creates a ZMK-compatible node name (macro or combo)."""
-    # Replace invalid chars with underscore
-    name = re.sub(r'[^a-zA-Z0-9_]', '_', base_name)
+    # Handle specific non-ASCII chars explicitly for better names
+    name = base_name.replace('å', 'aring').replace('ä', 'adia').replace('ö', 'odia')
+    # Replace remaining invalid chars with underscore
+    name = re.sub(r'[^a-zA-Z0-9_]', '_', name)
     # Remove leading/trailing underscores
     name = name.strip('_')
     if not name: # Handle empty string case after cleaning
