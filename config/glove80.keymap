@@ -318,6 +318,16 @@
             key-positions = <62 38>; // o, t for "to"
             bindings = <&m_to>;
         };
+
+        combo_test_ot {
+            key-positions = <62 38>; // o, t for "to"
+            bindings = <&kp X>; // Just output "X" instead of using a macro
+        };
+
+        combo_test_to_alt {
+            key-positions = <30 31>; // e, i - two adjacent keys on the right side
+            bindings = <&m_to>;
+        };
       };
     };
 
