@@ -1,0 +1,16 @@
+Yes, parts of the CharaChorder ecosystem, which includes the Master Forge, are open source.
+
+Here's what the search results indicate:
+
+Open Source Software: CharaChorder explicitly states that their software is open source. This is mentioned in the context of the CharaChorder X (the USB dongle that adds chording to existing keyboards) and generally on their website. They encourage community involvement in its evolution.
+GitHub Presence: CharaChorder has an active presence on GitHub under the username "CharaChorder" (https://github.com/CharaChorder). Their repositories include:
+DeviceManager: The web-based tool for configuring CharaChorder devices. This is open source (AGPL-3.0 license).
+docs: Documentation for CharaChorder products, which is also open source (Nix license).
+CAD-CAM: Official CAD and CAM files for CharaChorder hardware.
+nexus: A logging and analysis desktop application (AGPL-3.0 license).
+voicebox: A live text-to-speech web application (AGPL-3.0 license).
+charachorder.py: A Python wrapper for CharaChorder's Serial API (MIT license).
+CCOS-firmware: The CharaChorder Operating System firmware for their devices.
+Open Serial API: CharaChorder mentions that you can build your own tools by leveraging their Open Serial API specification.
+Learning Resources: They highlight that their learning tools, like Dot I/O (a training platform), are free and open source.
+Therefore, while the physical Master Forge keyboard itself might not be entirely open-source hardware, a significant portion of the software, firmware, and related tools within the CharaChorder ecosystem are indeed open source. This allows for community contribution, customization, and a deeper understanding of how the device functions.
