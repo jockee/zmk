@@ -199,10 +199,10 @@
     combos {
         compatible = "zmk,combos";
 
-        // Very simple test combo
+        // Very simple test combo using Left Middle (S) and Left Index (T)
         simple_test {
             timeout-ms = <1000>; // Very long timeout for testing
-            key-positions = <25 26>; // S and R keys
+            key-positions = <26 38>; // S (26) and T (38) keys
             bindings = <&kp SPACE>;
             layers = <0>;
         };
