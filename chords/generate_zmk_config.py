@@ -334,6 +334,12 @@ for item in combo_generation_data:
     chord_str = item["chord"]
     original_text = item["original"] # For logging/debug purposes
 
+    # --- TEST: Skip specific conflicting combos ---
+    conflicts_to_skip = {"the", "th", "te"}
+    if original_text in conflicts_to_skip:
+        print(f"DEBUG: Skipping generation of combo for '{original_text}' due to conflict test.")
+        continue
+    # --- End TEST ---
     positions = []
     valid_combo = True
     unique_chars_in_chord = set(chord_str)
