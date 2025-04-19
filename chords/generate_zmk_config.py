@@ -340,11 +340,11 @@ for ngram in ngrams:
     elif len(positions) < 2:
          print(f"Info: Skipping combo for ngram '{ngram}' as it results in less than 2 mapped key positions ({positions}).", file=sys.stderr)
 
-# Add a test combo at the end of the combos section using Left Middle (S) and Left Index (T)
+# Add a test combo at the end of the combos section using Q (26) and A (38)
 combos_dtsi_content += f"""
         test_combo: test_combo {{
             timeout-ms = <500>;
-            key-positions = <26 38>; // Left Middle (S, 26) and Left Index (T, 38)
+            key-positions = <26 38>; // Q (pos 26) and A (pos 38) based on keymap
             bindings = <&kp SPACE>;
             layers = <0>;
         }};

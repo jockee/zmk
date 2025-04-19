@@ -199,10 +199,10 @@
     combos {
         compatible = "zmk,combos";
 
-        // Simple test combo using adjacent 'S' and 'R' keys
+        // Simple test combo using adjacent 'S' (36) and 'R' (37) keys on the home row
         simple_test_combo {
-            timeout-ms = <1000>; // Very long timeout for testing
-            key-positions = <26 25>; // S (26) and R (25) on your BEAKL layout
+            timeout-ms = <500>; // Standard timeout
+            key-positions = <36 37>; // S (36) and R (37) on BEAKL home row
             bindings = <&kp SPACE>;
             layers = <0>;
         };
