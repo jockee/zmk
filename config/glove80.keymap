@@ -21,6 +21,21 @@
 #include "generated_macros.dtsi"
 #include "generated_combos.dtsi"
 
+/ {
+    combos {
+        compatible = "zmk,combos";
+        /* Manual 3-key test combo for E, H, T */
+        combo_manual_eht_test {
+            timeout-ms = <200>; /* Increase timeout significantly */
+            key-positions = <38 42 59>; /* Positions for T(38), E(42), H(59) */
+            require-prior-idle-ms = <10>; /* Add prior idle requirement */
+            bindings = <&kp X>; /* Bind to simple key press 'X' */
+            // Ensure this combo doesn't conflict with generated ones
+            // layers = <LAYER_Base>; // Optional: restrict to base layer if needed
+        };
+    };
+};
+
 
 /* On demand includes */
 
