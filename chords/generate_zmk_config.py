@@ -10,7 +10,7 @@ KEYMAP_FILE = Path(__file__).parent.parent / "config" / "glove80.keymap"
 CHORD_MAP_FILE = Path(__file__).parent / "chordable_map.json"
 OUTPUT_MACROS_FILE = Path(__file__).parent.parent / "config" / "generated_macros.dtsi"
 OUTPUT_COMBOS_FILE = Path(__file__).parent.parent / "config" / "generated_combos.dtsi"
-DEFAULT_COMBO_TIMEOUT = 150 # ms, timeout for combos
+DEFAULT_COMBO_TIMEOUT = 250 # ms, timeout for combos
 
 # --- ZMK Keycode Mapping ---
 # Maps lowercase characters/symbols to ZMK keycodes used in &kp bindings
@@ -261,9 +261,10 @@ combos_dtsi_content = f"""
 / {{
     combos {{
         compatible = "zmk,combos";
-        // Global combo settings can be adjusted here if needed
-        // timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>; // Default timeout for all combos unless overridden
-        // require-prior-idle-ms = <50>; // Optional: time keys must be idle before combo activates
+        // Global combo settings
+        timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>;
+        require-prior-idle-ms = <100>; // Add this to ensure keys are idle before combo activates
+        quick-tap-ms = <200>; // Add this to make combos more responsive
 """
 combos_generated_count = 0
 
