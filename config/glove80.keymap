@@ -308,6 +308,12 @@
             key-positions = <36 37>;
             bindings = <&m_the>;
         };
+        /* Manual 3-key test combo for E, H, T */
+        combo_manual_eht_test {
+            timeout-ms = <100>; /* Use the increased timeout */
+            key-positions = <38 42 59>; /* Positions for T, E, H */
+            bindings = <&kp X>; /* Bind to simple key press 'X' */
+        };
       };
     };
 
