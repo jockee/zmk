@@ -10,7 +10,7 @@ KEYMAP_FILE = Path(__file__).parent.parent / "config" / "glove80.keymap"
 CHORD_MAP_FILE = Path(__file__).parent / "chordable_map.json"
 OUTPUT_MACROS_FILE = Path(__file__).parent.parent / "config" / "generated_macros.dtsi"
 OUTPUT_COMBOS_FILE = Path(__file__).parent.parent / "config" / "generated_combos.dtsi"
-DEFAULT_COMBO_TIMEOUT = 500 # ms, timeout for combos
+DEFAULT_COMBO_TIMEOUT = 50 # ms, timeout for combos # <<< Adjusted timeout as per your diff
 
 # --- ZMK Keycode Mapping ---
 # Maps lowercase characters/symbols to ZMK keycodes used in &kp bindings
@@ -229,8 +229,9 @@ macros_dtsi_content = """
 / {
     macros {
 """
-combo_to_macro_map = {} # Store {combo_name: macro_name}
-macros_generated_count = 0
+combo_to_macro_map = {} # Store {combo_name: macro_name} - This will become unused but kept for now to minimize changes if other parts rely on it implicitly.
+combo_generation_data = [] # Store data needed for combo generation
+macros_generated_count = 0 # Keep track of macros generated
 
 # Word Macros (with space)
 for word, chord_str in word_to_chord.items():
