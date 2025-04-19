@@ -18,8 +18,8 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
-#include "generated_macros.dtsi"
-#include "generated_combos.dtsi"
+/* #include "generated_macros.dtsi" */
+/* #include "generated_combos.dtsi" */
 
 
 /* On demand includes */
@@ -293,19 +293,7 @@
 };
 
 /* Automatically generated combos definitions */
-/ {
-    combos {
-        compatible = "zmk,combos";
 
-        // Add this test combo
-        combo_test {
-            timeout-ms = <500>;
-            key-positions = <25 26>; // S and R keys (Positions based on LH_C3R3 and LH_C2R3)
-            bindings = <&test_macro>;
-            layers = <0>;
-        };
-    };
-};
 
 /* Automatically generated keymap */
 / {
