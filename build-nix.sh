@@ -72,7 +72,21 @@ nix-build config \
 
 # 5. Copy the result firmware file (matches GHA)
 echo "Copying result to $OUTPUT_FILE..." >&2
-cp "$RESULT_LINK/$OUTPUT_FILE" "./$OUTPUT_FILE"
+if [ -f "$RESULT_LINK/$OUTPUT_FILE" ]; then
+    # Try to copy the file, but handle permission errors
+    if ! cp "$RESULT_LINK/$OUTPUT_FILE" "./$OUTPUT_FILE" 2>/dev/null; then
+        echo "Permission denied when copying to ./$OUTPUT_FILE" >&2
+        echo "Trying to copy to /tmp/$OUTPUT_FILE instead..." >&2
+        cp "$RESULT_LINK/$OUTPUT_FILE" "/tmp/$OUTPUT_FILE"
+        echo "Firmware copied to /tmp/$OUTPUT_FILE" >&2
+        echo "You can copy it from there with: sudo cp /tmp/$OUTPUT_FILE ./$OUTPUT_FILE" >&2
+    else
+        echo "Successfully copied firmware to ./$OUTPUT_FILE" >&2
+    fi
+else
+    echo "Error: Built firmware file not found at $RESULT_LINK/$OUTPUT_FILE" >&2
+    exit 1
+fi
 
 # 6. Clean up the result symlink
 rm "$RESULT_LINK"
