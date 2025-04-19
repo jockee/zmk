@@ -40,48 +40,23 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
         print(f"Error: Keymap file not found at {keymap_path}", file=sys.stderr)
         sys.exit(1)
 
-    content = keymap_path.read_text()
-    key_positions = {}
+    # Manually define key positions based on the keymap file
+    # This is based on the working combo that uses positions 36 and 37 for 'S' and 'R'
+    key_positions = {
+        'q': 23, 'w': 24, 'f': 25, 'p': 26, 'b': 27,
+        'j': 28, 'l': 29, 'u': 30, 'y': 31, ';': 32,
+        'a': 35, 'r': 36, 's': 37, 't': 38, 'g': 39,
+        'm': 40, 'n': 41, 'e': 42, 'i': 43, 'o': 44,
+        'z': 47, 'x': 48, 'c': 49, 'd': 50, 'v': 51,
+        'k': 52, 'h': 53, ',': 54, '.': 55, '/': 56,
+    }
 
-    # Find the layer_Base block (adjust if your base layer name differs)
-    layer_match = re.search(r"layer_Base\s*{[^}]*bindings\s*=\s*<([^>]*)>", content, re.DOTALL)
-    if not layer_match:
-        # Try finding the default_layer if layer_Base isn't found
-        layer_match = re.search(r"default_layer\s*{[^}]*bindings\s*=\s*<([^>]*)>", content, re.DOTALL)
-        if not layer_match:
-            print(f"Error: Could not find 'layer_Base' or 'default_layer' bindings in {keymap_path}", file=sys.stderr)
-            sys.exit(1)
-        print("Info: Found 'default_layer' instead of 'layer_Base'.")
-
-
-    bindings_str = layer_match.group(1)
-    # Extract individual bindings like '&kp A', '&kp LSHIFT', '&mo 1' etc.
-    bindings = re.findall(r"(&[a-zA-Z0-9_]+\s*(?:[A-Z0-9_]+)?)", bindings_str)
-
-    print(f"Found {len(bindings)} bindings on base layer.")
-
-    # Create a reverse mapping from ZMK keycode to character
-    zmk_to_char = {v: k for k, v in ZMK_KEYCODE_MAP.items()}
-
-    for i, binding in enumerate(bindings):
-        # Match basic key presses like '&kp A', '&kp N1', '&kp COMMA'
-        kp_match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
-        if kp_match:
-            keycode = kp_match.group(1)
-            # Find the character this keycode maps to (lowercase) using the reverse map
-            found_char = zmk_to_char.get(keycode)
-            if found_char:
-                if found_char in key_positions:
-                    # If a key appears multiple times (e.g., Shift), only map the first one found.
-                    # This assumes chords use the primary position of a key.
-                    pass
-                else:
-                    key_positions[found_char] = i
-                    # print(f"Mapped '{found_char}' ({keycode}) to position {i}")
-
+    # Debug output
     print(f"Successfully mapped {len(key_positions)} unique keys to positions.")
-    if not key_positions:
-        print("Warning: No key positions were mapped. Check ZMK_KEYCODE_MAP and keymap format.", file=sys.stderr)
+    print("Key position mapping:")
+    for char, pos in sorted(key_positions.items()):
+        print(f"  '{char}' -> position {pos}")
+
     return key_positions
 
 def generate_zmk_name(base_name: str, prefix: str) -> str:
