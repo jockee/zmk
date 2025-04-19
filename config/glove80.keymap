@@ -199,10 +199,10 @@
     combos {
         compatible = "zmk,combos";
 
-        // Very simple test combo using Left Middle (S) and Left Index (T)
-        simple_test {
+        // Test combo using 'T' and 'O' keys on your BEAKL layout
+        test_to_combo {
             timeout-ms = <1000>; // Very long timeout for testing
-            key-positions = <26 38>; // S (26) and T (38) keys
+            key-positions = <38 62>; // T (38) and O (62) on your BEAKL layout
             bindings = <&kp SPACE>;
             layers = <0>;
         };
