@@ -57,30 +57,28 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
 
     print(f"Found {len(bindings)} bindings on base layer.")
 
+    # Create a reverse mapping from ZMK keycode to character
+    zmk_to_char = {v: k for k, v in ZMK_KEYCODE_MAP.items()}
+
     for i, binding in enumerate(bindings):
         # Match basic key presses like '&kp A', '&kp N1', '&kp COMMA'
         kp_match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
         if kp_match:
             keycode = kp_match.group(1)
-            # Find the character this keycode maps to (lowercase)
-            found_char = None
-            for char, zmk_code in ZMK_KEYCODE_MAP.items():
-                if zmk_code == keycode:
-                    found_char = char
-                    break
+            # Find the character this keycode maps to (lowercase) using the reverse map
+            found_char = zmk_to_char.get(keycode)
             if found_char:
                 if found_char in key_positions:
-                     # If a key appears multiple times (e.g., Shift), only map the first one found.
-                     # This assumes chords use the primary position of a key.
-                     pass
+                    # If a key appears multiple times (e.g., Shift), only map the first one found.
+                    # This assumes chords use the primary position of a key.
+                    pass
                 else:
                     key_positions[found_char] = i
                     # print(f"Mapped '{found_char}' ({keycode}) to position {i}")
 
-
     print(f"Successfully mapped {len(key_positions)} unique keys to positions.")
     if not key_positions:
-         print("Warning: No key positions were mapped. Check ZMK_KEYCODE_MAP and keymap format.", file=sys.stderr)
+        print("Warning: No key positions were mapped. Check ZMK_KEYCODE_MAP and keymap format.", file=sys.stderr)
     return key_positions
 
 def generate_zmk_name(base_name: str, prefix: str) -> str:
