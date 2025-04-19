@@ -76,10 +76,29 @@ if [ -f "$RESULT_LINK/$OUTPUT_FILE" ]; then
     # Try to copy the file, but handle permission errors
     if ! cp "$RESULT_LINK/$OUTPUT_FILE" "./$OUTPUT_FILE" 2>/dev/null; then
         echo "Permission denied when copying to ./$OUTPUT_FILE" >&2
-        echo "Trying to copy to /tmp/$OUTPUT_FILE instead..." >&2
-        cp "$RESULT_LINK/$OUTPUT_FILE" "/tmp/$OUTPUT_FILE"
-        echo "Firmware copied to /tmp/$OUTPUT_FILE" >&2
-        echo "You can copy it from there with: sudo cp /tmp/$OUTPUT_FILE ./$OUTPUT_FILE" >&2
+
+        # Create a user-specific directory in home folder
+        USER_FIRMWARE_DIR="$HOME/firmware_output"
+        mkdir -p "$USER_FIRMWARE_DIR"
+
+        echo "Trying to copy to $USER_FIRMWARE_DIR/$OUTPUT_FILE instead..." >&2
+
+        # Remove existing file if it exists
+        if [ -f "$USER_FIRMWARE_DIR/$OUTPUT_FILE" ]; then
+            rm -f "$USER_FIRMWARE_DIR/$OUTPUT_FILE" 2>/dev/null
+        fi
+
+        if cp "$RESULT_LINK/$OUTPUT_FILE" "$USER_FIRMWARE_DIR/$OUTPUT_FILE"; then
+            echo "Firmware copied to $USER_FIRMWARE_DIR/$OUTPUT_FILE" >&2
+            echo "You can flash this file directly or copy it with:" >&2
+            echo "cp $USER_FIRMWARE_DIR/$OUTPUT_FILE ./$OUTPUT_FILE" >&2
+        else
+            echo "Failed to copy firmware to alternate location." >&2
+            echo "You can access the firmware directly at:" >&2
+            echo "$RESULT_LINK/$OUTPUT_FILE" >&2
+            echo "And copy it manually with:" >&2
+            echo "sudo cp $RESULT_LINK/$OUTPUT_FILE ./$OUTPUT_FILE" >&2
+        fi
     else
         echo "Successfully copied firmware to ./$OUTPUT_FILE" >&2
     fi
