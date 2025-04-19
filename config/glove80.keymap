@@ -184,6 +184,10 @@
     };
 };
 
+/* Include generated chords */
+#include "generated_macros.dtsi"
+#include "generated_combos.dtsi"
+
 /* #define for key positions */
 #define POS_LH_T1 52
 #define POS_LH_T2 53
