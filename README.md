@@ -35,3 +35,31 @@ To locate your firmware files and reflash your Glove80...
 6. Flash the firmware to Glove80 according to the user documentation on the official Glove80 Glove80 Support website (linked above)
 
 Your keyboard is now ready to use.
+
+## Local Build (Nix)
+
+If you have Nix installed locally, you can build the firmware without Docker, closely mirroring the GitHub Actions CI process:
+
+1.  **Prerequisites:**
+    *   Install [Nix](https://nixos.org/download.html). Ensure it's a recent version capable of running `nix-build` and `fetchTarball`.
+    *   Ensure `git` is installed and available in your PATH.
+    *   (Optional but recommended for speed) Configure the Cachix binary cache to potentially speed up builds by downloading pre-built dependencies:
+        ```bash
+        nix-env -iA cachix -f https://cachix.org/api/v1/install
+        cachix use moergo-glove80-zmk-dev
+        ```
+        The build script will still *use* the cache even if you don't run `cachix use`, but running it globally might integrate better with your system's Nix setup.
+
+2.  **Run the Build Script:**
+    Make the script executable (`chmod +x build-nix.sh`) and run it from the root of this repository. By default, it builds using the `main` branch of the `moergo-sc/zmk` repository.
+    ```bash
+    ./build-nix.sh
+    ```
+    To build using a specific branch or tag from the `moergo-sc/zmk` repository, pass it as an argument:
+    ```bash
+    ./build-nix.sh v3.5 # Build using tag v3.5
+    ./build-nix.sh my-feature-branch # Build using a specific branch
+    ```
+
+3.  **Output:**
+    The script will clone or update the required ZMK source code into the `src/` directory and build the firmware using the same Nix channel and Cachix settings as the CI. The final firmware file will be copied to `glove80.uf2` in the repository root.
