@@ -261,10 +261,6 @@ combos_dtsi_content = f"""
 / {{
     combos {{
         compatible = "zmk,combos";
-        // Global combo settings
-        timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>;
-        require-prior-idle-ms = <100>; // Add this to ensure keys are idle before combo activates
-        quick-tap-ms = <200>; // Add this to make combos more responsive
 """
 combos_generated_count = 0
 
@@ -292,11 +288,8 @@ for word, chord_str in word_to_chord.items():
         print(f"DEBUG: Combo for '{word}' using chord '{chord_str}' maps to positions: {position_str}", file=sys.stderr) # Add debug print
         combos_dtsi_content += f"""
         {combo_name}: {combo_name} {{
-            timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>;
             key-positions = <{position_str}>;
             bindings = <&{macro_name}>;
-            // Only trigger on base layer (layer 0)
-            layers = <0>;
         }};
 """
         combos_generated_count += 1
@@ -330,25 +323,13 @@ for ngram in ngrams:
         position_str = " ".join(sorted(positions, key=int))
         combos_dtsi_content += f"""
         {combo_name}: {combo_name} {{
-            timeout-ms = <{DEFAULT_COMBO_TIMEOUT}>;
             key-positions = <{position_str}>;
             bindings = <&{macro_name}>;
-            layers = <0>;
         }};
 """
         combos_generated_count += 1
     elif len(positions) < 2:
          print(f"Info: Skipping combo for ngram '{ngram}' as it results in less than 2 mapped key positions ({positions}).", file=sys.stderr)
-
-# Add a test combo at the end of the combos section using Q (26) and A (38)
-combos_dtsi_content += f"""
-        test_combo: test_combo {{
-            timeout-ms = <500>;
-            key-positions = <26 38>; // Q (pos 26) and A (pos 38) based on keymap
-            bindings = <&kp SPACE>;
-            layers = <0>;
-        }};
-"""
 
 combos_dtsi_content += """
     }; // end of combos

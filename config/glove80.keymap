@@ -274,7 +274,19 @@
 /* Automatically generated macro definitions */
 / {
     macros {
+        m_the: m_the {
+            compatible = "zmk,behavior-macro";
+            label = "MACRO_THE";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp T &macro_tap &kp H &macro_tap &kp E &macro_tap &kp SPACE>;
+        };
 
+        m_to: m_to {
+            compatible = "zmk,behavior-macro";
+            label = "MACRO_TO";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp T &macro_tap &kp O &macro_tap &kp SPACE>;
+        };
     };
 };
 
@@ -292,6 +304,16 @@
                   combo_testonrs {
             key-positions = <36 37>;
             bindings = <&kp G>;
+        };
+
+        combo_test_the {
+            key-positions = <30 44 38>; // e, h, t for "the"
+            bindings = <&m_the>;
+        };
+
+        combo_test_to {
+            key-positions = <62 38>; // o, t for "to"
+            bindings = <&m_to>;
         };
       };
     };
