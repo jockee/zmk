@@ -20,11 +20,10 @@ ZMK_KEYCODE_MAP = {
     'h': 'H', 'i': 'I', 'j': 'J', 'k': 'K', 'l': 'L', 'm': 'M', 'n': 'N',
     'o': 'O', 'p': 'P', 'q': 'Q', 'r': 'R', 's': 'S', 't': 'T', 'u': 'U',
     'v': 'V', 'w': 'W', 'x': 'X', 'y': 'Y', 'z': 'Z',
-    # Map Swedish characters to keys that exist in the base layer for combo position mapping.
-    # The macro will still type the correct character.
-    'å': 'LBKT',  # Using Left Bracket based on keymap inspection (was RBKT, but LBKT is unused)
-    'ä': 'SQT',   # Map to single quote key
-    'ö': 'SEMI',  # Map to semicolon key
+    # Remove the Swedish character mappings
+    # 'å': 'LBKT',  # Using Left Bracket based on keymap inspection (was RBKT, but LBKT is unused)
+    # 'ä': 'SQT',   # Map to single quote key
+    # 'ö': 'SEMI',  # Map to semicolon key
     '1': 'N1', '2': 'N2', '3': 'N3', '4': 'N4', '5': 'N5',
     '6': 'N6', '7': 'N7', '8': 'N8', '9': 'N9', '0': 'N0',
     ';': 'SEMI', '=': 'EQUAL', ',': 'COMMA', '.': 'DOT', '/': 'FSLH',
@@ -87,8 +86,8 @@ def parse_keymap_for_positions(keymap_path: Path) -> dict[str, int]:
 
 def generate_zmk_name(base_name: str, prefix: str) -> str:
     """Creates a ZMK-compatible node name (macro or combo)."""
-    # Handle specific non-ASCII chars explicitly for better names
-    name = base_name.replace('å', 'aring').replace('ä', 'adia').replace('ö', 'odia')
+    # Filter out Swedish characters completely
+    name = base_name.replace('å', '').replace('ä', '').replace('ö', '')
     # Replace remaining invalid chars with underscore
     name = re.sub(r'[^a-zA-Z0-9_]', '_', name)
     # Remove leading/trailing underscores
@@ -168,6 +167,12 @@ for word, chord_str in word_to_chord.items():
     if not word or not chord_str:
         print(f"Warning: Skipping invalid word/chord entry: word='{word}', chord='{chord_str}'", file=sys.stderr)
         continue
+
+    # Skip words containing Swedish characters
+    if 'å' in word or 'ä' in word or 'ö' in word:
+        print(f"Info: Skipping word '{word}' as it contains Swedish characters.", file=sys.stderr)
+        continue
+
     macro_name = generate_zmk_name(word, "m")
     combo_name = generate_zmk_name(word, "c")
     macro_binding_str = create_macro_bindings(word, add_space=True)
@@ -191,6 +196,12 @@ for ngram in ngrams:
     if not ngram:
         print("Warning: Skipping empty ngram string.", file=sys.stderr)
         continue
+
+    # Skip ngrams containing Swedish characters
+    if 'å' in ngram or 'ä' in ngram or 'ö' in ngram:
+        print(f"Info: Skipping ngram '{ngram}' as it contains Swedish characters.", file=sys.stderr)
+        continue
+
     macro_name = generate_zmk_name(ngram, "m")
     combo_name = generate_zmk_name(ngram, "c")
     macro_binding_str = create_macro_bindings(ngram, add_space=False)
