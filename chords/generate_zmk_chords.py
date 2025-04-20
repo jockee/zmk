@@ -363,24 +363,31 @@ def main():
         {c_comment}
         CHORD({chord_arg_name}, {c_binding}, {c_pos_str}, {timeout})""") # Append to list
 
-    # Close the content blocks (Only macros needs closing now)
-    # macros_content += """
-    # }; // end of macros
-# }; // end of /
-# """ # Removed closing braces
-    # combos_content no longer needs closing braces
+    # Close the macros content block
+    macros_content += """
+    }; // end of macros
+}; // end of /
+"""
 
-    # Save the output files
+    # --- Combine Macros and Combos for the final file ---
+    combos_section = """
+/ {
+    combos {
+        compatible = "zmk,combos";
+""" + "".join(combos_string_list) + """
+    }; // end of combos
+}; // end of /
+"""
+
+    output_content = macros_content + combos_section
+
+    # Save the output file
     try:
-        os.makedirs(os.path.dirname(OUTPUT_MACROS_FILE), exist_ok=True)
-        with open(OUTPUT_MACROS_FILE, 'w') as f:
-            f.write(macros_content)
-        print(f"Successfully created '{OUTPUT_MACROS_FILE}'")
-
-        os.makedirs(os.path.dirname(OUTPUT_COMBOS_FILE), exist_ok=True)
-        with open(OUTPUT_COMBOS_FILE, 'w') as f:
-            f.write(combos_content)
-        print(f"Successfully created '{OUTPUT_COMBOS_FILE}'")
+        # Save the single output file
+        os.makedirs(os.path.dirname(OUTPUT_CHORDS_KEYMAP_FILE), exist_ok=True)
+        with open(OUTPUT_CHORDS_KEYMAP_FILE, 'w') as f:
+            f.write(output_content) # Write the combined content
+        print(f"Successfully created '{OUTPUT_CHORDS_KEYMAP_FILE}'")
     except IOError as e:
         print(f"Error writing output files: {e}")
         exit(1)
