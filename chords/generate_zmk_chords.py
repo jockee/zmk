@@ -177,15 +177,10 @@ def main():
     print(f"Using hardcoded map with {len(key_name_to_pos_num)} keys.")
     # --- End of Hardcoded Positions ---
 
-    # Add manual mapping for DUP if needed and not found automatically
-    # (This block can likely be removed now as DUP is handled above)
-    # if 'DUP' not in key_name_to_pos_num:
-    #      print("Warning: 'DUP' key position not found in hardcoded map or manual setting.")
-
-    # --- Generate ZMK Macros ---
-    macros_content = """
+    # --- Prepare content for the new single output file ---
+    output_content = f"""
 /*
- * Generated ZMK Macros from {INPUT_CHORDS_FILE}
+ * Generated ZMK Chords & Macros from {INPUT_CHORDS_FILE}
  * Automatically included by glove80.keymap
  * DO NOT EDIT MANUALLY
  */
@@ -363,24 +358,21 @@ def main():
         {c_comment}
         CHORD({chord_arg_name}, {c_binding}, {c_pos_str}, {timeout})""") # Append to list
 
-    # Close the macros content block
-    macros_content += "".join(macros_string_list) # Add collected macros here
-    macros_content += """
+    # --- Finalize Output Content ---
+    # Add generated macros to the output string
+    output_content += "\n".join(macros_string_list)
+    output_content += """
     }; // end of macros
-}; // end of /
-"""
 
-    # --- Combine Macros and Combos for the final file ---
-    combos_section = """
-/ {
     combos {
         compatible = "zmk,combos";
-""" + "".join(combos_string_list) + """
+""" # Close macros, open combos
+    # Add generated combos to the output string
+    output_content += "\n".join(combos_string_list)
+    output_content += """
     }; // end of combos
-}; // end of /
+}; // end of the single root node /
 """
-
-    output_content = macros_content + combos_section
 
     # Save the output file
     try:
