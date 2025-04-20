@@ -40,55 +40,14 @@
 / {
   combos {
     compatible = "zmk,combos";
-    CHORD(ch__ing, &ch__ing, 18 16 14)
-    CHORD(ch__n_t, &ch__n_t, 16 9 13)
-    CHORD(ch__ve, &ch__ve, 9 22 17)
-    CHORD(ch__re, &ch__re, 9 11 17)
-    CHORD(ch__s, &ch__s, 9 12 30)
-    CHORD(ch__d, &ch__d, 9 23 30)
-    CHORD(ch__ll, &ch__ll, 9 1 30)
-    CHORD(ch_the, &ch_the, 13 26 17)
-    CHORD(ch_S_the, &ch_S_the, 13 26 17 31)
-    CHORD(ch_be, &ch_be, 4 17 30)
-    CHORD(ch_S_be, &ch_S_be, 4 17 30 31)
-    CHORD(ch_of, &ch_of, 7 6 30)
-    CHORD(ch_S_of, &ch_S_of, 7 6 30 31)
-    CHORD(ch_and, &ch_and, 19 16 23)
+    CHORD(ch_the, &ch_the, 38 59 42)
+    CHORD(ch_S_the, &ch_S_the, 38 59 42 57)
   };
 };
 
 / {
   macros {
-    CHMAC(ch__ing, &kp BSPC &kp I &kp N &kp G &kp SPC)
-    CHMAC(ch__n_t, &kp BSPC &kp N &kp APOS &kp T &kp SPC)
-    CHMAC(ch__ve, &kp BSPC &kp APOS &kp V &kp E &kp SPC)
-    CHMAC(ch__re, &kp BSPC &kp APOS &kp R &kp E &kp SPC)
-    CHMAC(ch__s, &kp APOS &kp S &kp SPC)
-    CHMAC(ch__d, &kp APOS &kp D &kp SPC)
-    CHMAC(ch__ll, &kp APOS &kp L &kp L &kp SPC)
     CHMAC(ch_the, &kp T &kp H &kp E &kp SPC)
     CHMAC(ch_S_the, &kp LS(T) &kp H &kp E &kp SPC)
-    CHMAC(ch_be, &kp B &kp E &kp SPC)
-    CHMAC(ch_S_be, &kp LS(B) &kp E &kp SPC)
-    CHMAC(ch_of, &kp O &kp F &kp SPC)
-    CHMAC(ch_S_of, &kp LS(O) &kp F &kp SPC)
-    CHMAC(ch_and, &kp A &kp N &kp D &kp SPC)
-    CHMAC(ch_S_and, &kp LS(A) &kp N &kp D &kp SPC)
-    CHMAC(ch_a, &kp A &kp SPC)
-    CHMAC(ch_S_a, &kp LS(A) &kp SPC)
-    CHMAC(ch_a1, &kp LS(A) &kp SPC)
-    CHMAC(ch_to, &kp T &kp O &kp SPC)
-    CHMAC(ch_S_to, &kp LS(T) &kp O &kp SPC)
-    CHMAC(ch_in, &kp I &kp N &kp SPC)
-    CHMAC(ch_S_in, &kp LS(I) &kp N &kp SPC)
-    CHMAC(ch_he, &kp H &kp E &kp SPC)
-    CHMAC(ch_S_he, &kp LS(H) &kp E &kp SPC)
-    CHMAC(ch_have, &kp H &kp A &kp V &kp E &kp SPC)
-    CHMAC(ch_S_have, &kp LS(H) &kp A &kp V &kp E &kp SPC)
-    CHMAC(ch_it, &kp I &kp T &kp SPC)
-    CHMAC(ch_S_it, &kp LS(I) &kp T &kp SPC)
-    CHMAC(ch_that, &kp T &kp H &kp A &kp T &kp SPC)
-    CHMAC(ch_S_that, &kp LS(T) &kp H &kp A &kp T &kp SPC)
-    CHMAC(ch_for, &kp F &kp O &kp R &kp SPC)
   }; 
 }; 
