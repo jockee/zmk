@@ -19,9 +19,18 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
 
-// Include generated chord definitions
-#include "generated_macros.dtsi"
+// #include "generated_macros.dtsi" // Moved inside macros node
 // #include "generated_combos.dtsi" // Moved inside combos node
+
+// Define a MACRO macro for generating simple macros
+#define ZMK_MACRO(name, bindings_list) \
+    name: name { \
+        compatible = "zmk,behavior-macro"; \
+        #binding-cells = <0>; \
+        wait-ms = <1>; \
+        tap-ms = <1>; \
+        bindings = <bindings_list>; \
+    };
 
 // Define a CHORD macro for generating combos
 #define CHORD(name, keypress, keypos, timeout) \
@@ -77,6 +86,9 @@
 
 / {
     macros {
+       // Include generated macros which use the ZMK_MACRO macro
+       #include "generated_macros.dtsi"
+
         rgb_ug_status_macro: rgb_ug_status_macro {
             label = "RGB_UG_STATUS";
             compatible = "zmk,behavior-macro";

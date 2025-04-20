@@ -270,28 +270,34 @@ def main():
             if macro_to_generate:
                 m_name, m_bindings, m_add_space, m_orig_text = macro_to_generate
                 final_bindings = m_bindings + (" &kp SPACE" if m_add_space else "")
+                # Remove the label line and format as ZMK_MACRO call
                 macros_content += f"""
-        {m_name}: {m_name} {{ // Output: '{m_orig_text}'{' + SPACE' if m_add_space else ''}
-            compatible = "zmk,behavior-macro";
-            label = "{m_name.upper()}";
-            #binding-cells = <0>;
-            wait-ms = <1>; // Adjust timing if needed
-            tap-ms = <1>;
-            bindings = <{final_bindings}>;
-        }};"""
+        // Output: '{m_orig_text}'{' + SPACE' if m_add_space else ''}
+        ZMK_MACRO({m_name}, {final_bindings})"""
+                # macros_content += f"""
+                # {m_name}: {m_name} {{ // Output: '{m_orig_text}'{' + SPACE' if m_add_space else ''}
+                #     compatible = "zmk,behavior-macro";
+                #     #binding-cells = <0>;
+                #     wait-ms = <1>; // Adjust timing if needed
+                #     tap-ms = <1>;
+                #     bindings = <{final_bindings}>;
+                # }};""" # Old format commented out
 
             if shifted_macro_to_generate:
                 sm_name, sm_bindings, sm_add_space, sm_orig_text = shifted_macro_to_generate
                 final_s_bindings = sm_bindings + (" &kp SPACE" if sm_add_space else "")
+                # Remove the label line and format as ZMK_MACRO call
                 macros_content += f"""
-        {sm_name}: {sm_name} {{ // Shifted Output: '{sm_orig_text}'{' + SPACE' if sm_add_space else ''}
-            compatible = "zmk,behavior-macro";
-            label = "{sm_name.upper()}";
-            #binding-cells = <0>;
-            wait-ms = <1>;
-            tap-ms = <1>;
-            bindings = <{final_s_bindings}>;
-        }};"""
+        // Shifted Output: '{sm_orig_text}'{' + SPACE' if sm_add_space else ''}
+        ZMK_MACRO({sm_name}, {final_s_bindings})"""
+                # macros_content += f"""
+                # {sm_name}: {sm_name} {{ // Shifted Output: '{sm_orig_text}'{' + SPACE' if sm_add_space else ''}
+                #     compatible = "zmk,behavior-macro";
+                #     #binding-cells = <0>;
+                #     wait-ms = <1>;
+                #     tap-ms = <1>;
+                #     bindings = <{final_s_bindings}>;
+                # }};""" # Old format commented out
 
             # --- Prepare Combo Data ---
             key_positions = []
@@ -337,10 +343,10 @@ def main():
         CHORD({macro_arg_name}, {c_binding}, {c_pos_str}, {timeout})""" # Use CHORD macro
 
     # Close the content blocks (Only macros needs closing now)
-    macros_content += """
-    }; // end of macros
-}; // end of /
-"""
+    # macros_content += """
+    # }; // end of macros
+# }; // end of /
+# """ # Removed closing braces
     # combos_content no longer needs closing braces
 
     # Save the output files
