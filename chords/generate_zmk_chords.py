@@ -351,16 +351,17 @@ def main():
 
 
     # --- Generate Combo Definitions ---
+    combos_string_list = [] # Initialize list to store combo strings
     for c_name, c_pos_str, c_binding, c_comment in combos_data:
          # Basic timeout, could be adjusted based on len(c_pos_str.split())
          key_count = len(c_pos_str.split())
          timeout = 40 + (key_count - 1) * 10 if key_count > 1 else 40 # Base timeout 40ms
          timeout = min(timeout, 80) # Cap timeout at 80ms for now
          # Adjust name for the CHORD macro (remove c_ or c_S_ prefix)
-         macro_arg_name = c_name.replace("c_S_", "S_", 1).replace("c_", "", 1)
-         combos_content += f"""
+         chord_arg_name = c_name.replace("c_S_", "S_", 1).replace("c_", "", 1)
+         combos_string_list.append(f"""
         {c_comment}
-        CHORD({macro_arg_name}, {c_binding}, {c_pos_str}, {timeout})""" # Use CHORD macro
+        CHORD({chord_arg_name}, {c_binding}, {c_pos_str}, {timeout})""") # Append to list
 
     # Close the content blocks (Only macros needs closing now)
     # macros_content += """
