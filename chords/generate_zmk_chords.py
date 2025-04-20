@@ -295,7 +295,7 @@ def main():
                 combo_comment = f"// Combo for word: {base_name_src} (Chord: {''.join(sorted(k.lower() for k in combo_keys if k.lower() in ZMK_KEYCODE_MAP))})"
                 combos_definitions.append(f"""
         {combo_comment}
-        CHORD({chord_arg_name}, {macro_binding}, <{" ".join(sorted(key_positions, key=int))}>)""")
+        CHORD({chord_arg_name}, {macro_binding}, {" ".join(sorted(key_positions, key=int))})""") # Remove < >
 
                 # Add shifted combo if applicable
                 if shifted_macro_binding and shift_pos_num is not None:
@@ -305,7 +305,7 @@ def main():
                     shifted_combo_comment = f"// Shifted combo for word: {base_name_src}"
                     combos_definitions.append(f"""
         {shifted_combo_comment}
-        CHORD({shifted_chord_arg_name}, {shifted_macro_binding}, <{" ".join(shifted_key_positions)}>)""")
+        CHORD({shifted_chord_arg_name}, {shifted_macro_binding}, {" ".join(shifted_key_positions)})""") # Remove < >
 
 
     # Append combo definitions to output
