@@ -190,23 +190,23 @@ def main():
 
 // Define a macro for word chords that types keys and adds a space
 #define WORD_MACRO(name, keys) \\
-    {name}: {name} {{ \\
+    {name}: {name} {{{{ \\
         compatible = "zmk,behavior-macro"; \\
         #binding-cells = <0>; \\
         wait-ms = <1>; \\
         tap-ms = <1>; \\
         bindings = <keys>, <&kp SPACE>; \\
-    }};
+    }}}};
 
 // Define a LAYER_CHORD macro for generating combos on specific layers (from cradio)
 // Assumes layer defines like LAYER_Base exist in the main keymap
 #define LAYER_CHORD(name, keypress, keypos, lays, timeout) \\
-  combo_{name}: combo_{name} {{ \\
+  combo_{name}: combo_{name} {{{{ \\
     timeout-ms = <timeout>; \\
     bindings = <keypress>; \\
     key-positions = <keypos>; \\
     layers = <lays>; \\
-  }};
+  }}}};
 
 // Define a CHORD macro as shorthand for LAYER_CHORD on the Base layer
 #define CHORD(name, keypress, keypos, timeout) \\
