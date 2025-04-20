@@ -347,6 +347,8 @@ def main():
         CHORD({chord_arg_name}, {c_binding}, {c_pos_str}, {timeout})""") # Append to list
 
     # --- Finalize Output Content ---
+    # Start building the final output string with the static header
+    output_content = static_header
     # Add generated macros to the output string
     output_content += "\n".join(macros_string_list)
     output_content += """
