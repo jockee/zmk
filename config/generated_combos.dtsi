@@ -1,0 +1,363 @@
+
+/*
+ * Generated ZMK Combos
+ * Automatically included by glove80.keymap
+ * DO NOT EDIT MANUALLY - Run generate_zmk_config.py instead
+ */
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        // Combo for word: to (Chord: ot)
+        c_to: c_to {
+            key-positions = <38 44>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_to>;
+        };
+
+        // Combo for word: the (Chord: eht)
+        c_the: c_the {
+            key-positions = <38 42 59>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_the>;
+        };
+
+        // Combo for word: is (Chord: is)
+        c_is: c_is {
+            key-positions = <37 43>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_is>;
+        };
+
+        // Combo for word: and (Chord: adn)
+        c_and: c_and {
+            key-positions = <35 41 50>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_and>;
+        };
+
+        // Combo for word: it (Chord: it)
+        c_it: c_it {
+            key-positions = <38 43>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_it>;
+        };
+
+        // Combo for word: chord (Chord: cdhor)
+        c_chord: c_chord {
+            key-positions = <36 44 49 50 59>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_chord>;
+        };
+
+        // Combo for word: my (Chord: my)
+        c_my: c_my {
+            key-positions = <31 40>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_my>;
+        };
+
+        // Combo for word: be (Chord: be)
+        c_be: c_be {
+            key-positions = <27 42>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_be>;
+        };
+
+        // Combo for word: of (Chord: fo)
+        c_of: c_of {
+            key-positions = <25 44>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_of>;
+        };
+
+        // Combo for word: with (Chord: hitw)
+        c_with: c_with {
+            key-positions = <24 38 43 59>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_with>;
+        };
+
+        // Combo for word: in (Chord: in)
+        c_in: c_in {
+            key-positions = <41 43>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_in>;
+        };
+
+        // Combo for word: or (Chord: or)
+        c_or: c_or {
+            key-positions = <36 44>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_or>;
+        };
+
+        // Combo for word: if (Chord: fi)
+        c_if: c_if {
+            key-positions = <25 43>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_if>;
+        };
+
+        // Combo for word: not (Chord: not)
+        c_not: c_not {
+            key-positions = <38 41 44>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_not>;
+        };
+
+        // Combo for word: would (Chord: dlouw)
+        c_would: c_would {
+            key-positions = <24 29 30 44 50>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_would>;
+        };
+
+        // Combo for word: we (Chord: ew)
+        c_we: c_we {
+            key-positions = <24 42>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_we>;
+        };
+
+        // Combo for word: are (Chord: aer)
+        c_are: c_are {
+            key-positions = <35 36 42>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_are>;
+        };
+
+        // Combo for word: most (Chord: most)
+        c_most: c_most {
+            key-positions = <37 38 40 44>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_most>;
+        };
+
+        // Combo for word: now (Chord: now)
+        c_now: c_now {
+            key-positions = <24 41 44>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_now>;
+        };
+
+        // Combo for word: want (Chord: antw)
+        c_want: c_want {
+            key-positions = <24 35 38 41>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_want>;
+        };
+
+        // Combo for word: for (Chord: for)
+        c_for: c_for {
+            key-positions = <25 36 44>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_for>;
+        };
+
+        // Combo for word: this (Chord: hist)
+        c_this: c_this {
+            key-positions = <37 38 43 59>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_this>;
+        };
+
+        // Combo for word: how (Chord: how)
+        c_how: c_how {
+            key-positions = <24 44 59>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_how>;
+        };
+
+        // Combo for word: as (Chord: as)
+        c_as: c_as {
+            key-positions = <35 37>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_as>;
+        };
+
+        // Combo for word: by (Chord: by)
+        c_by: c_by {
+            key-positions = <27 31>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_by>;
+        };
+
+        // Combo for word: py (Chord: py)
+        c_py: c_py {
+            key-positions = <26 31>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_py>;
+        };
+
+        // Combo for word: what (Chord: ahtw)
+        c_what: c_what {
+            key-positions = <24 35 38 59>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_what>;
+        };
+
+        // Combo for word: have (Chord: aehv)
+        c_have: c_have {
+            key-positions = <35 42 51 59>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_have>;
+        };
+
+        // Combo for word: do (Chord: do)
+        c_do: c_do {
+            key-positions = <44 50>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_do>;
+        };
+
+        // Combo for word: keys (Chord: eksy)
+        c_keys: c_keys {
+            key-positions = <31 37 42 58>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_keys>;
+        };
+
+        // Combo for word: per (Chord: epr)
+        c_per: c_per {
+            key-positions = <26 36 42>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_per>;
+        };
+
+        // Combo for word: can (Chord: acn)
+        c_can: c_can {
+            key-positions = <35 41 49>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_can>;
+        };
+
+        // Combo for word: me (Chord: em)
+        c_me: c_me {
+            key-positions = <40 42>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_me>;
+        };
+
+        // Combo for word: more (Chord: emor)
+        c_more: c_more {
+            key-positions = <36 40 42 44>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_more>;
+        };
+
+        // Combo for word: ls (Chord: ls)
+        c_ls: c_ls {
+            key-positions = <29 37>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_ls>;
+        };
+
+        // Combo for word: ignore (Chord: eginor)
+        c_ignore: c_ignore {
+            key-positions = <36 39 41 42 43 44>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_ignore>;
+        };
+
+        // Combo for word: some (Chord: emos)
+        c_some: c_some {
+            key-positions = <37 40 42 44>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_some>;
+        };
+
+        // Combo for word: one (Chord: eno)
+        c_one: c_one {
+            key-positions = <41 42 44>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_one>;
+        };
+
+        // Combo for word: at (Chord: at)
+        c_at: c_at {
+            key-positions = <35 38>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_at>;
+        };
+
+        // Combo for word: an (Chord: an)
+        c_an: c_an {
+            key-positions = <35 41>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_an>;
+        };
+
+        // Combo for word: ev (Chord: ev)
+        c_ev: c_ev {
+            key-positions = <42 51>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_ev>;
+        };
+
+        // Combo for word: other (Chord: ehort)
+        c_other: c_other {
+            key-positions = <36 38 42 44 59>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_other>;
+        };
+
+        // Combo for word: find (Chord: dfin)
+        c_find: c_find {
+            key-positions = <25 41 43 50>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_find>;
+        };
+
+        // Combo for word: on (Chord: no)
+        c_on: c_on {
+            key-positions = <41 44>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_on>;
+        };
+
+        // Combo for word: from (Chord: fmor)
+        c_from: c_from {
+            key-positions = <25 36 40 44>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_from>;
+        };
+
+        // Combo for word: dh (Chord: dh)
+        c_dh: c_dh {
+            key-positions = <50 59>;
+            timeout-ms = <40>; /* Timeout based on key count */
+            bindings = <&m_dh>;
+        };
+
+        // Combo for word: same (Chord: aems)
+        c_same: c_same {
+            key-positions = <35 37 40 42>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_same>;
+        };
+
+        // Combo for word: finger (Chord: efginr)
+        c_finger: c_finger {
+            key-positions = <25 36 39 41 42 43>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_finger>;
+        };
+
+        // Combo for word: cant (Chord: acnt)
+        c_cant: c_cant {
+            key-positions = <35 38 41 49>;
+            timeout-ms = <80>; /* Timeout based on key count */
+            bindings = <&m_cant>;
+        };
+
+        // Combo for word: you (Chord: ouy)
+        c_you: c_you {
+            key-positions = <30 31 44>;
+            timeout-ms = <60>; /* Timeout based on key count */
+            bindings = <&m_you>;
+        };
+
+    }; // end of combos
+}; // end of /
