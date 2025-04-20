@@ -1,0 +1,44 @@
+{
+  "chords": [
+    {
+      "combo": [
+        "w",
+        "h",
+        "e"
+      ],
+      "output": "when",
+      "set": "20"
+    },
+    {
+      "combo": [
+        "c",
+        "a",
+        "n"
+      ],
+      "output": "can",
+      "set": "5"
+    },
+    {
+      "combo": [
+        "m",
+        "o",
+        "r"
+      ],
+      "output": [
+        "more",
+        "most",
+        "many"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "i",
+        "f",
+        "Dup"
+      ],
+      "output": "if",
+      "set": "1"
+    }
+  ]
+}

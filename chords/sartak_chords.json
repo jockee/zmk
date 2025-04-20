@@ -1,0 +1,8532 @@
+{
+  "chords": [
+    {
+      "combo": [
+        "i",
+        "n",
+        "g"
+      ],
+      "output": "\bing"
+    },
+    {
+      "combo": [
+        "n",
+        "'",
+        "t"
+      ],
+      "output": "\bn't"
+    },
+    {
+      "combo": [
+        "'",
+        "v",
+        "e"
+      ],
+      "output": "\b've"
+    },
+    {
+      "combo": [
+        "'",
+        "r",
+        "e"
+      ],
+      "output": "\b're"
+    },
+    {
+      "combo": [
+        "'",
+        "s",
+        "Dup"
+      ],
+      "output": "'s"
+    },
+    {
+      "combo": [
+        "'",
+        "d",
+        "Dup"
+      ],
+      "output": "'d"
+    },
+    {
+      "combo": [
+        "'",
+        "l",
+        "Dup"
+      ],
+      "output": "'ll"
+    },
+
+    "Top 200 words",
+    {
+      "combo": [
+        "t",
+        "h",
+        "e"
+      ],
+      "output": "the",
+      "set": "1"
+    },
+    {
+      "combo": [
+        "b",
+        "e",
+        "Dup"
+      ],
+      "output": "be",
+      "set": "2"
+    },
+    {
+      "combo": [
+        "o",
+        "f",
+        "Dup"
+      ],
+      "output": "of",
+      "set": "3"
+    },
+    {
+      "combo": [
+        "a",
+        "n",
+        "d"
+      ],
+      "output": "and",
+      "set": "4"
+    },
+    {
+      "combo": [
+        "a",
+        "Dup"
+      ],
+      "output": "a",
+      "set": "5"
+    },
+    {
+      "combo": [
+        "a",
+        "Bksp"
+      ],
+      "output": "A"
+    },
+    {
+      "combo": [
+        "t",
+        "o",
+        "Dup"
+      ],
+      "output": "to",
+      "set": "6"
+    },
+    {
+      "combo": [
+        "i",
+        "n",
+        "Dup"
+      ],
+      "output": "in",
+      "set": "7"
+    },
+    {
+      "combo": [
+        "h",
+        "e",
+        "Dup"
+      ],
+      "output": "he",
+      "set": "8"
+    },
+    {
+      "combo": [
+        "h",
+        "a",
+        "v"
+      ],
+      "output": [
+        "have",
+        "haves",
+        "had",
+        "having"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "i",
+        "t",
+        "Dup"
+      ],
+      "output": [
+        "it",
+        "them"
+      ],
+      "set": "10"
+    },
+    {
+      "combo": [
+        "t",
+        "h",
+        "a"
+      ],
+      "output": [
+        "that",
+        "those"
+      ],
+      "set": "11"
+    },
+    {
+      "combo": [
+        "f",
+        "o",
+        "r"
+      ],
+      "output": "for",
+      "set": "12"
+    },
+    {
+      "combo": [
+        "Dup",
+        "h",
+        "y"
+      ],
+      "output": "they",
+      "set": "13"
+    },
+    {
+      "combo": [
+        "i",
+        "Dup"
+      ],
+      "output": [
+        "I",
+        "we"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "w",
+        "i",
+        "h"
+      ],
+      "output": "with",
+      "set": "15"
+    },
+    {
+      "combo": [
+        "a",
+        "s",
+        "Dup"
+      ],
+      "output": "as",
+      "set": "16"
+    },
+    {
+      "combo": [
+        "n",
+        "o",
+        "t"
+      ],
+      "output": "not",
+      "set": "17"
+    },
+    {
+      "combo": [
+        "o",
+        "n",
+        "Dup"
+      ],
+      "output": "on",
+      "set": "18"
+    },
+    {
+      "combo": [
+        "s",
+        "h",
+        "e"
+      ],
+      "output": [
+        "she",
+        "they"
+      ],
+      "set": "18"
+    },
+    {
+      "combo": [
+        "a",
+        "t",
+        "Dup"
+      ],
+      "output": "at",
+      "set": "20"
+    },
+    {
+      "combo": [
+        "b",
+        "y",
+        "Dup"
+      ],
+      "output": "by",
+      "set": "1"
+    },
+    {
+      "combo": [
+        "t",
+        "h",
+        "s"
+      ],
+      "output": [
+        "this",
+        "these"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "w",
+        "e",
+        "Dup"
+      ],
+      "output": [
+        "we",
+        "I"
+      ],
+      "set": "1"
+    },
+    {
+      "combo": [
+        "y",
+        "o",
+        "u"
+      ],
+      "output": [
+        "you",
+        "y'all"
+      ],
+      "set": "12"
+    },
+    {
+      "combo": [
+        "d",
+        "o",
+        "Dup"
+      ],
+      "output": [
+        "do",
+        "does",
+        "did",
+        "doing"
+      ],
+      "set": "15"
+    },
+    {
+      "combo": [
+        "i",
+        "u",
+        "t"
+      ],
+      "output": "but",
+      "set": "17"
+    },
+    {
+      "combo": [
+        "Dup",
+        "o",
+        "m"
+      ],
+      "output": "from",
+      "set": "13"
+    },
+    {
+      "combo": [
+        "o",
+        "r",
+        "Dup"
+      ],
+      "output": "or",
+      "set": "17"
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "c"
+      ],
+      "output": "which",
+      "set": "19"
+    },
+    {
+      "combo": [
+        "o",
+        "n",
+        "e"
+      ],
+      "output": [
+        "one",
+        "ones"
+      ],
+      "set": "2"
+    },
+    {
+      "combo": [
+        "w",
+        "o",
+        "u"
+      ],
+      "output": "would",
+      "set": "3"
+    },
+    {
+      "combo": [
+        "a",
+        "l",
+        "Dup"
+      ],
+      "output": "all",
+      "set": "6"
+    },
+    {
+      "combo": [
+        "w",
+        "i",
+        "l"
+      ],
+      "output": [
+        "will",
+        "wills",
+        "willed",
+        "willing"
+      ],
+      "set": "7"
+    },
+    {
+      "combo": [
+        "t",
+        "h",
+        "r"
+      ],
+      "output": "there",
+      "set": "8"
+    },
+    {
+      "combo": [
+        "s",
+        "a",
+        "y"
+      ],
+      "output": [
+        "say",
+        "says",
+        "said",
+        "saying"
+      ],
+      "set": "10"
+    },
+    {
+      "combo": [
+        "n",
+        "h",
+        "e",
+        "."
+      ],
+      "output": [
+        "who",
+        "whom"
+      ],
+      "set": "16"
+    },
+    {
+      "combo": [
+        "m",
+        "a",
+        "k"
+      ],
+      "output": [
+        "make",
+        "made",
+        "making"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "w",
+        "h",
+        "e"
+      ],
+      "output": "when",
+      "set": "20"
+    },
+    {
+      "combo": [
+        "c",
+        "a",
+        "n"
+      ],
+      "output": "can",
+      "set": "5"
+    },
+    {
+      "combo": [
+        "m",
+        "o",
+        "r"
+      ],
+      "output": [
+        "more",
+        "most",
+        "many"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "i",
+        "f",
+        "Dup"
+      ],
+      "output": "if",
+      "set": "1"
+    },
+    {
+      "combo": [
+        "n",
+        "e",
+        "Dup"
+      ],
+      "output": "no",
+      "set": "9"
+    },
+    {
+      "combo": [
+        "m",
+        "a",
+        "n"
+      ],
+      "output": [
+        "man",
+        "men"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "o",
+        "u",
+        "t"
+      ],
+      "output": [
+        "out",
+        "outs",
+        "outed",
+        "outing"
+      ],
+      "set": "3"
+    },
+    {
+      "combo": [
+        "o",
+        "t",
+        "r"
+      ],
+      "output": [
+        "other",
+        "others"
+      ],
+      "set": "8"
+    },
+    {
+      "combo": [
+        "s",
+        "o",
+        "Dup"
+      ],
+      "output": "so",
+      "set": "12"
+    },
+    {
+      "combo": [
+        "Dup",
+        "h",
+        "a"
+      ],
+      "output": "what",
+      "set": "13"
+    },
+    {
+      "combo": [
+        "t",
+        "m",
+        "e"
+      ],
+      "output": [
+        "time",
+        "times"
+      ],
+      "set": "4"
+    },
+    {
+      "combo": [
+        "u",
+        "p",
+        "Dup"
+      ],
+      "output": "up",
+      "set": "7"
+    },
+    {
+      "combo": [
+        "g",
+        "o",
+        "Dup"
+      ],
+      "output": [
+        "go",
+        "went",
+        "going"
+      ],
+      "set": "11"
+    },
+    {
+      "combo": [
+        "Dup",
+        "u",
+        "t"
+      ],
+      "output": "about",
+      "set": "15"
+    },
+    {
+      "combo": [
+        "t",
+        "a",
+        "n"
+      ],
+      "output": "than",
+      "set": "18"
+    },
+    {
+      "combo": [
+        "i",
+        "u",
+        "Dup"
+      ],
+      "output": "into",
+      "set": "20"
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "u"
+      ],
+      "output": "could",
+      "set": "2"
+    },
+    {
+      "combo": [
+        "s",
+        "t",
+        "a"
+      ],
+      "output": [
+        "state",
+        "states",
+        "stated",
+        "stating"
+      ],
+      "set": "6"
+    },
+    {
+      "combo": [
+        "o",
+        "l",
+        "y"
+      ],
+      "output": "only",
+      "set": "10"
+    },
+    {
+      "combo": [
+        "n",
+        "e",
+        "w"
+      ],
+      "output": [
+        "new",
+        "newer",
+        "newest"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "y",
+        "e",
+        "a"
+      ],
+      "output": [
+        "year",
+        "years"
+      ],
+      "set": "16"
+    },
+    {
+      "combo": [
+        "s",
+        "o",
+        "m"
+      ],
+      "output": "some",
+      "set": "4"
+    },
+    {
+      "combo": [
+        "a",
+        "k",
+        "e"
+      ],
+      "output": [
+        "take",
+        "took",
+        "taking"
+      ],
+      "set": "5"
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "m"
+      ],
+      "output": [
+        "come",
+        "came",
+        "coming"
+      ],
+      "set": "1"
+    },
+    {
+      "combo": [
+        "n",
+        "h",
+        "s"
+      ],
+      "output": [
+        "these",
+        "this"
+      ],
+      "set": "8"
+    },
+    {
+      "combo": [
+        "k",
+        "n",
+        "o"
+      ],
+      "output": [
+        "know",
+        "knew",
+        "knowing"
+      ],
+      "set": "13"
+    },
+    {
+      "combo": [
+        "s",
+        "e",
+        "Dup"
+      ],
+      "output": [
+        "see",
+        "saw",
+        "seeing"
+      ],
+      "set": "15"
+    },
+    {
+      "combo": [
+        "u",
+        "s",
+        "e"
+      ],
+      "output": [
+        "use",
+        "used",
+        "using"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "g",
+        "e",
+        "t"
+      ],
+      "output": [
+        "get",
+        "got",
+        "getting"
+      ],
+      "set": "2"
+    },
+    {
+      "combo": [
+        "i",
+        "e",
+        "Dup"
+      ],
+      "output": [
+        "like",
+        "liked",
+        "liking"
+      ],
+      "set": "3"
+    },
+    {
+      "combo": [
+        "t",
+        "e",
+        "n"
+      ],
+      "output": "then",
+      "set": "4"
+    },
+    {
+      "combo": [
+        "f",
+        "r",
+        "s"
+      ],
+      "output": [
+        "first",
+        "firsts"
+      ],
+      "set": "6"
+    },
+    {
+      "combo": [
+        "a",
+        "n",
+        "y"
+      ],
+      "output": "any",
+      "set": "9"
+    },
+    {
+      "combo": [
+        "o",
+        "r",
+        "k"
+      ],
+      "output": [
+        "work",
+        "works",
+        "worked",
+        "working"
+      ],
+      "set": "18"
+    },
+    {
+      "combo": [
+        "n",
+        "o",
+        "w"
+      ],
+      "output": "now",
+      "set": "20"
+    },
+    {
+      "combo": [
+        "m",
+        "a",
+        "y"
+      ],
+      "output": "may",
+      "set": "10"
+    },
+    {
+      "combo": [
+        "s",
+        "c",
+        "h"
+      ],
+      "output": "such",
+      "set": "12"
+    },
+    {
+      "combo": [
+        "Dup",
+        "g",
+        "e"
+      ],
+      "output": [
+        "give",
+        "gave",
+        "giving"
+      ],
+      "set": "16"
+    },
+    {
+      "combo": [
+        "o",
+        "v",
+        "r"
+      ],
+      "output": "over",
+      "set": "17"
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "k"
+      ],
+      "output": [
+        "think",
+        "thought",
+        "thinking"
+      ],
+      "set": "5"
+    },
+    {
+      "combo": [
+        "m",
+        "o",
+        "t"
+      ],
+      "output": [
+        "most",
+        "many",
+        "more"
+      ],
+      "set": "7"
+    },
+    {
+      "combo": [
+        "e",
+        "v",
+        "n"
+      ],
+      "output": "even",
+      "set": "11"
+    },
+    {
+      "combo": [
+        "Dup",
+        "f",
+        "n"
+      ],
+      "output": [
+        "find",
+        "found",
+        "finding"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "a",
+        "y",
+        "Dup"
+      ],
+      "output": [
+        "day",
+        "days"
+      ],
+      "set": "1"
+    },
+    {
+      "combo": [
+        "a",
+        "l",
+        "o"
+      ],
+      "output": "also",
+      "set": "8"
+    },
+    {
+      "combo": [
+        "f",
+        "t",
+        "r"
+      ],
+      "output": "after",
+      "set": "6"
+    },
+    {
+      "combo": [
+        "w",
+        "a",
+        "c"
+      ],
+      "output": [
+        "way",
+        "ways"
+      ],
+      "set": "13"
+    },
+    {
+      "combo": [
+        "m",
+        "n",
+        "y"
+      ],
+      "output": [
+        "many",
+        "more",
+        "most"
+      ],
+      "set": "3"
+    },
+    {
+      "combo": [
+        "m",
+        "u",
+        "t"
+      ],
+      "output": "must",
+      "set": "4"
+    },
+    {
+      "combo": [
+        "l",
+        "o",
+        "k"
+      ],
+      "output": [
+        "look",
+        "looked",
+        "looking"
+      ],
+      "set": "15"
+    },
+    {
+      "combo": [
+        "b",
+        "f",
+        "o"
+      ],
+      "output": "before",
+      "set": "18"
+    },
+    {
+      "combo": [
+        "g",
+        "r",
+        "e"
+      ],
+      "output": [
+        "great",
+        "greater",
+        "greatest"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "b",
+        "a",
+        "c"
+      ],
+      "output": [
+        "back",
+        "backs",
+        "backed",
+        "backing"
+      ],
+      "set": "2"
+    },
+    {
+      "combo": [
+        "h",
+        "r",
+        "g"
+      ],
+      "output": "through",
+      "set": "5"
+    },
+    {
+      "combo": [
+        "l",
+        "o",
+        "n"
+      ],
+      "output": [
+        "long",
+        "longer",
+        "longest"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "Dup",
+        "e",
+        "r"
+      ],
+      "output": "where",
+      "set": "12"
+    },
+    {
+      "combo": [
+        "m",
+        "u",
+        "c"
+      ],
+      "output": "much",
+      "set": "16"
+    },
+    {
+      "combo": [
+        "s",
+        "o",
+        "u"
+      ],
+      "output": "should",
+      "set": "17"
+    },
+    {
+      "combo": [
+        "w",
+        "e",
+        "l"
+      ],
+      "output": [
+        "well",
+        "wells"
+      ],
+      "set": "20"
+    },
+    {
+      "combo": [
+        "p",
+        "e",
+        "l"
+      ],
+      "output": [
+        "people",
+        "peoples",
+        "person"
+      ],
+      "set": "7"
+    },
+    {
+      "combo": [
+        "Dup",
+        "d",
+        "n"
+      ],
+      "output": "down",
+      "set": "10"
+    },
+    {
+      "combo": [
+        "Dup",
+        "w",
+        "n"
+      ],
+      "output": [
+        "own",
+        "owned",
+        "owning"
+      ],
+      "set": "11"
+    },
+    {
+      "combo": [
+        "u",
+        "s",
+        "t"
+      ],
+      "output": "just",
+      "set": "14"
+    },
+    {
+      "combo": [
+        "b",
+        "e",
+        "a"
+      ],
+      "output": "because",
+      "set": "1"
+    },
+    {
+      "combo": [
+        "v",
+        "o",
+        "d"
+      ],
+      "output": [
+        "good",
+        "better",
+        "best"
+      ],
+      "set": "8"
+    },
+    {
+      "combo": [
+        "a",
+        "c",
+        "h"
+      ],
+      "output": "each",
+      "set": "5"
+    },
+    {
+      "combo": [
+        "t",
+        "o",
+        "s"
+      ],
+      "output": [
+        "those",
+        "that"
+      ],
+      "set": "6"
+    },
+    {
+      "combo": [
+        "f",
+        "e",
+        "l"
+      ],
+      "output": [
+        "feel",
+        "felt",
+        "feeling"
+      ],
+      "set": "18"
+    },
+    {
+      "combo": [
+        "s",
+        "e",
+        "m"
+      ],
+      "output": [
+        "seem",
+        "seemed",
+        "seeming"
+      ],
+      "set": "17"
+    },
+    {
+      "combo": [
+        "h",
+        "n",
+        "Dup"
+      ],
+      "output": "how",
+      "set": "19"
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "g"
+      ],
+      "output": [
+        "high",
+        "higher",
+        "highest"
+      ],
+      "set": "3"
+    },
+    {
+      "combo": [
+        "t",
+        "o",
+        "f"
+      ],
+      "output": "too",
+      "set": "4"
+    },
+    {
+      "combo": [
+        "p",
+        "c",
+        "e"
+      ],
+      "output": [
+        "place",
+        "places"
+      ],
+      "set": "7"
+    },
+    {
+      "combo": [
+        "l",
+        "i",
+        "t"
+      ],
+      "output": [
+        "little",
+        "littler",
+        "littlest"
+      ],
+      "set": "12"
+    },
+    {
+      "combo": [
+        "o",
+        "r",
+        "l"
+      ],
+      "output": [
+        "world",
+        "worlds"
+      ],
+      "set": "13"
+    },
+    {
+      "combo": [
+        "v",
+        "e",
+        "r"
+      ],
+      "output": "very",
+      "set": "15"
+    },
+    {
+      "combo": [
+        "s",
+        "t",
+        "l"
+      ],
+      "output": "still",
+      "set": "2"
+    },
+    {
+      "combo": [
+        "a",
+        "t",
+        "i"
+      ],
+      "output": [
+        "nation",
+        "nations"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "h",
+        "n",
+        "d"
+      ],
+      "output": [
+        "hand",
+        "hands"
+      ],
+      "set": "16"
+    },
+    {
+      "combo": [
+        "Dup",
+        "o",
+        "l"
+      ],
+      "output": [
+        "old",
+        "older",
+        "oldest"
+      ],
+      "set": "13"
+    },
+    {
+      "combo": [
+        "l",
+        "i",
+        "f"
+      ],
+      "output": [
+        "life",
+        "lives"
+      ],
+      "set": "10"
+    },
+    {
+      "combo": [
+        "t",
+        "e",
+        "l"
+      ],
+      "output": [
+        "tell",
+        "told",
+        "telling"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "r",
+        "i",
+        "e"
+      ],
+      "output": [
+        "write",
+        "wrote",
+        "writing"
+      ],
+      "set": "11"
+    },
+    {
+      "combo": [
+        "c",
+        "m",
+        "e"
+      ],
+      "output": [
+        "become",
+        "became",
+        "becoming"
+      ],
+      "set": "1"
+    },
+    {
+      "combo": [
+        "h",
+        "r",
+        "Dup"
+      ],
+      "output": "here",
+      "set": "6"
+    },
+    {
+      "combo": [
+        "s",
+        "h",
+        "Dup"
+      ],
+      "output": [
+        "show",
+        "showed",
+        "showing"
+      ],
+      "set": "8"
+    },
+    {
+      "combo": [
+        "o",
+        "s",
+        "e"
+      ],
+      "output": [
+        "house",
+        "houses"
+      ],
+      "set": "5"
+    },
+    {
+      "combo": [
+        "Dup",
+        "t",
+        "h"
+      ],
+      "output": "both",
+      "set": "12"
+    },
+    {
+      "combo": [
+        "b",
+        "e",
+        "n"
+      ],
+      "output": "between",
+      "set": "7"
+    },
+    {
+      "combo": [
+        "t",
+        "n",
+        "d"
+      ],
+      "output": [
+        "need",
+        "needed",
+        "needing"
+      ],
+      "set": "18"
+    },
+    {
+      "combo": [
+        "m",
+        "n",
+        "Dup"
+      ],
+      "output": [
+        "mean",
+        "meant",
+        "meaning"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "Dup",
+        "c",
+        "a"
+      ],
+      "output": [
+        "call",
+        "called",
+        "calling"
+      ],
+      "set": "13"
+    },
+    {
+      "combo": [
+        "d",
+        "e",
+        "v"
+      ],
+      "output": [
+        "develop",
+        "developed",
+        "developing"
+      ],
+      "set": "17"
+    },
+    {
+      "combo": [
+        "u",
+        "n",
+        "d"
+      ],
+      "output": "under",
+      "set": "2"
+    },
+    {
+      "combo": [
+        "l",
+        "a",
+        "s"
+      ],
+      "output": "last",
+      "set": "3"
+    },
+    {
+      "combo": [
+        "r",
+        "i",
+        "t"
+      ],
+      "output": [
+        "right",
+        "rights"
+      ],
+      "set": "15"
+    },
+    {
+      "combo": [
+        "m",
+        "v",
+        "e"
+      ],
+      "output": [
+        "move",
+        "moved",
+        "moving"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "t",
+        "i",
+        "n"
+      ],
+      "output": [
+        "thing",
+        "things"
+      ],
+      "set": "4"
+    },
+    {
+      "combo": [
+        "g",
+        "e",
+        "n"
+      ],
+      "output": [
+        "general",
+        "generals"
+      ],
+      "set": "16"
+    },
+    {
+      "combo": [
+        "s",
+        "h",
+        "l"
+      ],
+      "output": [
+        "school",
+        "schools"
+      ],
+      "set": "10"
+    },
+    {
+      "combo": [
+        "n",
+        "v",
+        "r"
+      ],
+      "output": "never",
+      "set": "11"
+    },
+    {
+      "combo": [
+        "s",
+        "a",
+        "m"
+      ],
+      "output": "same",
+      "set": "14"
+    },
+    {
+      "combo": [
+        "a",
+        "h",
+        "r"
+      ],
+      "output": "another",
+      "set": "20"
+    },
+    {
+      "combo": [
+        "e",
+        "g",
+        "i"
+      ],
+      "output": [
+        "begin",
+        "began",
+        "beginning"
+      ],
+      "set": "1"
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "e"
+      ],
+      "output": "while",
+      "set": "5"
+    },
+    {
+      "combo": [
+        "n",
+        "e",
+        "r"
+      ],
+      "output": [
+        "number",
+        "numbers"
+      ],
+      "set": "12"
+    },
+    {
+      "combo": [
+        "p",
+        "a",
+        "r"
+      ],
+      "output": [
+        "part",
+        "parts",
+        "parted",
+        "parting"
+      ],
+      "set": "7"
+    },
+    {
+      "combo": [
+        "t",
+        "u",
+        "n"
+      ],
+      "output": [
+        "turn",
+        "turns",
+        "turned",
+        "turning"
+      ],
+      "set": "17"
+    },
+    {
+      "combo": [
+        "e",
+        "a",
+        "l"
+      ],
+      "output": "real",
+      "set": "6"
+    },
+    {
+      "combo": [
+        "e",
+        "a",
+        "v"
+      ],
+      "output": [
+        "leave",
+        "left",
+        "leaving"
+      ],
+      "set": "8"
+    },
+    {
+      "combo": [
+        "m",
+        "i",
+        "t"
+      ],
+      "output": "might",
+      "set": "16"
+    },
+    {
+      "combo": [
+        "w",
+        "a",
+        "t"
+      ],
+      "output": [
+        "want",
+        "wanted",
+        "wanting"
+      ],
+      "set": "18"
+    },
+    {
+      "combo": [
+        "p",
+        "o",
+        "i"
+      ],
+      "output": [
+        "point",
+        "points",
+        "pointed",
+        "pointing"
+      ],
+      "set": "2"
+    },
+    {
+      "combo": [
+        "f",
+        "r",
+        "Dup"
+      ],
+      "output": [
+        "form",
+        "forms",
+        "formed",
+        "forming"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "o",
+        "f",
+        "n",
+        "e"
+      ],
+      "output": "off",
+      "set": "13"
+    },
+    {
+      "combo": [
+        "c",
+        "i",
+        "d"
+      ],
+      "output": [
+        "child",
+        "children"
+      ],
+      "set": "15"
+    },
+    {
+      "combo": [
+        "f",
+        "e",
+        "w"
+      ],
+      "output": [
+        "few",
+        "fewer",
+        "fewest"
+      ],
+      "set": "20"
+    },
+    {
+      "combo": [
+        "m",
+        "a",
+        "l"
+      ],
+      "output": [
+        "small",
+        "smaller",
+        "smallest"
+      ],
+      "set": "3"
+    },
+    {
+      "combo": [
+        "s",
+        "i",
+        "e"
+      ],
+      "output": "since",
+      "set": "4"
+    },
+    {
+      "combo": [
+        "a",
+        "g",
+        "n"
+      ],
+      "output": "against",
+      "set": "10"
+    },
+    {
+      "combo": [
+        "a",
+        "s",
+        "k"
+      ],
+      "output": [
+        "ask",
+        "asked",
+        "asking"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "l",
+        "a",
+        "t"
+      ],
+      "output": [
+        "late",
+        "later",
+        "latest"
+      ],
+      "set": "11"
+    },
+    {
+      "combo": [
+        "Dup",
+        "o",
+        "e"
+      ],
+      "output": [
+        "home",
+        "homes",
+        "homed",
+        "homing"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "i",
+        "n",
+        "r"
+      ],
+      "output": [
+        "interest",
+        "interests",
+        "interested",
+        "interesting"
+      ],
+      "set": "1"
+    },
+    {
+      "combo": [
+        "a",
+        "r",
+        "g"
+      ],
+      "output": [
+        "large",
+        "larger",
+        "largest"
+      ],
+      "set": "6"
+    },
+    {
+      "combo": [
+        "p",
+        "s",
+        "n"
+      ],
+      "output": [
+        "person",
+        "people"
+      ],
+      "set": "2"
+    },
+    {
+      "combo": [
+        "e",
+        "n",
+        "d"
+      ],
+      "output": [
+        "end",
+        "ends",
+        "ended",
+        "ending"
+      ],
+      "set": "5"
+    },
+    {
+      "combo": [
+        "o",
+        "p",
+        "n"
+      ],
+      "output": [
+        "open",
+        "opened",
+        "opening"
+      ],
+      "set": "7"
+    },
+    {
+      "combo": [
+        "p",
+        "l",
+        "i"
+      ],
+      "output": "public",
+      "set": "15"
+    },
+    {
+      "combo": [
+        "f",
+        "o",
+        "l"
+      ],
+      "output": [
+        "follow",
+        "followed",
+        "following"
+      ],
+      "set": "18"
+    },
+    {
+      "combo": [
+        "d",
+        "r",
+        "n"
+      ],
+      "output": "during",
+      "set": "10"
+    },
+    {
+      "combo": [
+        "r",
+        "n",
+        "t"
+      ],
+      "output": [
+        "present",
+        "presents",
+        "presented",
+        "presenting"
+      ],
+      "set": "3"
+    },
+    {
+      "combo": [
+        "i",
+        "t",
+        "o"
+      ],
+      "output": "without",
+      "set": "4"
+    },
+    {
+      "combo": [
+        "a",
+        "g",
+        "i"
+      ],
+      "output": "again",
+      "set": "16"
+    },
+    {
+      "combo": [
+        "h",
+        "d",
+        "Dup"
+      ],
+      "output": [
+        "hold",
+        "held",
+        "holding"
+      ],
+      "set": "8"
+    },
+    {
+      "combo": [
+        "g",
+        "r",
+        "n"
+      ],
+      "output": [
+        "govern",
+        "governed",
+        "governing"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "a",
+        "r",
+        "d"
+      ],
+      "output": "around",
+      "set": "12"
+    },
+    {
+      "combo": [
+        "p",
+        "s",
+        "e"
+      ],
+      "output": "possible",
+      "set": "13"
+    },
+    {
+      "combo": [
+        "h",
+        "e",
+        "d"
+      ],
+      "output": [
+        "head",
+        "heads",
+        "headed",
+        "heading"
+      ],
+      "set": "17"
+    },
+    {
+      "combo": [
+        "c",
+        "n",
+        "d"
+      ],
+      "output": [
+        "consider",
+        "considered",
+        "considering"
+      ],
+      "set": "20"
+    },
+    {
+      "combo": [
+        "Dup",
+        "r",
+        "d"
+      ],
+      "output": [
+        "word",
+        "words",
+        "worded",
+        "wording"
+      ],
+      "set": "11"
+    },
+    {
+      "combo": [
+        "r",
+        "g",
+        "m"
+      ],
+      "output": [
+        "program",
+        "programs",
+        "programmed",
+        "programming"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "l",
+        "e",
+        "m"
+      ],
+      "output": [
+        "problem",
+        "problems"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "h",
+        "e",
+        "v"
+      ],
+      "output": "however",
+      "set": "11"
+    },
+    {
+      "combo": [
+        "e",
+        "a",
+        "d"
+      ],
+      "output": [
+        "lead",
+        "leads",
+        "led",
+        "leading"
+      ],
+      "set": "2"
+    },
+    {
+      "combo": [
+        "s",
+        "y",
+        "t"
+      ],
+      "output": [
+        "system",
+        "systems"
+      ],
+      "set": "19"
+    },
+    {
+      "combo": [
+        "s",
+        "e",
+        "t"
+      ],
+      "output": [
+        "set",
+        "sets",
+        "setting"
+      ],
+      "set": "10"
+    },
+    {
+      "combo": [
+        "o",
+        "r",
+        "d"
+      ],
+      "output": [
+        "order",
+        "orders",
+        "ordered",
+        "ordering"
+      ],
+      "set": "5"
+    },
+    {
+      "combo": [
+        "e",
+        "y",
+        "Dup"
+      ],
+      "output": [
+        "eye",
+        "eyes",
+        "eyed",
+        "eyeing"
+      ],
+      "set": "12"
+    },
+    {
+      "combo": [
+        "p",
+        "l",
+        "n"
+      ],
+      "output": [
+        "plan",
+        "plans",
+        "planned",
+        "planning"
+      ],
+      "set": "3"
+    },
+    {
+      "combo": [
+        "r",
+        "u",
+        "n"
+      ],
+      "output": [
+        "run",
+        "runs",
+        "ran",
+        "running"
+      ],
+      "set": "4"
+    },
+    {
+      "combo": [
+        "e",
+        "p",
+        "Dup"
+      ],
+      "output": [
+        "keep",
+        "keeps",
+        "kept",
+        "keeping"
+      ],
+      "set": "6"
+    },
+    {
+      "combo": [
+        "f",
+        "a",
+        "c"
+      ],
+      "output": [
+        "face",
+        "faces",
+        "faced",
+        "facing"
+      ],
+      "set": "7"
+    },
+    {
+      "combo": [
+        "f",
+        "c",
+        "t"
+      ],
+      "output": [
+        "fact",
+        "facts"
+      ],
+      "set": "8"
+    },
+    {
+      "combo": [
+        "g",
+        "o",
+        "u"
+      ],
+      "output": [
+        "group",
+        "groups",
+        "grouped",
+        "grouping"
+      ],
+      "set": "9"
+    },
+    {
+      "combo": [
+        "p",
+        "l",
+        "y"
+      ],
+      "output": [
+        "play",
+        "plays",
+        "played",
+        "playing"
+      ],
+      "set": "20"
+    },
+    {
+      "combo": [
+        "s",
+        "n",
+        "d"
+      ],
+      "output": [
+        "stand",
+        "stands",
+        "stood",
+        "standing"
+      ],
+      "set": "15"
+    },
+    {
+      "combo": [
+        "i",
+        "n",
+        "c"
+      ],
+      "output": [
+        "increase",
+        "increases",
+        "increased",
+        "increasing"
+      ],
+      "set": "14"
+    },
+    {
+      "combo": [
+        "e",
+        "l",
+        "y"
+      ],
+      "output": [
+        "early",
+        "earlier",
+        "earliest"
+      ],
+      "set": "16"
+    },
+    {
+      "combo": [
+        "o",
+        "r",
+        "s"
+      ],
+      "output": [
+        "course",
+        "courses"
+      ],
+      "set": "17"
+    },
+    {
+      "combo": [
+        "c",
+        "h",
+        "e"
+      ],
+      "output": [
+        "change",
+        "changes",
+        "changed",
+        "changing"
+      ],
+      "set": "18"
+    },
+    {
+      "combo": [
+        "h",
+        "l",
+        "p"
+      ],
+      "output": [
+        "help",
+        "helped",
+        "helping"
+      ],
+      "set": "20"
+    },
+    {
+      "combo": [
+        "l",
+        "n",
+        "e"
+      ],
+      "output": [
+        "line",
+        "lines",
+        "lined",
+        "lining"
+      ],
+      "set": "11"
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "s"
+      ],
+      "output": "his"
+    },
+    {
+      "combo": [
+        "h",
+        "e",
+        "r"
+      ],
+      "output": "her"
+    },
+    {
+      "combo": [
+        "a",
+        "n",
+        "Dup"
+      ],
+      "output": "an"
+    },
+    {
+      "combo": [
+        "m",
+        "y",
+        "Dup"
+      ],
+      "output": [
+        "my",
+        "our"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "r"
+      ],
+      "output": "their"
+    },
+    {
+      "combo": [
+        "m",
+        "e",
+        "Dup"
+      ],
+      "output": [
+        "me",
+        "us"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "i",
+        "m"
+      ],
+      "output": "him"
+    },
+    {
+      "combo": [
+        "y",
+        "o",
+        "r"
+      ],
+      "output": "your"
+    },
+    {
+      "combo": [
+        "h",
+        "m",
+        "n",
+        "x"
+      ],
+      "output": "them"
+    },
+    {
+      "combo": [
+        "i",
+        "t",
+        "s"
+      ],
+      "output": "its"
+    },
+    {
+      "combo": [
+        "t",
+        "w",
+        "o"
+      ],
+      "output": "two"
+    },
+    {
+      "combo": [
+        "o",
+        "u",
+        "r"
+      ],
+      "output": [
+        "our",
+        "my"
+      ]
+    },
+    {
+      "combo": [
+        "u",
+        "s",
+        "Dup"
+      ],
+      "output": "us"
+    },
+    {
+      "combo": [
+        "i",
+        "s",
+        "Dup"
+      ],
+      "output": "is"
+    },
+    {
+      "combo": [
+        "w",
+        "a",
+        "s"
+      ],
+      "output": "was"
+    },
+    {
+      "combo": [
+        "a",
+        "r",
+        "e"
+      ],
+      "output": "are"
+    },
+    {
+      "combo": [
+        "h",
+        "a",
+        "d"
+      ],
+      "output": "had"
+    },
+    {
+      "combo": [
+        "w",
+        "e",
+        "r"
+      ],
+      "output": "were"
+    },
+    {
+      "combo": [
+        "s",
+        "a",
+        "i"
+      ],
+      "output": "said"
+    },
+    {
+      "combo": [
+        "h",
+        "a",
+        "s"
+      ],
+      "output": "has"
+    },
+    {
+      "combo": [
+        "d",
+        "i",
+        "Dup"
+      ],
+      "output": "did"
+    },
+    {
+      "combo": [
+        "s",
+        "u",
+        "d"
+      ],
+      "output": [
+        "sound",
+        "sounds"
+      ]
+    },
+    {
+      "combo": [
+        "w",
+        "t",
+        "r"
+      ],
+      "output": [
+        "water",
+        "waters",
+        "watered",
+        "watering"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "i",
+        "d"
+      ],
+      "output": [
+        "side",
+        "sides",
+        "sided",
+        "siding"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "n",
+        "Dup"
+      ],
+      "output": "been"
+    },
+    {
+      "combo": [
+        "m",
+        "d",
+        "e"
+      ],
+      "output": "made"
+    },
+    {
+      "combo": [
+        "l",
+        "i",
+        "v"
+      ],
+      "output": "live"
+    },
+    {
+      "combo": [
+        "o",
+        "u",
+        "d"
+      ],
+      "output": [
+        "round",
+        "rounder",
+        "roundest"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "a",
+        "m"
+      ],
+      "output": "came"
+    },
+    {
+      "combo": [
+        "e",
+        "r",
+        "y"
+      ],
+      "output": "every"
+    },
+    {
+      "combo": [
+        "n",
+        "a",
+        "e"
+      ],
+      "output": [
+        "name",
+        "names",
+        "named",
+        "naming"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "e",
+        "n"
+      ],
+      "output": [
+        "sentence",
+        "sentences"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "o",
+        "w"
+      ],
+      "output": [
+        "low",
+        "lower",
+        "lowest"
+      ]
+    },
+    {
+      "combo": [
+        "d",
+        "f",
+        "r"
+      ],
+      "output": "differ"
+    },
+    {
+      "combo": [
+        "c",
+        "a",
+        "s"
+      ],
+      "output": [
+        "cause",
+        "causes"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "o",
+        "y"
+      ],
+      "output": [
+        "boy",
+        "boys"
+      ]
+    },
+    {
+      "combo": [
+        "d",
+        "e",
+        "s"
+      ],
+      "output": "does"
+    },
+    {
+      "combo": [
+        "t",
+        "e",
+        "Dup"
+      ],
+      "output": [
+        "three",
+        "threes"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "i",
+        "r"
+      ],
+      "output": [
+        "air",
+        "airs"
+      ]
+    },
+    {
+      "combo": [
+        "p",
+        "u",
+        "t"
+      ],
+      "output": "put"
+    },
+    {
+      "combo": [
+        "r",
+        "a",
+        "Dup"
+      ],
+      "output": [
+        "read",
+        "reads"
+      ]
+    },
+    {
+      "combo": [
+        "p",
+        "o",
+        "r"
+      ],
+      "output": [
+        "port",
+        "ports"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "p",
+        "l"
+      ],
+      "output": [
+        "spell",
+        "spells"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "d",
+        "Dup"
+      ],
+      "output": "add"
+    },
+    {
+      "combo": [
+        "l",
+        "n",
+        "d"
+      ],
+      "output": [
+        "land",
+        "lands"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "i",
+        "g"
+      ],
+      "output": [
+        "big",
+        "bigger",
+        "biggest"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "c",
+        "t"
+      ],
+      "output": "act"
+    },
+    {
+      "combo": [
+        "w",
+        "h",
+        "y"
+      ],
+      "output": "why"
+    },
+    {
+      "combo": [
+        "m",
+        "e",
+        "n"
+      ],
+      "output": "men"
+    },
+    {
+      "combo": [
+        "w",
+        "n",
+        "t"
+      ],
+      "output": "went"
+    },
+    {
+      "combo": [
+        "l",
+        "i",
+        "g"
+      ],
+      "output": [
+        "light",
+        "lights",
+        "lighter",
+        "lightest"
+      ]
+    },
+    {
+      "combo": [
+        "i",
+        "n",
+        "d"
+      ],
+      "output": [
+        "kind",
+        "kinder",
+        "kindest"
+      ]
+    },
+    {
+      "combo": [
+        "p",
+        "i",
+        "c"
+      ],
+      "output": [
+        "picture",
+        "pictures"
+      ]
+    },
+    {
+      "combo": [
+        "t",
+        "r",
+        "y"
+      ],
+      "output": "try"
+    },
+    {
+      "combo": [
+        "a",
+        "n",
+        "l"
+      ],
+      "output": [
+        "animal",
+        "animals"
+      ]
+    },
+    {
+      "combo": [
+        "m",
+        "t",
+        "r"
+      ],
+      "output": [
+        "mother",
+        "mothers"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "r",
+        "Dup"
+      ],
+      "output": [
+        "near",
+        "nearer",
+        "nearest"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "u",
+        "l"
+      ],
+      "output": [
+        "build",
+        "builds"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "l",
+        "f"
+      ],
+      "output": [
+        "self",
+        "selves"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "a",
+        "h"
+      ],
+      "output": [
+        "earth",
+        "earths"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "a",
+        "e"
+      ],
+      "output": [
+        "father",
+        "fathers"
+      ]
+    },
+    {
+      "combo": [
+        "p",
+        "a",
+        "e"
+      ],
+      "output": [
+        "page",
+        "pages"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "u",
+        "y"
+      ],
+      "output": [
+        "country",
+        "countries"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "u",
+        "d"
+      ],
+      "output": "found"
+    },
+    {
+      "combo": [
+        "a",
+        "n",
+        "s"
+      ],
+      "output": [
+        "answer",
+        "answers"
+      ]
+    },
+    {
+      "combo": [
+        "g",
+        "r",
+        "w"
+      ],
+      "output": "grow"
+    },
+    {
+      "combo": [
+        "t",
+        "u",
+        "y"
+      ],
+      "output": [
+        "study",
+        "studies"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "e",
+        "r"
+      ],
+      "output": "learn"
+    },
+    {
+      "combo": [
+        "p",
+        "l",
+        "t"
+      ],
+      "output": [
+        "plant",
+        "plants"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "v"
+      ],
+      "output": [
+        "cover",
+        "covers"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "o",
+        "d"
+      ],
+      "output": [
+        "food",
+        "foods"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "u",
+        "n"
+      ],
+      "output": [
+        "sun",
+        "suns"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "o",
+        "u"
+      ],
+      "output": [
+        "four",
+        "fours"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "e",
+        "Dup"
+      ],
+      "output": "let"
+    },
+    {
+      "combo": [
+        "t",
+        "h",
+        "u"
+      ],
+      "output": [
+        "thought",
+        "thoughts"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "t",
+        "y"
+      ],
+      "output": [
+        "city",
+        "cities"
+      ]
+    },
+    {
+      "combo": [
+        "t",
+        "r",
+        "Dup"
+      ],
+      "output": [
+        "tree",
+        "trees"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "r",
+        "s"
+      ],
+      "output": [
+        "cross",
+        "crosses"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "m",
+        "Dup"
+      ],
+      "output": [
+        "farm",
+        "farms"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "r",
+        "d"
+      ],
+      "output": [
+        "hard",
+        "harder",
+        "hardest"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "r",
+        "Dup"
+      ],
+      "output": "start"
+    },
+    {
+      "combo": [
+        "o",
+        "y",
+        "Dup"
+      ],
+      "output": [
+        "story",
+        "stories"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "saw"
+    },
+    {
+      "combo": [
+        "f",
+        "a",
+        "r"
+      ],
+      "output": [
+        "far",
+        "farther",
+        "farthest"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "e",
+        "a"
+      ],
+      "output": [
+        "sea",
+        "seas"
+      ]
+    },
+    {
+      "combo": [
+        "d",
+        "a",
+        "w"
+      ],
+      "output": "draw"
+    },
+    {
+      "combo": [
+        "l",
+        "f",
+        "t"
+      ],
+      "output": "left"
+    },
+    {
+      "combo": [
+        "p",
+        "r",
+        "s"
+      ],
+      "output": [
+        "press",
+        "presses"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "s"
+      ],
+      "output": [
+        "close",
+        "closer",
+        "closest"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "g",
+        "h"
+      ],
+      "output": [
+        "night",
+        "nights"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "r",
+        "h"
+      ],
+      "output": "north"
+    },
+    {
+      "combo": [
+        "o",
+        "g",
+        "h"
+      ],
+      "output": "together"
+    },
+    {
+      "combo": [
+        "e",
+        "x",
+        "t"
+      ],
+      "output": "next"
+    },
+    {
+      "combo": [
+        "w",
+        "i",
+        "e"
+      ],
+      "output": [
+        "white",
+        "whiter",
+        "whitest"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "d"
+      ],
+      "output": [
+        "children",
+        "child"
+      ]
+    },
+    {
+      "combo": [
+        "g",
+        "o",
+        "t"
+      ],
+      "output": "got"
+    },
+    {
+      "combo": [
+        "w",
+        "a",
+        "Dup"
+      ],
+      "output": [
+        "walk",
+        "walks"
+      ]
+    },
+    {
+      "combo": [
+        "m",
+        "p",
+        "l"
+      ],
+      "output": [
+        "example",
+        "examples"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "ease"
+    },
+    {
+      "combo": [
+        "p",
+        "a",
+        "Dup"
+      ],
+      "output": [
+        "paper",
+        "papers"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "w",
+        "y"
+      ],
+      "output": "always"
+    },
+    {
+      "combo": [
+        "m",
+        "s",
+        "c"
+      ],
+      "output": "music"
+    },
+    {
+      "combo": [
+        "m",
+        "r",
+        "k"
+      ],
+      "output": [
+        "mark",
+        "marks"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "t",
+        "e"
+      ],
+      "output": "often"
+    },
+    {
+      "combo": [
+        "l",
+        "t",
+        "r"
+      ],
+      "output": [
+        "letter",
+        "letters"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "t",
+        "l"
+      ],
+      "output": "until"
+    },
+    {
+      "combo": [
+        "m",
+        "i",
+        "e"
+      ],
+      "output": [
+        "mile",
+        "miles"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "i",
+        "v"
+      ],
+      "output": [
+        "river",
+        "rivers"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "a",
+        "r"
+      ],
+      "output": [
+        "car",
+        "cars"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "e",
+        "t"
+      ],
+      "output": "feet"
+    },
+    {
+      "combo": [
+        "c",
+        "r",
+        "e"
+      ],
+      "output": "care"
+    },
+    {
+      "combo": [
+        "s",
+        "e",
+        "c"
+      ],
+      "output": [
+        "second",
+        "seconds"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "o",
+        "Dup"
+      ],
+      "output": [
+        "book",
+        "books"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "a",
+        "y"
+      ],
+      "output": "carry"
+    },
+    {
+      "combo": [],
+      "output": "took"
+    },
+    {
+      "combo": [
+        "s",
+        "c",
+        "i"
+      ],
+      "output": [
+        "science",
+        "sciences"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "a",
+        "t"
+      ],
+      "output": "eat"
+    },
+    {
+      "combo": [],
+      "output": [
+        "room",
+        "rooms"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "i",
+        "d"
+      ],
+      "output": [
+        "friend",
+        "friends"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "g",
+        "n"
+      ],
+      "output": "began"
+    },
+    {
+      "combo": [
+        "i",
+        "d",
+        "a"
+      ],
+      "output": [
+        "idea",
+        "ideas"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "i",
+        "s"
+      ],
+      "output": [
+        "fish",
+        "fishes"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "a",
+        "t"
+      ],
+      "output": [
+        "mountain",
+        "mountains"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "t",
+        "p"
+      ],
+      "output": [
+        "stop",
+        "stops"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "c",
+        "e"
+      ],
+      "output": "once"
+    },
+    {
+      "combo": [
+        "b",
+        "a",
+        "s"
+      ],
+      "output": [
+        "base",
+        "bases"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "hear"
+    },
+    {
+      "combo": [
+        "h",
+        "r",
+        "s"
+      ],
+      "output": [
+        "horse",
+        "horses"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "u",
+        "t"
+      ],
+      "output": [
+        "cut",
+        "cuts"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "u",
+        "r"
+      ],
+      "output": "sure"
+    },
+    {
+      "combo": [
+        "w",
+        "a",
+        "h"
+      ],
+      "output": [
+        "watch",
+        "watches"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "r"
+      ],
+      "output": [
+        "color",
+        "colors"
+      ]
+    },
+    {
+      "combo": [
+        "w",
+        "o",
+        "d"
+      ],
+      "output": [
+        "wood",
+        "woods"
+      ]
+    },
+    {
+      "combo": [
+        "m",
+        "i",
+        "n"
+      ],
+      "output": [
+        "main",
+        "mains"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "o",
+        "g"
+      ],
+      "output": "enough"
+    },
+    {
+      "combo": [
+        "p",
+        "a",
+        "i"
+      ],
+      "output": [
+        "plain",
+        "plainer",
+        "plainest"
+      ]
+    },
+    {
+      "combo": [
+        "g",
+        "i",
+        "r"
+      ],
+      "output": [
+        "girl",
+        "girls"
+      ]
+    },
+    {
+      "combo": [
+        "u",
+        "s",
+        "l"
+      ],
+      "output": "usual"
+    },
+    {
+      "combo": [
+        "y",
+        "o",
+        "g"
+      ],
+      "output": [
+        "young",
+        "younger",
+        "youngest"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "d",
+        "y"
+      ],
+      "output": [
+        "ready",
+        "readier",
+        "readiest"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "b",
+        "v"
+      ],
+      "output": "above"
+    },
+    {
+      "combo": [
+        "e",
+        "v",
+        "Dup"
+      ],
+      "output": "ever"
+    },
+    {
+      "combo": [
+        "r",
+        "e",
+        "d"
+      ],
+      "output": [
+        "red",
+        "reds",
+        "redder",
+        "reddest"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "i",
+        "s"
+      ],
+      "output": [
+        "list",
+        "lists"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "u",
+        "g"
+      ],
+      "output": "though"
+    },
+    {
+      "combo": [],
+      "output": [
+        "talk",
+        "talks"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "i",
+        "r"
+      ],
+      "output": [
+        "bird",
+        "birds"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "n",
+        "Dup"
+      ],
+      "output": [
+        "soon",
+        "sooner",
+        "soonest"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "d",
+        "y"
+      ],
+      "output": [
+        "body",
+        "bodies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "dog",
+        "dogs"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "a",
+        "y"
+      ],
+      "output": [
+        "family",
+        "families"
+      ]
+    },
+    {
+      "combo": [
+        "d",
+        "r",
+        "c"
+      ],
+      "output": "direct"
+    },
+    {
+      "combo": [
+        "p",
+        "o",
+        "s"
+      ],
+      "output": "pose"
+    },
+    {
+      "combo": [
+        "s",
+        "n",
+        "g"
+      ],
+      "output": [
+        "song",
+        "songs"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "s",
+        "u"
+      ],
+      "output": [
+        "measure",
+        "measures"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "door",
+        "doors"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "d",
+        "u"
+      ],
+      "output": [
+        "product",
+        "products"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "l",
+        "c"
+      ],
+      "output": [
+        "black",
+        "blacks",
+        "blacker",
+        "blackest"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "o",
+        "r"
+      ],
+      "output": [
+        "short",
+        "shorter",
+        "shortest"
+      ]
+    },
+    {
+      "combo": [
+        "u",
+        "m",
+        "a"
+      ],
+      "output": [
+        "numeral",
+        "numerals"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "l",
+        "s"
+      ],
+      "output": [
+        "class",
+        "classes"
+      ]
+    },
+    {
+      "combo": [
+        "w",
+        "i",
+        "d"
+      ],
+      "output": [
+        "wind",
+        "winds"
+      ]
+    },
+    {
+      "combo": [
+        "q",
+        "e",
+        "n"
+      ],
+      "output": [
+        "question",
+        "questions"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "a",
+        "p"
+      ],
+      "output": "happen"
+    },
+    {
+      "combo": [
+        "c",
+        "m",
+        "t"
+      ],
+      "output": "complete"
+    },
+    {
+      "combo": [
+        "s",
+        "h",
+        "p"
+      ],
+      "output": [
+        "ship",
+        "ships"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "area",
+        "areas"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "a",
+        "l"
+      ],
+      "output": [
+        "half",
+        "halves"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "c",
+        "k"
+      ],
+      "output": [
+        "rock",
+        "rocks"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "i",
+        "r"
+      ],
+      "output": [
+        "fire",
+        "fires"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "u",
+        "h"
+      ],
+      "output": "south"
+    },
+    {
+      "combo": [
+        "p",
+        "i",
+        "e"
+      ],
+      "output": [
+        "piece",
+        "pieces"
+      ]
+    },
+    {
+      "combo": [
+        "t",
+        "l",
+        "d"
+      ],
+      "output": "told"
+    },
+    {
+      "combo": [
+        "k",
+        "n",
+        "e"
+      ],
+      "output": "knew"
+    },
+    {
+      "combo": [
+        "p",
+        "a",
+        "s"
+      ],
+      "output": [
+        "pass",
+        "passes"
+      ]
+    },
+    {
+      "combo": [
+        "t",
+        "o",
+        "p"
+      ],
+      "output": [
+        "top",
+        "tops"
+      ]
+    },
+    {
+      "combo": [
+        "w",
+        "h",
+        "l"
+      ],
+      "output": "whole"
+    },
+    {
+      "combo": [
+        "k",
+        "i",
+        "n"
+      ],
+      "output": [
+        "king",
+        "kings"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "p",
+        "c"
+      ],
+      "output": [
+        "space",
+        "spaces"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "d",
+        "Dup"
+      ],
+      "output": "heard"
+    },
+    {
+      "combo": [
+        "b",
+        "e",
+        "s"
+      ],
+      "output": "best"
+    },
+    {
+      "combo": [
+        "h",
+        "u",
+        "r"
+      ],
+      "output": [
+        "hour",
+        "hours"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "e",
+        "r"
+      ],
+      "output": "better"
+    },
+    {
+      "combo": [
+        "t",
+        "r",
+        "u"
+      ],
+      "output": [
+        "true",
+        "truer",
+        "truest"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "u",
+        "e"
+      ],
+      "output": [
+        "hundred",
+        "hundreds"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "i",
+        "v"
+      ],
+      "output": [
+        "five",
+        "fives"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "e",
+        "m"
+      ],
+      "output": "remember"
+    },
+    {
+      "combo": [],
+      "output": [
+        "step",
+        "steps"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "west"
+    },
+    {
+      "combo": [],
+      "output": [
+        "ground",
+        "grounds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "reach"
+    },
+    {
+      "combo": [
+        "f",
+        "s",
+        "t"
+      ],
+      "output": [
+        "fast",
+        "faster",
+        "fastest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "verb",
+        "verbs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "sing"
+    },
+    {
+      "combo": [
+        "l",
+        "s",
+        "n"
+      ],
+      "output": [
+        "listen",
+        "listened",
+        "will listen"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "i",
+        "x"
+      ],
+      "output": [
+        "six",
+        "sixes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "table",
+        "tables"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "travel",
+        "travels"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "less",
+        "lesser",
+        "least"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "morning",
+        "mornings"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "ten",
+        "tens"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "simple",
+        "simpler",
+        "simplest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "several"
+    },
+    {
+      "combo": [],
+      "output": [
+        "vowel",
+        "vowels"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "toward"
+    },
+    {
+      "combo": [
+        "w",
+        "a",
+        "r"
+      ],
+      "output": [
+        "war",
+        "wars"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "a",
+        "y"
+      ],
+      "output": "lay"
+    },
+    {
+      "combo": [
+        "p",
+        "e",
+        "n"
+      ],
+      "output": [
+        "pattern",
+        "patterns"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "slow",
+        "slower",
+        "slowest"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "t",
+        "r"
+      ],
+      "output": [
+        "center",
+        "centers"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "v",
+        "e"
+      ],
+      "output": "love"
+    },
+    {
+      "combo": [],
+      "output": "money"
+    },
+    {
+      "combo": [],
+      "output": "serve"
+    },
+    {
+      "combo": [],
+      "output": "appear"
+    },
+    {
+      "combo": [],
+      "output": [
+        "road",
+        "roads"
+      ]
+    },
+    {
+      "combo": [
+        "m",
+        "a",
+        "p"
+      ],
+      "output": [
+        "map",
+        "maps"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "rain",
+        "rains"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "rule",
+        "rules"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "pull",
+        "pulls"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "cold",
+        "colds",
+        "colder",
+        "coldest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "notice",
+        "notices"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "voice",
+        "voices"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "unit",
+        "units"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "w",
+        "e"
+      ],
+      "output": [
+        "power",
+        "powers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "town",
+        "towns"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "fine",
+        "fines",
+        "finer",
+        "finest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "certain"
+    },
+    {
+      "combo": [
+        "f",
+        "l",
+        "y"
+      ],
+      "output": [
+        "fly",
+        "flies"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "a",
+        "l"
+      ],
+      "output": [
+        "fall",
+        "falls"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "r",
+        "y"
+      ],
+      "output": "cry"
+    },
+    {
+      "combo": [],
+      "output": [
+        "dark",
+        "darker",
+        "darkest"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "h",
+        "n"
+      ],
+      "output": [
+        "machine",
+        "machines"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "note",
+        "notes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "wait"
+    },
+    {
+      "combo": [],
+      "output": [
+        "figure",
+        "figures"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "star",
+        "stars"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "o",
+        "x"
+      ],
+      "output": [
+        "box",
+        "boxes"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "o",
+        "u"
+      ],
+      "output": [
+        "noun",
+        "nouns"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "i",
+        "d"
+      ],
+      "output": [
+        "field",
+        "fields"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "rest",
+        "rests"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "correct"
+    },
+    {
+      "combo": [],
+      "output": "able"
+    },
+    {
+      "combo": [],
+      "output": [
+        "pound",
+        "pounds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "done"
+    },
+    {
+      "combo": [],
+      "output": [
+        "beauty",
+        "beauties"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "drive",
+        "drives"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "stood"
+    },
+    {
+      "combo": [
+        "c",
+        "t",
+        "Dup"
+      ],
+      "output": [
+        "contain",
+        "contains"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "front"
+    },
+    {
+      "combo": [],
+      "output": "teach"
+    },
+    {
+      "combo": [
+        "w",
+        "e",
+        "k"
+      ],
+      "output": [
+        "week",
+        "weeks"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "i",
+        "n"
+      ],
+      "output": [
+        "final",
+        "finals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "gave"
+    },
+    {
+      "combo": [],
+      "output": [
+        "green",
+        "greens",
+        "greener",
+        "greenest"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "h",
+        "Dup"
+      ],
+      "output": "oh"
+    },
+    {
+      "combo": [
+        "q",
+        "i",
+        "c"
+      ],
+      "output": [
+        "quick",
+        "quicker",
+        "quickest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "ocean",
+        "oceans"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "warm",
+        "warmer",
+        "warmest"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "r",
+        "e"
+      ],
+      "output": "free"
+    },
+    {
+      "combo": [],
+      "output": [
+        "minute",
+        "minutes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "strong",
+        "stronger",
+        "strongest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "special",
+        "specials"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "mind",
+        "minds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "behind",
+        "behinds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "clear",
+        "clearer",
+        "clearest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "tail",
+        "tails"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "produce"
+    },
+    {
+      "combo": [],
+      "output": [
+        "street",
+        "streets"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "inch",
+        "inches"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "multiply"
+    },
+    {
+      "combo": [],
+      "output": "nothing"
+    },
+    {
+      "combo": [],
+      "output": "stay"
+    },
+    {
+      "combo": [],
+      "output": [
+        "wheel",
+        "wheels"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "full",
+        "fuller",
+        "fullest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "force",
+        "forces"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "blue",
+        "blues"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "b",
+        "e"
+      ],
+      "output": [
+        "object",
+        "objects",
+        "objected",
+        "will object"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "decide"
+    },
+    {
+      "combo": [],
+      "output": [
+        "surface",
+        "surfaces"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "deep",
+        "deeper",
+        "deepest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "moon",
+        "moons"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "island",
+        "islands"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "foot",
+        "feet"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "busy"
+    },
+    {
+      "combo": [
+        "t",
+        "s",
+        "Dup"
+      ],
+      "output": [
+        "test",
+        "tests",
+        "tested",
+        "will test"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "record",
+        "records"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "boat",
+        "boats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "common",
+        "commons"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "gold",
+        "golds",
+        "golder",
+        "goldest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "plane",
+        "planes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "stead"
+    },
+    {
+      "combo": [
+        "d",
+        "r",
+        "y"
+      ],
+      "output": [
+        "dry",
+        "dryer",
+        "dryest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "wonder"
+    },
+    {
+      "combo": [],
+      "output": [
+        "laugh",
+        "laughs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "thousand",
+        "thousands"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "g",
+        "o"
+      ],
+      "output": "ago"
+    },
+    {
+      "combo": [
+        "r",
+        "a",
+        "n"
+      ],
+      "output": "ran"
+    },
+    {
+      "combo": [],
+      "output": [
+        "check",
+        "checks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "game",
+        "games"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "shape",
+        "shapes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "equate"
+    },
+    {
+      "combo": [
+        "h",
+        "o",
+        "t"
+      ],
+      "output": [
+        "hot",
+        "hots"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "miss"
+    },
+    {
+      "combo": [],
+      "output": "brought"
+    },
+    {
+      "combo": [],
+      "output": "heat"
+    },
+    {
+      "combo": [],
+      "output": [
+        "snow",
+        "snows"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "tire",
+        "tires"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "bring"
+    },
+    {
+      "combo": [],
+      "output": "yes"
+    },
+    {
+      "combo": [],
+      "output": "distant"
+    },
+    {
+      "combo": [],
+      "output": [
+        "fill",
+        "fills"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "east"
+    },
+    {
+      "combo": [],
+      "output": [
+        "paint",
+        "paints"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "language",
+        "languages"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "among"
+    },
+    {
+      "combo": [],
+      "output": [
+        "grand",
+        "grander",
+        "grandest"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "a",
+        "l"
+      ],
+      "output": [
+        "ball",
+        "balls"
+      ]
+    },
+    {
+      "combo": [
+        "y",
+        "e",
+        "t"
+      ],
+      "output": "yet"
+    },
+    {
+      "combo": [],
+      "output": [
+        "wave",
+        "waves"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "drop",
+        "drops"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "heart",
+        "hearts"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "m",
+        "Dup"
+      ],
+      "output": "am"
+    },
+    {
+      "combo": [],
+      "output": [
+        "heavy",
+        "heavier",
+        "heaviest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "dance",
+        "dances"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "engine",
+        "engines"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "position",
+        "positions"
+      ]
+    },
+    {
+      "combo": [
+        "a",
+        "r",
+        "m"
+      ],
+      "output": [
+        "arm",
+        "arms"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "wide",
+        "wider",
+        "widest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sail",
+        "sails"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "material",
+        "materials"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "size",
+        "sizes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "vary"
+    },
+    {
+      "combo": [],
+      "output": "settle"
+    },
+    {
+      "combo": [],
+      "output": "speak"
+    },
+    {
+      "combo": [],
+      "output": [
+        "weight",
+        "weights"
+      ]
+    },
+    {
+      "combo": [
+        "i",
+        "c",
+        "e"
+      ],
+      "output": [
+        "ice",
+        "ices"
+      ]
+    },
+    {
+      "combo": [
+        "m",
+        "a",
+        "t"
+      ],
+      "output": [
+        "matter",
+        "matters"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "circle",
+        "circles"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "pair",
+        "pairs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "include"
+    },
+    {
+      "combo": [],
+      "output": "divide"
+    },
+    {
+      "combo": [],
+      "output": [
+        "syllable",
+        "syllables"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "felt",
+        "felts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "perhaps"
+    },
+    {
+      "combo": [],
+      "output": [
+        "pick",
+        "picks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "sudden"
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "n"
+      ],
+      "output": [
+        "count",
+        "counts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "square",
+        "squares"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "reason",
+        "reasons"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "n",
+        "g"
+      ],
+      "output": [
+        "length",
+        "lengths"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "represent"
+    },
+    {
+      "combo": [
+        "a",
+        "r",
+        "t"
+      ],
+      "output": [
+        "art",
+        "arts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "subject",
+        "subjects"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "region",
+        "regions"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "energy",
+        "energies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "hunt",
+        "hunts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "probable"
+    },
+    {
+      "combo": [],
+      "output": [
+        "bed",
+        "beds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "brother",
+        "brothers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "egg",
+        "eggs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "ride",
+        "rides"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "e",
+        "l"
+      ],
+      "output": [
+        "cell",
+        "cells"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "believe"
+    },
+    {
+      "combo": [],
+      "output": [
+        "fraction",
+        "fractions"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "forest",
+        "forests"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "sit"
+    },
+    {
+      "combo": [],
+      "output": [
+        "race",
+        "races"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "window",
+        "windows"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "store",
+        "stores"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "m",
+        "r"
+      ],
+      "output": [
+        "summer",
+        "summers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "train",
+        "trains"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sleep",
+        "sleeps"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "prove"
+    },
+    {
+      "combo": [],
+      "output": "lone"
+    },
+    {
+      "combo": [
+        "l",
+        "e",
+        "g"
+      ],
+      "output": [
+        "leg",
+        "legs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "exercise",
+        "exercises"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "wall",
+        "walls"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "t",
+        "h"
+      ],
+      "output": [
+        "catch",
+        "catches"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "mount",
+        "mounts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "wish",
+        "wishes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sky",
+        "skies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "board",
+        "boards"
+      ]
+    },
+    {
+      "combo": [
+        "j",
+        "o",
+        "y"
+      ],
+      "output": [
+        "joy",
+        "joys"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "winter",
+        "winters"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "sat"
+    },
+    {
+      "combo": [],
+      "output": "written"
+    },
+    {
+      "combo": [],
+      "output": [
+        "wild",
+        "wilds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "instrument",
+        "instruments"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "kept"
+    },
+    {
+      "combo": [],
+      "output": [
+        "glass",
+        "glasses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "grass",
+        "grasses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "cow",
+        "cows"
+      ]
+    },
+    {
+      "combo": [
+        "j",
+        "o",
+        "b"
+      ],
+      "output": [
+        "job",
+        "jobs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "edge",
+        "edges"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sign",
+        "signs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "visit",
+        "visits"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "past",
+        "pasts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "soft",
+        "softer",
+        "softest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "fun",
+        "funner",
+        "funnest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "bright",
+        "brighter",
+        "mostbright"
+      ]
+    },
+    {
+      "combo": [
+        "g",
+        "a",
+        "s"
+      ],
+      "output": [
+        "gas",
+        "gasses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "weather"
+    },
+    {
+      "combo": [],
+      "output": [
+        "month",
+        "months"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "million",
+        "millions"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "bear",
+        "bears"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "finish"
+    },
+    {
+      "combo": [],
+      "output": [
+        "happy",
+        "happier",
+        "happiest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "hope",
+        "hopes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "flower",
+        "flowers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "clothes"
+    },
+    {
+      "combo": [],
+      "output": [
+        "strange",
+        "stranger",
+        "strangest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "gone"
+    },
+    {
+      "combo": [],
+      "output": [
+        "jump",
+        "jumps"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "baby",
+        "babies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "eight",
+        "eights"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "village",
+        "villages"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "meet"
+    },
+    {
+      "combo": [],
+      "output": [
+        "root",
+        "roots"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "u",
+        "y"
+      ],
+      "output": [
+        "buy",
+        "buys"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "raise",
+        "raises"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "solve",
+        "solves"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "metal",
+        "metals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "whether"
+    },
+    {
+      "combo": [],
+      "output": [
+        "push",
+        "pushes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "seven",
+        "sevens"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "paragraph",
+        "paragraphs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "third",
+        "thirds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "shall"
+    },
+    {
+      "combo": [],
+      "output": "held"
+    },
+    {
+      "combo": [],
+      "output": [
+        "hair",
+        "hairs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "describe"
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "k"
+      ],
+      "output": [
+        "cook",
+        "cooks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "floor",
+        "floors"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "either"
+    },
+    {
+      "combo": [],
+      "output": [
+        "result",
+        "results"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "burn",
+        "burns"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "l"
+      ],
+      "output": [
+        "hill",
+        "hills"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "safe",
+        "safes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "cat",
+        "cats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "century",
+        "centuries"
+      ]
+    },
+    {
+      "combo": [
+        "t",
+        "p",
+        "e"
+      ],
+      "output": [
+        "type",
+        "types",
+        "typed",
+        "will type"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "a",
+        "w"
+      ],
+      "output": [
+        "law",
+        "laws"
+      ]
+    },
+    {
+      "combo": [
+        "b",
+        "i",
+        "Dup"
+      ],
+      "output": [
+        "bit",
+        "bits"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "coast",
+        "coasts"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "p",
+        "y"
+      ],
+      "output": [
+        "copy",
+        "copies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "phrase",
+        "phrases"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "silent"
+    },
+    {
+      "combo": [],
+      "output": [
+        "tall",
+        "taller",
+        "tallest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sand",
+        "sands"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "soil",
+        "soils"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "roll",
+        "rolls"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "temperature",
+        "temperatures"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "finger",
+        "fingers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "industry",
+        "industries"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "value",
+        "values"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "fight",
+        "fights"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "i",
+        "e"
+      ],
+      "output": [
+        "lie",
+        "lies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "beat",
+        "beats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "excite"
+    },
+    {
+      "combo": [],
+      "output": "natural"
+    },
+    {
+      "combo": [],
+      "output": [
+        "view",
+        "views"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sense",
+        "senses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "ear",
+        "ears"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "l",
+        "s"
+      ],
+      "output": "else"
+    },
+    {
+      "combo": [],
+      "output": "quite"
+    },
+    {
+      "combo": [],
+      "output": "broke"
+    },
+    {
+      "combo": [
+        "c",
+        "e",
+        "Dup"
+      ],
+      "output": [
+        "case",
+        "cases"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "middle"
+    },
+    {
+      "combo": [],
+      "output": [
+        "kill",
+        "kills"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "o",
+        "n"
+      ],
+      "output": [
+        "son",
+        "sons"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "lake",
+        "lakes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "moment",
+        "moments"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "scale",
+        "scales"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "loud",
+        "louder",
+        "loudest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "spring",
+        "springs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "observe"
+    },
+    {
+      "combo": [],
+      "output": [
+        "straight",
+        "straighter",
+        "straightest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "consonant",
+        "consonants"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "dictionary",
+        "dictionaries"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "milk",
+        "milks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "speed"
+    },
+    {
+      "combo": [
+        "m",
+        "t",
+        "Dup"
+      ],
+      "output": [
+        "method",
+        "methods"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "organ",
+        "organs"
+      ]
+    },
+    {
+      "combo": [
+        "p",
+        "a",
+        "y"
+      ],
+      "output": "pay"
+    },
+    {
+      "combo": [
+        "a",
+        "g",
+        "e"
+      ],
+      "output": [
+        "age",
+        "ages"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "section",
+        "sections"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "dress",
+        "dresses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "cloud",
+        "clouds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "surprise",
+        "surprises"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "quiet",
+        "quieter",
+        "quietest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "stone",
+        "stones"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "tiny",
+        "tinier",
+        "tiniest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "climb",
+        "climbs"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "o",
+        "l"
+      ],
+      "output": [
+        "cool",
+        "cooler",
+        "coolest"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "s",
+        "g"
+      ],
+      "output": [
+        "design",
+        "designs",
+        "designed",
+        "will design"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "poor",
+        "poorer",
+        "poorest"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "o",
+        "t"
+      ],
+      "output": [
+        "lot",
+        "lots"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "experiment",
+        "experiments"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "bottom",
+        "bottoms"
+      ]
+    },
+    {
+      "combo": [
+        "k",
+        "e",
+        "y"
+      ],
+      "output": [
+        "key",
+        "keys"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "iron",
+        "irons"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "single",
+        "singles"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "stick",
+        "sticks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "flat",
+        "flats",
+        "flatter",
+        "flattest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "twenty",
+        "twenties"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "skin",
+        "skins"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "smile",
+        "smiles"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "crease",
+        "creases"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "hole",
+        "holes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "trade",
+        "trades"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "melody",
+        "melodies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "trip",
+        "trips"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "o",
+        "n",
+        "e",
+        "c"
+      ],
+      "output": [
+        "office",
+        "offices"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "receive"
+    },
+    {
+      "combo": [
+        "r",
+        "o",
+        "w"
+      ],
+      "output": [
+        "row",
+        "rows"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "mouth",
+        "mouths"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "exact"
+    },
+    {
+      "combo": [],
+      "output": [
+        "symbol",
+        "symbols"
+      ]
+    },
+    {
+      "combo": [
+        "d",
+        "i",
+        "e"
+      ],
+      "output": [
+        "die",
+        "dies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "least"
+    },
+    {
+      "combo": [],
+      "output": [
+        "trouble",
+        "troubles"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "shout",
+        "shouts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "except"
+    },
+    {
+      "combo": [],
+      "output": "wrote"
+    },
+    {
+      "combo": [],
+      "output": [
+        "seed",
+        "seeds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "tone",
+        "tones"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "join",
+        "joins"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "suggest"
+    },
+    {
+      "combo": [],
+      "output": [
+        "clean",
+        "cleaner",
+        "cleanest"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "e",
+        "k"
+      ],
+      "output": [
+        "break",
+        "breaks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "lady",
+        "ladies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "yard",
+        "yards"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "rise"
+    },
+    {
+      "combo": [],
+      "output": "bad"
+    },
+    {
+      "combo": [],
+      "output": [
+        "blow",
+        "blows"
+      ]
+    },
+    {
+      "combo": [
+        "o",
+        "i",
+        "l"
+      ],
+      "output": [
+        "oil",
+        "oils"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "blood"
+    },
+    {
+      "combo": [],
+      "output": [
+        "touch",
+        "touches"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "grew"
+    },
+    {
+      "combo": [],
+      "output": [
+        "cent",
+        "cents"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "mix",
+        "mixes"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "a",
+        "Dup"
+      ],
+      "output": [
+        "team",
+        "teams"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "wire",
+        "wires"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "cost",
+        "costs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "lost"
+    },
+    {
+      "combo": [],
+      "output": [
+        "brown",
+        "browns",
+        "browner",
+        "brownest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "wear"
+    },
+    {
+      "combo": [],
+      "output": [
+        "garden",
+        "gardens"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "equal",
+        "equals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "sent"
+    },
+    {
+      "combo": [],
+      "output": "choose"
+    },
+    {
+      "combo": [],
+      "output": [
+        "fell",
+        "fells"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "i",
+        "t"
+      ],
+      "output": [
+        "fit",
+        "fits"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "flow",
+        "flows"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "fair",
+        "fairs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "bank",
+        "banks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "collect"
+    },
+    {
+      "combo": [],
+      "output": [
+        "save",
+        "saves"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "control",
+        "controls"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "decimal",
+        "decimals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "gentle",
+        "gentler",
+        "gentlest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "woman",
+        "women"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "captain",
+        "captains"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "practice",
+        "practices"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "separate"
+    },
+    {
+      "combo": [],
+      "output": "difficult"
+    },
+    {
+      "combo": [],
+      "output": [
+        "doctor",
+        "doctors"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "please"
+    },
+    {
+      "combo": [],
+      "output": "protect"
+    },
+    {
+      "combo": [],
+      "output": [
+        "noon",
+        "noons"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "whose"
+    },
+    {
+      "combo": [],
+      "output": "locate"
+    },
+    {
+      "combo": [],
+      "output": [
+        "ring",
+        "rings"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "h",
+        "r"
+      ],
+      "output": [
+        "character",
+        "characters"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "insect",
+        "insects"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "caught"
+    },
+    {
+      "combo": [],
+      "output": [
+        "period",
+        "periods"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "indicate"
+    },
+    {
+      "combo": [],
+      "output": [
+        "radio",
+        "radios"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "spoke"
+    },
+    {
+      "combo": [],
+      "output": [
+        "atom",
+        "atoms"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "human",
+        "humans"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "history",
+        "histories"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "effect",
+        "effects"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "electric"
+    },
+    {
+      "combo": [],
+      "output": "expect"
+    },
+    {
+      "combo": [],
+      "output": [
+        "crop",
+        "crops"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "modern"
+    },
+    {
+      "combo": [
+        "l",
+        "m",
+        "t"
+      ],
+      "output": [
+        "element",
+        "elements"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "i",
+        "t"
+      ],
+      "output": [
+        "hit",
+        "hits"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "student",
+        "students"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "corner",
+        "corners"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "party",
+        "parties"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "supply",
+        "supplies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "bone",
+        "bones"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "rail",
+        "rails"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "imagine"
+    },
+    {
+      "combo": [],
+      "output": "provide"
+    },
+    {
+      "combo": [],
+      "output": "agree"
+    },
+    {
+      "combo": [],
+      "output": "thus"
+    },
+    {
+      "combo": [],
+      "output": [
+        "capital",
+        "capitals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "chair",
+        "chairs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "danger",
+        "dangers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "fruit",
+        "fruits"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "rich",
+        "riches",
+        "richer",
+        "richest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "thick",
+        "thicker",
+        "thickest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "soldier",
+        "soldiers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "process",
+        "processes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "operate"
+    },
+    {
+      "combo": [],
+      "output": [
+        "guess",
+        "guesses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "necessary"
+    },
+    {
+      "combo": [],
+      "output": [
+        "sharp",
+        "sharps"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "wing",
+        "wings"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "create"
+    },
+    {
+      "combo": [],
+      "output": [
+        "neighbor",
+        "neighbors"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "wash"
+    },
+    {
+      "combo": [],
+      "output": [
+        "bat",
+        "bats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "rather"
+    },
+    {
+      "combo": [],
+      "output": [
+        "crowd",
+        "crowds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "corn",
+        "corns"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "compare"
+    },
+    {
+      "combo": [],
+      "output": [
+        "poem",
+        "poems"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "r",
+        "n"
+      ],
+      "output": [
+        "string",
+        "strings"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "bell",
+        "bells"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "depend"
+    },
+    {
+      "combo": [],
+      "output": [
+        "meat",
+        "meats"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "u",
+        "b"
+      ],
+      "output": [
+        "rub",
+        "rubs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "tube",
+        "tubes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "famous"
+    },
+    {
+      "combo": [],
+      "output": [
+        "dollar",
+        "dollars"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "stream",
+        "streams"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "fear",
+        "fears"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sight",
+        "sights"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "thin",
+        "thinner",
+        "thinnest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "triangle",
+        "triangles"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "planet",
+        "planets"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "hurry"
+    },
+    {
+      "combo": [],
+      "output": [
+        "chief",
+        "chiefs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "colony",
+        "colonies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "clock",
+        "clocks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "mine",
+        "mines"
+      ]
+    },
+    {
+      "combo": [
+        "t",
+        "i",
+        "e"
+      ],
+      "output": [
+        "tie",
+        "ties"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "enter"
+    },
+    {
+      "combo": [],
+      "output": [
+        "major",
+        "majors"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "fresh",
+        "fresher",
+        "freshest"
+      ]
+    },
+    {
+      "combo": [
+        "s",
+        "e",
+        "r"
+      ],
+      "output": [
+        "search",
+        "searches",
+        "searched",
+        "will search"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "send"
+    },
+    {
+      "combo": [],
+      "output": [
+        "yellow",
+        "yellows",
+        "yellower",
+        "yellowest"
+      ]
+    },
+    {
+      "combo": [
+        "g",
+        "u",
+        "n"
+      ],
+      "output": [
+        "gun",
+        "guns"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "allow"
+    },
+    {
+      "combo": [
+        "p",
+        "i",
+        "n"
+      ],
+      "output": [
+        "print",
+        "prints"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "dead"
+    },
+    {
+      "combo": [],
+      "output": [
+        "spot",
+        "spots"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "desert",
+        "deserts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "suit",
+        "suits"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "current"
+    },
+    {
+      "combo": [],
+      "output": [
+        "lift",
+        "lifts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "rose",
+        "roses"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "n",
+        "t"
+      ],
+      "output": [
+        "continue",
+        "continues",
+        "continued",
+        "will continue"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "block",
+        "blocks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "chart",
+        "charts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "hat",
+        "hats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "sell"
+    },
+    {
+      "combo": [],
+      "output": [
+        "success",
+        "successes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "company",
+        "companies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "subtract"
+    },
+    {
+      "combo": [],
+      "output": [
+        "event",
+        "events"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "particular",
+        "particulars"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "deal",
+        "deals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "swim",
+        "swims"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "term",
+        "terms"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "opposite",
+        "opposites"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "wife",
+        "wives"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "shoe",
+        "shoes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "shoulder",
+        "shoulders"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "spread",
+        "spreads"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "arrange"
+    },
+    {
+      "combo": [],
+      "output": [
+        "camp",
+        "camps"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "invent"
+    },
+    {
+      "combo": [],
+      "output": [
+        "cotton",
+        "cottons"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "born"
+    },
+    {
+      "combo": [],
+      "output": "determine"
+    },
+    {
+      "combo": [],
+      "output": [
+        "quart",
+        "quarts"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "i",
+        "e"
+      ],
+      "output": [
+        "nine",
+        "nines"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "truck",
+        "trucks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "noise",
+        "noises"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "level",
+        "levels"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "chance",
+        "chances"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "gather"
+    },
+    {
+      "combo": [],
+      "output": [
+        "shop",
+        "shops"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "stretch"
+    },
+    {
+      "combo": [
+        "Dup",
+        "o",
+        "w"
+      ],
+      "output": [
+        "throw",
+        "throws"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "shine"
+    },
+    {
+      "combo": [],
+      "output": [
+        "property",
+        "properties"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "column",
+        "columns"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "molecule",
+        "molecules"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "c",
+        "t"
+      ],
+      "output": [
+        "select",
+        "selects",
+        "selected",
+        "will select"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "wrong",
+        "wrongs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "gray",
+        "grays"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "repeat"
+    },
+    {
+      "combo": [],
+      "output": [
+        "require",
+        "requires",
+        "required",
+        "will require"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "broad",
+        "broads"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "prepare"
+    },
+    {
+      "combo": [],
+      "output": [
+        "salt",
+        "salts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "nose",
+        "noses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "plural",
+        "plurals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "anger"
+    },
+    {
+      "combo": [],
+      "output": [
+        "claim",
+        "claims"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "continent",
+        "continents"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "oxygen"
+    },
+    {
+      "combo": [],
+      "output": [
+        "sugar",
+        "sugars"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "death",
+        "deaths"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "pretty",
+        "pretties"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "skill",
+        "skills"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "women"
+    },
+    {
+      "combo": [],
+      "output": [
+        "season",
+        "seasons"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "solution",
+        "solutions"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "magnet",
+        "magnets"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "silver",
+        "silvers"
+      ]
+    },
+    {
+      "combo": [
+        "h",
+        "a",
+        "k"
+      ],
+      "output": "thank"
+    },
+    {
+      "combo": [
+        "b",
+        "n",
+        "h"
+      ],
+      "output": [
+        "branch",
+        "branches"
+      ]
+    },
+    {
+      "combo": [
+        "m",
+        "c",
+        "Dup"
+      ],
+      "output": [
+        "match",
+        "matches",
+        "matched",
+        "will match"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "suffix",
+        "suffixes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "especially"
+    },
+    {
+      "combo": [],
+      "output": [
+        "fig",
+        "figs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "afraid"
+    },
+    {
+      "combo": [],
+      "output": [
+        "huge",
+        "huger",
+        "hugest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sister",
+        "sisters"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "steel",
+        "steels"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "discuss"
+    },
+    {
+      "combo": [],
+      "output": [
+        "forward",
+        "forwards"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "similar"
+    },
+    {
+      "combo": [],
+      "output": [
+        "guide",
+        "guides"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "x",
+        "p"
+      ],
+      "output": [
+        "experience",
+        "experiences"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "score",
+        "scores"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "apple",
+        "apples"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "bought"
+    },
+    {
+      "combo": [
+        "l",
+        "e",
+        "d"
+      ],
+      "output": "led"
+    },
+    {
+      "combo": [],
+      "output": [
+        "pitch",
+        "pitches"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "coat",
+        "coats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "mass",
+        "masses"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "card",
+        "cards"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "band",
+        "bands"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "rope",
+        "ropes"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "slip"
+    },
+    {
+      "combo": [
+        "w",
+        "i",
+        "n"
+      ],
+      "output": [
+        "win",
+        "wins"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "dream",
+        "dreams"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "evening",
+        "evenings"
+      ]
+    },
+    {
+      "combo": [
+        "c",
+        "d",
+        "t"
+      ],
+      "output": [
+        "condition",
+        "conditions"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "e",
+        "d"
+      ],
+      "output": [
+        "feed",
+        "feeds"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "tool",
+        "tools"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "total",
+        "totals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "basic",
+        "basics"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "smell",
+        "smells"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "valley",
+        "valleys"
+      ]
+    },
+    {
+      "combo": [
+        "n",
+        "o",
+        "r"
+      ],
+      "output": "nor"
+    },
+    {
+      "combo": [
+        "o",
+        "u",
+        "b"
+      ],
+      "output": [
+        "double",
+        "doubles"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "seat",
+        "seats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "arrive"
+    },
+    {
+      "combo": [
+        "m",
+        "s",
+        "t"
+      ],
+      "output": [
+        "master",
+        "masters"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "track",
+        "tracks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "parent",
+        "parents"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "shore",
+        "shores"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "division",
+        "divisions"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "sheet",
+        "sheets"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "substance",
+        "substances"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "favor",
+        "favors"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "connect"
+    },
+    {
+      "combo": [
+        "p",
+        "o",
+        "s",
+        "t"
+      ],
+      "output": [
+        "post",
+        "posts"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "spend"
+    },
+    {
+      "combo": [
+        "c",
+        "h",
+        "d"
+      ],
+      "output": [
+        "chord",
+        "chords"
+      ]
+    },
+    {
+      "combo": [
+        "f",
+        "a",
+        "t"
+      ],
+      "output": [
+        "fat",
+        "fats"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "glad",
+        "gladder",
+        "gladdest"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "original",
+        "originals"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "share",
+        "shares"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "station",
+        "stations"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "dad",
+        "dads"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "bread",
+        "breads"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "charge",
+        "charges"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "proper"
+    },
+    {
+      "combo": [
+        "b",
+        "a",
+        "r"
+      ],
+      "output": [
+        "bar",
+        "bars"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "offer",
+        "offers"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "segment",
+        "segments"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "duck",
+        "ducks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "instant",
+        "instants"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "market",
+        "markets"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "degree",
+        "degrees"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "populate"
+    },
+    {
+      "combo": [],
+      "output": [
+        "chick",
+        "chicks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "dear",
+        "dears"
+      ]
+    },
+    {
+      "combo": [
+        "e",
+        "n",
+        "y"
+      ],
+      "output": [
+        "enemy",
+        "enemies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "reply",
+        "replies"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "drink",
+        "drinks"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "occur"
+    },
+    {
+      "combo": [
+        "s",
+        "u",
+        "p"
+      ],
+      "output": [
+        "support",
+        "supports"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "speech",
+        "speeches"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "nature",
+        "natures"
+      ]
+    },
+    {
+      "combo": [
+        "r",
+        "a",
+        "n",
+        "g"
+      ],
+      "output": [
+        "range",
+        "ranges"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "steam",
+        "steams"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "motion",
+        "motions"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "path",
+        "paths"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "liquid",
+        "liquids"
+      ]
+    },
+    {
+      "combo": [
+        "l",
+        "o",
+        "g"
+      ],
+      "output": [
+        "log",
+        "logs"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "meant"
+    },
+    {
+      "combo": [],
+      "output": [
+        "quotient",
+        "quotients"
+      ]
+    },
+    {
+      "combo": [],
+      "output": "teeth"
+    },
+    {
+      "combo": [],
+      "output": [
+        "shell",
+        "shells"
+      ]
+    },
+    {
+      "combo": [],
+      "output": [
+        "neck",
+        "necks"
+      ]
+    }
+  ]
+}
