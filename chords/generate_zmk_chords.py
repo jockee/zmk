@@ -40,129 +40,6 @@ ZMK_KEYCODE_MAP = {
 # Keys that represent modifiers or layers, not standard key presses
 NON_OUTPUT_KEYS = {'LSHFT', 'RSHFT', 'LCTRL', 'RCTRL', 'LALT', 'RALT', 'LGUI', 'RGUI', 'LSFT', 'RSFT'}
 
-# === Helper Functions ===
-
-def parse_keymap_for_positions_and_bindings(keymap_path):
-    """Parse the keymap file to get key positions and base layer bindings."""
-    key_name_to_pos_num = {}
-    pos_defines = {}
-    shift_pos_num = None
-    dup_pos_num = None # Track DUP position separately
-
-    try:
-        with open(keymap_path, 'r') as f:
-            content = f.read()
-
-        # 1. Extract position defines (#define POS_... number)
-        for match in re.finditer(r"#define\s+(POS_[A-Z0-9_]+)\s+(\d+)", content):
-            pos_defines[match.group(1)] = int(match.group(2))
-        if not pos_defines:
-             print("Warning: No POS_ defines found in keymap.")
-             # return {}, None # Exit early if no positions defined
-
-        # 2. Extract Base layer bindings to map key names to position numbers
-        base_layer_match = re.search(r"layer_Base\s*{[^}]*bindings\s*=\s*<([^>]*)>", content, re.DOTALL)
-        if base_layer_match:
-            bindings_str = base_layer_match.group(1)
-            # Clean up bindings string (remove comments, newlines)
-            bindings_str = re.sub(r"//.*?\n", "", bindings_str)
-            bindings_str = bindings_str.replace('\n', ' ').strip()
-            bindings = bindings_str.split()
-
-            if len(bindings) != 80: # Glove80 has 80 keys
-                 print(f"Warning: Parsed {len(bindings)} bindings in layer_Base, expected 80.")
-
-            for current_pos_index, binding in enumerate(bindings):
-                key_name = None
-                is_shift_key = False
-                is_dup_key = False
-
-                # --- Extract Key Name based on binding type ---
-                if binding.startswith('&kp'):
-                    match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
-                    if match:
-                        key_name = match.group(1)
-                elif binding.startswith('&mt'): # Mod-Tap
-                    match = re.match(r"&mt\s+([A-Z0-9_]+)\s+([A-Z0-9_]+)", binding)
-                    if match:
-                        mod_name = match.group(1)
-                        key_name = match.group(2) # Use the tapped key for mapping
-                        if mod_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT'):
-                             is_shift_key = True
-                elif binding.startswith('&lt'): # Layer-Tap
-                     match = re.match(r"&lt\s+\S+\s+([A-Z0-9_]+)", binding)
-                     if match:
-                          key_name = match.group(1) # Use the tapped key
-                elif binding.startswith('&ag'): # Auto-Gui (if you define it)
-                     match = re.match(r"&ag\s+([A-Z0-9_]+)", binding)
-                     if match:
-                          key_name = match.group(1)
-                elif binding == '&key_repeat_behavior': # Dup Key
-                     is_dup_key = True
-                     key_name = 'DUP' # Assign the name DUP
-                # Add more elif conditions for other behaviors like &mo, &to, &sk if needed
-
-                # --- Store Mapping and Check for Shift/Dup ---
-                if key_name and key_name not in NON_OUTPUT_KEYS:
-                    # Store mapping, avoid overwriting if already found (e.g., via &kp)
-                    if key_name not in key_name_to_pos_num:
-                         key_name_to_pos_num[key_name] = current_pos_index
-                    # else:
-                    #      print(f"Debug: Key {key_name} already mapped to {key_name_to_pos_num[key_name]}, skipping position {current_pos_index}")
-
-
-                if is_shift_key and shift_pos_num is None:
-                    shift_pos_num = current_pos_index
-                    print(f"Found Shift key (in binding {binding}) at position {shift_pos_num}")
-                elif key_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT') and shift_pos_num is None:
-                     # Check even if it wasn't explicitly marked as shift (e.g., simple &kp LSHFT)
-                     shift_pos_num = current_pos_index
-                     print(f"Found Shift key (&kp {key_name}) at position {shift_pos_num}")
-
-                if is_dup_key and dup_pos_num is None:
-                     dup_pos_num = current_pos_index
-                     # Ensure DUP is also in the main map if found this way
-                     if 'DUP' not in key_name_to_pos_num:
-                          key_name_to_pos_num['DUP'] = dup_pos_num
-                     print(f"Found DUP key (&key_repeat_behavior) at position {dup_pos_num}")
-
-
-        else:
-            print(f"Error: Could not find 'layer_Base' bindings in {keymap_path}")
-            return {}, None
-
-        # --- Final Checks and Fallbacks ---
-        # Add mappings for keys defined in ZMK_KEYCODE_MAP but not found in bindings
-        for key_json, zmk_code in ZMK_KEYCODE_MAP.items():
-             if zmk_code not in key_name_to_pos_num:
-                 # This fallback is less reliable, only use if necessary
-                 # print(f"Warning: ZMK keycode '{zmk_code}' (from '{key_json}') not found in layer_Base bindings.")
-                 pass
-
-        if shift_pos_num is None:
-             print("Error: Could not automatically find Shift key position in keymap.")
-             # Consider adding a manual fallback here if needed:
-             # shift_pos_num = 42 # Example position number
-
-        if 'DUP' not in key_name_to_pos_num and dup_pos_num is not None:
-             # Ensure DUP mapping exists if found via behavior
-             key_name_to_pos_num['DUP'] = dup_pos_num
-        elif 'DUP' not in key_name_to_pos_num:
-             print("Warning: 'DUP' key position not found. Ensure it's bound with '&key_repeat_behavior' or '&kp DUP' in layer_Base.")
-
-
-        return key_name_to_pos_num, shift_pos_num
-
-    except FileNotFoundError:
-        print(f"Error: Keymap file not found at {keymap_path}")
-        return {}, None
-    except Exception as e:
-        print(f"Error parsing keymap: {e}")
-        import traceback
-        traceback.print_exc() # Print full traceback for debugging
-        return {}, None
-
-
 def create_macro_bindings(text):
     """Create ZMK macro bindings for the given text, handling shifts."""
     if not text:
@@ -243,17 +120,66 @@ def main():
         print(f"Error: Could not decode JSON from '{INPUT_CHORDS_FILE}'.")
         exit(1)
 
-    # Parse the keymap for positions
-    key_name_to_pos_num, shift_pos_num = parse_keymap_for_positions_and_bindings(KEYMAP_FILE)
-    if not key_name_to_pos_num:
-        print("Error: Failed to parse key positions from keymap. Exiting.")
-        exit(1)
-    # Add manual mapping for DUP if needed and not found automatically
-    if 'DUP' not in key_name_to_pos_num:
-         # Find the position number assigned to &key_repeat_behavior if you add it
-         # Example: key_name_to_pos_num['DUP'] = 79 # Assuming K_PP was at 79 and replaced
-         print("Warning: 'DUP' key position not found automatically. Add manual mapping or ensure it's bound with &kp DUP or &key_repeat_behavior in base layer.")
+    # --- Hardcoded Key Positions (Based on User Input & Glove80 Defaults) ---
+    # Mapping from ZMK Keycode Name (e.g., 'A', 'B', 'N1') to Position Number
+    key_name_to_pos_num = {
+        # Letters (map lowercase from user input to uppercase ZMK code)
+        'Q': 14, 'W': 13, 'F': 12, 'P': 11, 'B': 10, # Left Hand Top Row (R2 C2-C6)
+        'J': 17, 'L': 18, 'U': 19, 'Y': 20, 'SEMI': 21, # Right Hand Top Row (R2 C2-C6) - Note SEMI for ;
+        'A': 26, 'R': 25, 'S': 24, 'T': 23, 'G': 22, # Left Hand Home Row (R3 C2-C6)
+        'M': 29, 'N': 30, 'E': 31, 'I': 32, 'O': 33, # Right Hand Home Row (R3 C2-C6)
+        'Z': 38, 'X': 37, 'C': 36, 'D': 35, 'V': 34, # Left Hand Bottom Row (R4 C2-C6)
+        'K': 41, 'H': 42, 'COMMA': 43, 'DOT': 44, 'FSLH': 45, # Right Hand Bottom Row (R4 C2-C6) - Note COMMA, DOT, FSLH
 
+        # Numbers (Check your Num layer or Base layer if they are there)
+        'N1': 4, 'N2': 3, 'N3': 2, 'N4': 1, 'N5': 0,  # Example: Top row left
+        'N6': 5, 'N7': 6, 'N8': 7, 'N9': 8, 'N0': 9,  # Example: Top row right
+
+        # Symbols (Add positions for symbols used in combos if not covered by letters/numbers)
+        'SQT': 40, # Single Quote (') POS_RH_C1R4
+        'EQUAL': 5, # Equals (=) POS_LH_C2R1
+        'MINUS': 9, # Minus (-) POS_RH_C6R1
+        'LBKT': 16, # Left Bracket ([) POS_RH_C1R2
+        # Add other symbols like GRAVE, TILDE, HASH, DLLR etc. based on your layer_Sym bindings and their POS_ defines
+
+        # Navigation/Special Keys (Update positions based on your layer_Base)
+        'BSPC': 61,  # POS_RH_C4R5 (Common thumb) - VERIFY
+        'RET': 55,   # POS_RH_T3 (Common thumb) - VERIFY
+        'SPACE': 56, # POS_RH_T2 (Common thumb) - VERIFY
+        'TAB': 15,   # POS_LH_C1R2 (Common pinky/ring) - VERIFY
+        'ESC': 27,   # POS_LH_C1R3 (Common pinky/ring) - VERIFY
+        # Add others like DEL, HOME, END, UP, DOWN, LEFT, RIGHT if used in combos
+    }
+
+    # Manually define Shift and Dup positions (Update these numbers!)
+    # CRITICAL: Find the position number for your main Shift key (e.g., Left Shift)
+    # Check your #define POS_... lines or count in layer_Base
+    shift_pos_num = 46 # POS_LH_C6R5 (Default Glove80 Left Shift) - VERIFY THIS!
+    # CRITICAL: Find the position number where you bound '&key_repeat_behavior'
+    dup_pos_num = 63   # POS_RH_C6R5 (Default Glove80 K_PP / Right Thumb) - VERIFY THIS!
+
+    # Add DUP to the map using its manual position
+    if dup_pos_num is not None:
+        key_name_to_pos_num['DUP'] = dup_pos_num
+        print(f"Using DUP position: {dup_pos_num}")
+    else:
+        print("Warning: dup_pos_num is not set. 'Dup' key combos will fail.")
+
+    if shift_pos_num is None:
+         print("Error: shift_pos_num is not set. Shifted combos cannot be generated.")
+         # exit(1) # Optional: exit if shift is critical
+    else:
+         print(f"Using Shift position: {shift_pos_num}")
+         # Add Shift itself to the map if needed for some reason (usually not)
+         # key_name_to_pos_num['LSHFT'] = shift_pos_num
+
+    print(f"Using hardcoded map with {len(key_name_to_pos_num)} keys.")
+    # --- End of Hardcoded Positions ---
+
+    # Add manual mapping for DUP if needed and not found automatically
+    # (This block can likely be removed now as DUP is handled above)
+    # if 'DUP' not in key_name_to_pos_num:
+    #      print("Warning: 'DUP' key position not found in hardcoded map or manual setting.")
 
     # --- Generate ZMK Macros ---
     macros_content = """
