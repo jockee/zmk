@@ -252,6 +252,7 @@ for word, chord_str in word_to_chord.items():
         macros_dtsi_content += f"""
         {macro_name}: {macro_name} {{
             compatible = "zmk,behavior-macro";
+            label = "MAC_{macro_name.upper()}"; // Use uppercase label for convention
             #binding-cells = <0>;
             bindings = <{macro_binding_str}>;
         }};
@@ -287,6 +288,7 @@ for ngram in ngrams:
         macros_dtsi_content += f"""
         {macro_name}: {macro_name} {{
             compatible = "zmk,behavior-macro";
+            label = "MAC_{macro_name.upper()}";
             #binding-cells = <0>;
             bindings = <{macro_binding_str}>;
         }};
