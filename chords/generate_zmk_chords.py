@@ -200,13 +200,9 @@ def main():
  * Automatically included by glove80.keymap
  * DO NOT EDIT MANUALLY
  */
-
-/ {{
-    combos {{
-        compatible = "zmk,combos";
 """.format(INPUT_CHORDS_FILE=INPUT_CHORDS_FILE)
 
-    combos_data = [] # Store tuples: (zmk_name, key_positions_str, macro_binding)
+    combos_data = [] # Store tuples: (zmk_name, key_positions_str, macro_binding, comment)
 
     # Process chords
     if "chords" in jocke_data and isinstance(jocke_data["chords"], list):
@@ -348,10 +344,7 @@ def main():
     }; // end of macros
 }; // end of /
 """
-    combos_content += """
-    }; // end of combos
-}; // end of /
-"""
+    # combos_content no longer needs closing braces
 
     # Save the output files
     try:
