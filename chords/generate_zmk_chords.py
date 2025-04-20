@@ -123,40 +123,27 @@ def main():
 
     # --- Hardcoded Key Positions (Based on User Input & Glove80 Defaults) ---
     # Mapping from ZMK Keycode Name (e.g., 'A', 'B', 'N1') to Position Number
+    # UPDATED based on provided colemak_dh_lookup
     key_name_to_pos_num = {
-        # Letters (map lowercase from user input to uppercase ZMK code)
-        'Q': 14, 'W': 13, 'F': 12, 'P': 11, 'B': 10, # Left Hand Top Row (R2 C2-C6)
-        'J': 17, 'L': 18, 'U': 19, 'Y': 20, 'SEMI': 21, # Right Hand Top Row (R2 C2-C6) - Note SEMI for ;
-        'A': 26, 'R': 25, 'S': 24, 'T': 23, 'G': 22, # Left Hand Home Row (R3 C2-C6)
-        'M': 29, 'N': 30, 'E': 31, 'I': 32, 'O': 33, # Right Hand Home Row (R3 C2-C6)
-        'Z': 38, 'X': 37, 'C': 36, 'D': 35, 'V': 34, # Left Hand Bottom Row (R4 C2-C6)
-        'K': 41, 'H': 42, 'COMMA': 43, 'DOT': 44, 'FSLH': 45, # Right Hand Bottom Row (R4 C2-C6) - Note COMMA, DOT, FSLH
-
-        # Numbers (Check your Num layer or Base layer if they are there)
-        'N1': 4, 'N2': 3, 'N3': 2, 'N4': 1, 'N5': 0,  # Example: Top row left
-        'N6': 5, 'N7': 6, 'N8': 7, 'N9': 8, 'N0': 9,  # Example: Top row right
-
-        # Symbols (Add positions for symbols used in combos if not covered by letters/numbers)
-        'SQT': 40, # Single Quote (') POS_RH_C1R4
-        'EQUAL': 5, # Equals (=) POS_LH_C2R1
-        'MINUS': 9, # Minus (-) POS_RH_C6R1
-        'LBKT': 16, # Left Bracket ([) POS_RH_C1R2
-        # Add other symbols like GRAVE, TILDE, HASH, DLLR etc. based on your layer_Sym bindings and their POS_ defines
-
-        # Navigation/Special Keys (Update positions based on your layer_Base)
-        'BSPC': 61,  # POS_RH_C4R5 (Common thumb) - VERIFY
-        'RET': 55,   # POS_RH_T3 (Common thumb) - VERIFY
-        'SPACE': 56, # POS_RH_T2 (Common thumb) - VERIFY
-        'TAB': 15,   # POS_LH_C1R2 (Common pinky/ring) - VERIFY
-        'ESC': 27,   # POS_LH_C1R3 (Common pinky/ring) - VERIFY
-        # Add others like DEL, HOME, END, UP, DOWN, LEFT, RIGHT if used in combos
+        # Left Hand
+        'Q': 23, 'W': 24, 'F': 25, 'P': 26, 'B': 27,
+        'A': 35, 'R': 36, 'S': 37, 'T': 38, 'G': 39,
+        'Z': 47, 'X': 48, 'C': 49, 'D': 50, 'V': 51,
+        # Right Hand
+        'J': 28, 'L': 29, 'U': 30, 'Y': 31, 'SEMI': 32, # ';' maps to SEMI
+        'M': 40, 'N': 41, 'E': 42, 'I': 43, 'O': 44,
+        'K': 45, 'H': 59, 'COMMA': 60, 'DOT': 61, 'FSLH': 62, # ',' maps to COMMA, '.' to DOT, '/' to FSLH
+        # Add any missing keys from your ZMK_KEYCODE_MAP if they are used in combos
+        # e.g., 'N1': ?, 'N2': ?, ..., 'SPACE': ?, 'RET': ?, 'TAB': ?, 'ESC': ?, 'BSPC': ?
     }
 
     # Manually define Shift and Dup positions (Update these numbers!)
     # CRITICAL: Find the position number for your main Shift key (e.g., Left Shift)
     # Check your #define POS_... lines or count in layer_Base
+    # Verify this position based on your Colemak layout/preferences!
     shift_pos_num = 46 # POS_LH_C6R5 (Default Glove80 Left Shift) - VERIFY THIS!
     # CRITICAL: Find the position number where you bound '&key_repeat_behavior'
+    # Verify this position based on your Colemak layout/preferences!
     dup_pos_num = 63   # POS_RH_C6R5 (Default Glove80 K_PP / Right Thumb) - VERIFY THIS!
 
     # Add DUP to the map using its manual position
