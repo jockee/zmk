@@ -9,8 +9,6 @@ from collections import defaultdict
 # === Configuration ===
 INPUT_CHORDS_FILE = "chords/jocke_chords.json" # Use your chord file
 OUTPUT_CHORDS_KEYMAP_FILE = Path("config/generated_chords.keymap") # New output file
-# OUTPUT_MACROS_FILE = Path("config/generated_macros.dtsi") # Old
-# OUTPUT_COMBOS_FILE = Path("config/generated_combos.dtsi") # Old
 KEYMAP_FILE = Path("config/glove80.keymap")
 
 # === ZMK Key Mapping (Add DUP) ===
@@ -164,48 +162,40 @@ def main():
     print(f"Using hardcoded map with {len(key_name_to_pos_num)} keys.")
     # --- End of Hardcoded Positions ---
 
-    # --- Prepare static header content ---
-    # Use a regular string, NOT an f-string, for the #defines
-    static_header = """
+    # --- Prepare the output content ---
+    # Create the header with helper macros
+    output_content = f"""
 /*
- * Generated ZMK Chords & Macros from """ + INPUT_CHORDS_FILE + """
+ * Generated ZMK Chords & Macros from {INPUT_CHORDS_FILE}
  * Automatically included by glove80.keymap
  * DO NOT EDIT MANUALLY
  */
 
-// Helper macro for stringification (from cradio)
 #define str(s) #s
 
-// Define a macro for word chords that types keys and adds a space
 #define WORD_MACRO(name, keys) \\
-    {name}: {name} {{{{ \\
+    name: name {{ \\
         compatible = "zmk,behavior-macro"; \\
         #binding-cells = <0>; \\
         wait-ms = <1>; \\
         tap-ms = <1>; \\
         bindings = <keys>, <&kp SPACE>; \\
-    }}}};
+    }};
 
-// Define a LAYER_CHORD macro for generating combos on specific layers (from cradio)
-// Assumes layer defines like LAYER_Base exist in the main keymap
-#define LAYER_CHORD(name, keypress, keypos, lays, timeout) \\
-  combo_{name}: combo_{name} {{{{ \\
-    timeout-ms = <timeout>; \\
+#define LAYER_CHORD(name, keypress, keypos, lays) \\
+  combo_##name: combo_##name {{ \\
+    timeout-ms = <60>; \\
     bindings = <keypress>; \\
     key-positions = <keypos>; \\
     layers = <lays>; \\
-  }}}};
+  }};
 
-// Define a CHORD macro as shorthand for LAYER_CHORD on the Base layer
-#define CHORD(name, keypress, keypos, timeout) \\
-  LAYER_CHORD(name, keypress, keypos, LAYER_Base, timeout)
+#define CHORD(name, keypress, keypos) \\
+  LAYER_CHORD(name, keypress, keypos, LAYER_Base)
 
-/ {{ // Start the single root node
+/ {{
     macros {{
-""" # Start macros node
-
-    macros_string_list = [] # Store macro definition strings
-    combos_data = [] # Store tuples: (zmk_name, key_positions_str, macro_binding, comment)
+"""
 
     # Process chords
     if "chords" in jocke_data and isinstance(jocke_data["chords"], list):
@@ -272,35 +262,17 @@ def main():
             # --- Generate Macro Definitions ---
             if macro_to_generate:
                 m_name, m_bindings, m_add_space, m_orig_text = macro_to_generate
-                # final_bindings = m_bindings + (" &kp SPACE" if m_add_space else "") # WORD_MACRO adds space
-                # Format as WORD_MACRO call for the output file
-                macros_string_list.append(f"""
+                output_content += f"""
         // Output: '{m_orig_text}'{' + SPACE' if m_add_space else ''}
-        WORD_MACRO({m_name}, {m_bindings})""") # Pass only key bindings, macro adds space
-                # macros_content += f"""
-                # {m_name}: {m_name} {{ // Output: '{m_orig_text}'{' + SPACE' if m_add_space else ''}
-                #     compatible = "zmk,behavior-macro";
-                #     #binding-cells = <0>;
-                #     wait-ms = <1>; // Adjust timing if needed
-                #     tap-ms = <1>;
-                #     bindings = <{final_bindings}>;
-                # }};""" # Old format commented out
+        WORD_MACRO({m_name}, {m_bindings})
+"""
 
             if shifted_macro_to_generate:
                 sm_name, sm_bindings, sm_add_space, sm_orig_text = shifted_macro_to_generate
-                # final_s_bindings = sm_bindings + (" &kp SPACE" if sm_add_space else "") # WORD_MACRO adds space
-                # Format as WORD_MACRO call for the output file
-                macros_string_list.append(f"""
+                output_content += f"""
         // Shifted Output: '{sm_orig_text}'{' + SPACE' if sm_add_space else ''}
-        WORD_MACRO({sm_name}, {sm_bindings})""") # Pass only key bindings, macro adds space
-                # macros_content += f"""
-                # {sm_name}: {sm_name} {{ // Shifted Output: '{sm_orig_text}'{' + SPACE' if sm_add_space else ''}
-                #     compatible = "zmk,behavior-macro";
-                #     #binding-cells = <0>;
-                #     wait-ms = <1>;
-                #     tap-ms = <1>;
-                #     bindings = <{final_s_bindings}>;
-                # }};""" # Old format commented out
+        WORD_MACRO({sm_name}, {sm_bindings})
+"""
 
             # --- Prepare Combo Data ---
             key_positions = []
@@ -321,55 +293,43 @@ def main():
                 key_positions.append(str(pos_num))
 
             if valid_combo and macro_binding:
-                # Generate comment for combo
-                combo_comment = f"// Combo for word: {base_name_src} (Chord: {''.join(sorted(k.lower() for k in combo_keys if k.lower() in ZMK_KEYCODE_MAP))})"
-                combos_data.append((combo_zmk_name, " ".join(sorted(key_positions, key=int)), macro_binding, combo_comment))
-
-                # Add shifted combo if applicable
-                if shifted_macro_binding and shift_pos_num is not None:
-                    shifted_combo_name = combo_zmk_name.replace("c_", "c_S_", 1)
-                    shifted_key_positions = sorted(key_positions + [str(shift_pos_num)], key=int)
-                    shifted_combo_comment = f"// Shifted combo for word: {base_name_src}"
-                    combos_data.append((shifted_combo_name, " ".join(shifted_key_positions), shifted_macro_binding, shifted_combo_comment))
-
-
-    # --- Generate Combo Definitions ---
-    combos_string_list = [] # Initialize list to store combo strings
-    for c_name, c_pos_str, c_binding, c_comment in combos_data:
-         # Basic timeout, could be adjusted based on len(c_pos_str.split())
-         key_count = len(c_pos_str.split())
-         timeout = 40 + (key_count - 1) * 10 if key_count > 1 else 40 # Base timeout 40ms
-         timeout = min(timeout, 80) # Cap timeout at 80ms for now
-         # Adjust name for the CHORD macro (remove c_ or c_S_ prefix)
-         chord_arg_name = c_name.replace("c_S_", "S_", 1).replace("c_", "", 1)
-         combos_string_list.append(f"""
-        {c_comment}
-        CHORD({chord_arg_name}, {c_binding}, {c_pos_str}, {timeout})""") # Append to list
-
-    # --- Finalize Output Content ---
-    # Start building the final output string with the static header
-    output_content = static_header
-    # Add generated macros to the output string
-    output_content += "\n".join(macros_string_list)
-    output_content += """
+                # Close macros section and start combos section
+                if "combos {" not in output_content:
+                    output_content += """
     }; // end of macros
 
     combos {
         compatible = "zmk,combos";
-""" # Close macros, open combos
-    # Add generated combos to the output string
-    output_content += "\n".join(combos_string_list)
+"""
+                # Generate comment for combo
+                chord_arg_name = combo_zmk_name.replace("c_", "", 1)
+                combo_comment = f"// Combo for word: {base_name_src} (Chord: {''.join(sorted(k.lower() for k in combo_keys if k.lower() in ZMK_KEYCODE_MAP))})"
+                output_content += f"""
+        {combo_comment}
+        CHORD({chord_arg_name}, {macro_binding}, {" ".join(sorted(key_positions, key=int))})
+"""
+
+                # Add shifted combo if applicable
+                if shifted_macro_binding and shift_pos_num is not None:
+                    shifted_chord_arg_name = chord_arg_name.replace("c_", "S_", 1)
+                    shifted_key_positions = sorted(key_positions + [str(shift_pos_num)], key=int)
+                    shifted_combo_comment = f"// Shifted combo for word: {base_name_src}"
+                    output_content += f"""
+        {shifted_combo_comment}
+        CHORD(S_{chord_arg_name}, {shifted_macro_binding}, {" ".join(shifted_key_positions)})
+"""
+
+    # Close the combos section and the root node
     output_content += """
     }; // end of combos
-}; // end of the single root node /
+}; // end of /
 """
 
     # Save the output file
     try:
-        # Save the single output file
         os.makedirs(os.path.dirname(OUTPUT_CHORDS_KEYMAP_FILE), exist_ok=True)
         with open(OUTPUT_CHORDS_KEYMAP_FILE, 'w') as f:
-            f.write(output_content) # Write the combined content
+            f.write(output_content)
         print(f"Successfully created '{OUTPUT_CHORDS_KEYMAP_FILE}'")
     except IOError as e:
         print(f"Error writing output files: {e}")
