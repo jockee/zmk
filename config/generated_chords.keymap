@@ -1,0 +1,87 @@
+
+/*
+ * Generated ZMK Chords & Macros from chords/jocke_chords.json
+ * Automatically included by glove80.keymap
+ * DO NOT EDIT MANUALLY
+ */
+
+#define str(s) #s
+
+#define WORD_MACRO(name, keys) \
+    name: name { \
+        compatible = "zmk,behavior-macro"; \
+        #binding-cells = <0>; \
+        wait-ms = <1>; \
+        tap-ms = <1>; \
+        bindings = <keys>, <&kp SPACE>; \
+    };
+
+#define LAYER_CHORD(name, keypress, keypos, lays) \
+  combo_##name: combo_##name { \
+    timeout-ms = <60>; \
+    bindings = <keypress>; \
+    key-positions = <keypos>; \
+    layers = <lays>; \
+  };
+
+#define CHORD(name, keypress, keypos) \
+  LAYER_CHORD(name, keypress, keypos, LAYER_Base)
+
+/ {
+    macros {
+
+        // Output: 'when' + SPACE
+        WORD_MACRO(m_when, &kp W &kp H &kp E &kp N)
+
+        // Shifted Output: 'when' + SPACE
+        WORD_MACRO(m_S_when, &kp LS(W) &kp LS(H) &kp LS(E) &kp LS(N))
+
+    }; // end of macros
+
+    combos {
+        compatible = "zmk,combos";
+
+        // Combo for word: when (Chord: ehw)
+        CHORD(when, &m_when, 24 42 59)
+
+        // Shifted combo for word: when
+        CHORD(S_when, &m_S_when, 24 42 46 59)
+
+        // Output: 'can' + SPACE
+        WORD_MACRO(m_can, &kp C &kp A &kp N)
+
+        // Shifted Output: 'can' + SPACE
+        WORD_MACRO(m_S_can, &kp LS(C) &kp LS(A) &kp LS(N))
+
+        // Combo for word: can (Chord: acn)
+        CHORD(can, &m_can, 35 41 49)
+
+        // Shifted combo for word: can
+        CHORD(S_can, &m_S_can, 35 41 46 49)
+
+        // Output: 'more' + SPACE
+        WORD_MACRO(m_more, &kp M &kp O &kp R &kp E)
+
+        // Shifted Output: 'more' + SPACE
+        WORD_MACRO(m_S_more, &kp LS(M) &kp LS(O) &kp LS(R) &kp LS(E))
+
+        // Combo for word: more (Chord: mor)
+        CHORD(more, &m_more, 36 40 44)
+
+        // Shifted combo for word: more
+        CHORD(S_more, &m_S_more, 36 40 44 46)
+
+        // Output: 'if' + SPACE
+        WORD_MACRO(m_if, &kp I &kp F)
+
+        // Shifted Output: 'if' + SPACE
+        WORD_MACRO(m_S_if, &kp LS(I) &kp LS(F))
+
+        // Combo for word: if (Chord: fi)
+        CHORD(if, &m_if, 25 43 63)
+
+        // Shifted combo for word: if
+        CHORD(S_if, &m_S_if, 25 43 46 63)
+
+    }; // end of combos
+}; // end of /
