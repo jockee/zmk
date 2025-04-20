@@ -47,6 +47,7 @@ def parse_keymap_for_positions_and_bindings(keymap_path):
     key_name_to_pos_num = {}
     pos_defines = {}
     shift_pos_num = None
+    dup_pos_num = None # Track DUP position separately
 
     try:
         with open(keymap_path, 'r') as f:
@@ -55,8 +56,11 @@ def parse_keymap_for_positions_and_bindings(keymap_path):
         # 1. Extract position defines (#define POS_... number)
         for match in re.finditer(r"#define\s+(POS_[A-Z0-9_]+)\s+(\d+)", content):
             pos_defines[match.group(1)] = int(match.group(2))
+        if not pos_defines:
+             print("Warning: No POS_ defines found in keymap.")
+             # return {}, None # Exit early if no positions defined
 
-        # 2. Extract Base layer bindings to map key names to position names
+        # 2. Extract Base layer bindings to map key names to position numbers
         base_layer_match = re.search(r"layer_Base\s*{[^}]*bindings\s*=\s*<([^>]*)>", content, re.DOTALL)
         if base_layer_match:
             bindings_str = base_layer_match.group(1)
@@ -65,94 +69,97 @@ def parse_keymap_for_positions_and_bindings(keymap_path):
             bindings_str = bindings_str.replace('\n', ' ').strip()
             bindings = bindings_str.split()
 
-            current_pos_index = 0
-            for binding in bindings:
-                # Find the POS_ define corresponding to the current index
-                # We need to do this *before* checking the binding type,
-                # as the index increments regardless of the binding.
-                pos_name = next((name for name, num in pos_defines.items() if num == current_pos_index), None)
+            if len(bindings) != 80: # Glove80 has 80 keys
+                 print(f"Warning: Parsed {len(bindings)} bindings in layer_Base, expected 80.")
 
-                if binding.startswith('&kp'): # Simple &kp binding
-                    key_name_match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
-                    if key_name_match:
-                        key_name = key_name_match.group(1)
-                        if pos_name and key_name not in NON_OUTPUT_KEYS:
-                            key_name_to_pos_num[key_name] = current_pos_index
-                            # Check for Shift key
-                            if key_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT') and shift_pos_num is None:
-                                shift_pos_num = current_pos_index
-                                print(f"Found Shift key: {key_name} at position {shift_pos_num}")
-                elif binding.startswith('&'): # Other behavior bindings
-                     # Try matching mod-tap or other complex behaviors if needed
-                     # Example: &mt LSHFT A -> key name is A
-                     # Example: &lt LAYER KEY -> key name is KEY
-                     # Example: &ag KEY -> key name is KEY
-                     complex_match = re.match(r"&\w+\s+(?:[A-Z0-9_]+\s+)?([A-Z0-9_]+)", binding)
-                     if complex_match:
-                         key_name = complex_match.group(1)
-                         if pos_name and key_name not in NON_OUTPUT_KEYS:
-                             # Store the position even if it's a complex binding,
-                             # but prioritize &kp bindings if duplicates occur.
-                             if key_name not in key_name_to_pos_num:
-                                 key_name_to_pos_num[key_name] = current_pos_index
-                             # Check for Shift key in complex bindings too
-                             if key_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT') and shift_pos_num is None:
-                                 shift_pos_num = current_pos_index
-                                 print(f"Found Shift key (complex): {key_name} at position {shift_pos_num}")
-                     # else:
-                         # print(f"Skipping complex binding: {binding}")
+            for current_pos_index, binding in enumerate(bindings):
+                key_name = None
+                is_shift_key = False
+                is_dup_key = False
 
-                current_pos_index += 1 # Increment position index
+                # --- Extract Key Name based on binding type ---
+                if binding.startswith('&kp'):
+                    match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
+                    if match:
+                        key_name = match.group(1)
+                elif binding.startswith('&mt'): # Mod-Tap
+                    match = re.match(r"&mt\s+([A-Z0-9_]+)\s+([A-Z0-9_]+)", binding)
+                    if match:
+                        mod_name = match.group(1)
+                        key_name = match.group(2) # Use the tapped key for mapping
+                        if mod_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT'):
+                             is_shift_key = True
+                elif binding.startswith('&lt'): # Layer-Tap
+                     match = re.match(r"&lt\s+\S+\s+([A-Z0-9_]+)", binding)
+                     if match:
+                          key_name = match.group(1) # Use the tapped key
+                elif binding.startswith('&ag'): # Auto-Gui (if you define it)
+                     match = re.match(r"&ag\s+([A-Z0-9_]+)", binding)
+                     if match:
+                          key_name = match.group(1)
+                elif binding == '&key_repeat_behavior': # Dup Key
+                     is_dup_key = True
+                     key_name = 'DUP' # Assign the name DUP
+                # Add more elif conditions for other behaviors like &mo, &to, &sk if needed
+
+                # --- Store Mapping and Check for Shift/Dup ---
+                if key_name and key_name not in NON_OUTPUT_KEYS:
+                    # Store mapping, avoid overwriting if already found (e.g., via &kp)
+                    if key_name not in key_name_to_pos_num:
+                         key_name_to_pos_num[key_name] = current_pos_index
+                    # else:
+                    #      print(f"Debug: Key {key_name} already mapped to {key_name_to_pos_num[key_name]}, skipping position {current_pos_index}")
+
+
+                if is_shift_key and shift_pos_num is None:
+                    shift_pos_num = current_pos_index
+                    print(f"Found Shift key (in binding {binding}) at position {shift_pos_num}")
+                elif key_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT') and shift_pos_num is None:
+                     # Check even if it wasn't explicitly marked as shift (e.g., simple &kp LSHFT)
+                     shift_pos_num = current_pos_index
+                     print(f"Found Shift key (&kp {key_name}) at position {shift_pos_num}")
+
+                if is_dup_key and dup_pos_num is None:
+                     dup_pos_num = current_pos_index
+                     # Ensure DUP is also in the main map if found this way
+                     if 'DUP' not in key_name_to_pos_num:
+                          key_name_to_pos_num['DUP'] = dup_pos_num
+                     print(f"Found DUP key (&key_repeat_behavior) at position {dup_pos_num}")
+
 
         else:
-            print(f"Warning: Could not find 'layer_Base' bindings in {keymap_path}")
+            print(f"Error: Could not find 'layer_Base' bindings in {keymap_path}")
+            return {}, None
 
-        # Add mappings for keys defined in ZMK_KEYCODE_MAP but potentially not in base layer (like DUP)
-        for key, zmk_code in ZMK_KEYCODE_MAP.items():
+        # --- Final Checks and Fallbacks ---
+        # Add mappings for keys defined in ZMK_KEYCODE_MAP but not found in bindings
+        for key_json, zmk_code in ZMK_KEYCODE_MAP.items():
              if zmk_code not in key_name_to_pos_num:
-                 # Try to find the position number directly if the zmk_code matches a POS_ define's number
-                 # This is less reliable than parsing bindings but a fallback
-                 found_pos = next((num for name, num in pos_defines.items() if name.endswith(zmk_code)), None)
-                 if found_pos is not None:
-                      # Check if this position is already mapped to a different key via &kp
-                      already_mapped_key = next((k for k, p in key_name_to_pos_num.items() if p == found_pos), None)
-                      if not already_mapped_key:
-                           print(f"Fallback mapping for {zmk_code} to position {found_pos}")
-                           key_name_to_pos_num[zmk_code] = found_pos
-                      # else:
-                      #      print(f"Skipping fallback for {zmk_code}, position {found_pos} already mapped to {already_mapped_key}")
-
-
-                 # Add specific logic for DUP if needed, e.g., find its binding to &key_repeat_behavior
-                 if zmk_code == 'DUP':
-                     dup_match = re.search(r"layer_Base\s*{[^}]*bindings\s*=\s*<([^>]*)>", content, re.DOTALL)
-                     if dup_match:
-                         bindings_str = dup_match.group(1)
-                         bindings_str = re.sub(r"//.*?\n", "", bindings_str)
-                         bindings_str = bindings_str.replace('\n', ' ').strip()
-                         bindings = bindings_str.split()
-                         dup_index = -1
-                         for i, binding in enumerate(bindings):
-                             if binding == '&key_repeat_behavior':
-                                 dup_index = i
-                                 break
-                         if dup_index != -1:
-                             key_name_to_pos_num['DUP'] = dup_index
-                             print(f"Found DUP key (&key_repeat_behavior) at position {dup_index}")
-                         else:
-                             print("Warning: Could not find '&key_repeat_behavior' in layer_Base bindings for DUP.")
-                     else:
-                          print("Warning: Could not parse layer_Base to find DUP key.")
-
+                 # This fallback is less reliable, only use if necessary
+                 # print(f"Warning: ZMK keycode '{zmk_code}' (from '{key_json}') not found in layer_Base bindings.")
+                 pass
 
         if shift_pos_num is None:
              print("Error: Could not automatically find Shift key position in keymap.")
-             # exit(1) # Optional: exit if shift is critical
+             # Consider adding a manual fallback here if needed:
+             # shift_pos_num = 42 # Example position number
+
+        if 'DUP' not in key_name_to_pos_num and dup_pos_num is not None:
+             # Ensure DUP mapping exists if found via behavior
+             key_name_to_pos_num['DUP'] = dup_pos_num
+        elif 'DUP' not in key_name_to_pos_num:
+             print("Warning: 'DUP' key position not found. Ensure it's bound with '&key_repeat_behavior' or '&kp DUP' in layer_Base.")
+
 
         return key_name_to_pos_num, shift_pos_num
 
+    except FileNotFoundError:
+        print(f"Error: Keymap file not found at {keymap_path}")
+        return {}, None
     except Exception as e:
         print(f"Error parsing keymap: {e}")
+        import traceback
+        traceback.print_exc() # Print full traceback for debugging
         return {}, None
 
 
