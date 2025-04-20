@@ -189,17 +189,39 @@ def main():
  * Automatically included by glove80.keymap
  * DO NOT EDIT MANUALLY
  */
-""".format(INPUT_CHORDS_FILE=INPUT_CHORDS_FILE)
 
-    # --- Generate ZMK Combos ---
-    combos_content = """
-/*
- * Generated ZMK Combos from {INPUT_CHORDS_FILE}
- * Automatically included by glove80.keymap
- * DO NOT EDIT MANUALLY
- */
-""".format(INPUT_CHORDS_FILE=INPUT_CHORDS_FILE)
+// Helper macro for stringification (from cradio)
+#define str(s) #s
 
+// Define a macro for word chords that types keys and adds a space
+#define WORD_MACRO(name, keys) \\
+    {name}: {name} {{ \\
+        compatible = "zmk,behavior-macro"; \\
+        #binding-cells = <0>; \\
+        wait-ms = <1>; \\
+        tap-ms = <1>; \\
+        bindings = <keys>, <&kp SPACE>; \\
+    }};
+
+// Define a LAYER_CHORD macro for generating combos on specific layers (from cradio)
+// Assumes layer defines like LAYER_Base exist in the main keymap
+#define LAYER_CHORD(name, keypress, keypos, lays, timeout) \\
+  combo_{name}: combo_{name} {{ \\
+    timeout-ms = <timeout>; \\
+    bindings = <keypress>; \\
+    key-positions = <keypos>; \\
+    layers = <lays>; \\
+  }};
+
+// Define a CHORD macro as shorthand for LAYER_CHORD on the Base layer
+#define CHORD(name, keypress, keypos, timeout) \\
+  LAYER_CHORD(name, keypress, keypos, LAYER_Base, timeout)
+
+/ {{
+    macros {{
+""" # Start macros node
+
+    macros_string_list = [] # Store macro definition strings
     combos_data = [] # Store tuples: (zmk_name, key_positions_str, macro_binding, comment)
 
     # Process chords
