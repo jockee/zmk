@@ -196,130 +196,120 @@ def main():
 / {{
     macros {{
 """
+    macros_definitions = []
+    combos_definitions = []
 
-    # Process chords
+    # First pass: Generate macro definitions
     if "chords" in jocke_data and isinstance(jocke_data["chords"], list):
+        # Reset used names for this pass if needed, or manage globally
+        _used_zmk_names.clear() # Clear names before generating macros
         for item in jocke_data["chords"]:
-            if not isinstance(item, dict):
-                continue
-
-            combo_keys = item.get("combo", [])
+            if not isinstance(item, dict): continue
             output_val = item.get("output")
-            behavior = item.get("behavior") # Check for behavior definition
+            behavior = item.get("behavior")
+            if output_val is None or behavior: continue # Only process output-based macros here
+
+            # Determine Base Name
+            base_name_src = output_val[0] if isinstance(output_val, list) else output_val
+            base_zmk_name = generate_zmk_name(base_name_src, prefix="m")
             exact = item.get("exact", False)
-            shift_override = item.get("shift") # Sartak's explicit shift output
+            add_space = not exact
 
-            if not combo_keys or (output_val is None and behavior is None):
-                continue
+            # Create Macro Bindings
+            output_text = output_val[0] if isinstance(output_val, list) else output_val
+            base_bindings_str, shifted_bindings_str = create_macro_bindings(output_text)
 
-            # --- Determine Base Name for ZMK Identifier ---
-            base_name_src = ""
-            if behavior:
-                 base_name_src = behavior.replace('-', '_') # Use behavior name
-            elif isinstance(output_val, list) and output_val:
-                base_name_src = output_val[0]
-            elif isinstance(output_val, str):
-                base_name_src = output_val
-            else:
-                 base_name_src = f"chord_{len(_used_zmk_names)}" # Fallback name
+            if base_bindings_str:
+                macros_definitions.append(f"""
+        // Output: '{output_text}'{' + SPACE' if add_space else ''}
+        WORD_MACRO({base_zmk_name}, {base_bindings_str})""")
 
-            base_zmk_name = generate_zmk_name(base_name_src, prefix="m") # Macro name
-            combo_zmk_name = base_zmk_name.replace("m_", "c_", 1) # Combo name
+            if shifted_bindings_str:
+                shifted_zmk_name = base_zmk_name.replace("m_", "m_S_", 1)
+                macros_definitions.append(f"""
+        // Shifted Output: '{output_text}'{' + SPACE' if add_space else ''}
+        WORD_MACRO({shifted_zmk_name}, {shifted_bindings_str})""")
 
-            # --- Handle Output/Behavior ---
-            macro_binding = None
-            shifted_macro_binding = None
-            macro_to_generate = None
-            shifted_macro_to_generate = None
-
-            if behavior:
-                 # Directly use behavior if defined (no macro needed)
-                 # Convert behavior name to ZMK binding if possible, e.g., &kp, &mo, etc.
-                 # This part needs specific mapping based on desired behaviors
-                 print(f"Warning: Behavior '{behavior}' found, direct binding not yet implemented in script. Skipping combo generation for {base_name_src}.")
-                 # Example: if behavior == 'delete-word': macro_binding = '&kp LA(BSPC)'
-                 continue # Skip combo generation for now if behavior is complex
-
-            elif output_val is not None:
-                # Use output to generate macro(s)
-                output_text = output_val[0] if isinstance(output_val, list) else output_val
-                output_text_clean = output_text # Keep leading backspace for create_macro_bindings
-                add_space = not exact
-
-                base_bindings_str, shifted_bindings_str = create_macro_bindings(output_text_clean)
-
-                if base_bindings_str:
-                    macro_binding = f"&{base_zmk_name}"
-                    macro_to_generate = (base_zmk_name, base_bindings_str, add_space, output_text) # Pass original text for comment
-
-                if shifted_bindings_str:
-                    # Generate shifted macro name
-                    shifted_zmk_name = base_zmk_name.replace("m_", "m_S_", 1)
-                    shifted_macro_binding = f"&{shifted_zmk_name}"
-                    shifted_macro_to_generate = (shifted_zmk_name, shifted_bindings_str, add_space, output_text) # Pass original text
-
-
-            # --- Generate Macro Definitions ---
-            if macro_to_generate:
-                m_name, m_bindings, m_add_space, m_orig_text = macro_to_generate
-                output_content += f"""
-        // Output: '{m_orig_text}'{' + SPACE' if m_add_space else ''}
-        WORD_MACRO({m_name}, {m_bindings})
-"""
-
-            if shifted_macro_to_generate:
-                sm_name, sm_bindings, sm_add_space, sm_orig_text = shifted_macro_to_generate
-                output_content += f"""
-        // Shifted Output: '{sm_orig_text}'{' + SPACE' if sm_add_space else ''}
-        WORD_MACRO({sm_name}, {sm_bindings})
-"""
-
-            # --- Prepare Combo Data ---
-            key_positions = []
-            valid_combo = True
-            for key in combo_keys:
-                # Map key name (from JSON) to ZMK keycode name used in keymap
-                zmk_keycode = ZMK_KEYCODE_MAP.get(key)
-                if not zmk_keycode:
-                    print(f"Warning: No ZMK keycode mapping for '{key}' in combo for '{base_name_src}'. Skipping combo.")
-                    valid_combo = False
-                    break
-                # Map ZMK keycode name to position number
-                pos_num = key_name_to_pos_num.get(zmk_keycode)
-                if pos_num is None:
-                    print(f"Warning: Could not find position for ZMK keycode '{zmk_keycode}' (from '{key}') in combo for '{base_name_src}'. Skipping combo.")
-                    valid_combo = False
-                    break
-                key_positions.append(str(pos_num))
-
-            if valid_combo and macro_binding:
-                # Close macros section and start combos section
-                if "combos {" not in output_content:
-                    output_content += """
+    # Append macro definitions to output
+    output_content += "\n".join(macros_definitions)
+    output_content += """
     }; // end of macros
 
     combos {
         compatible = "zmk,combos";
 """
-                # Generate comment for combo
-                chord_arg_name = combo_zmk_name.replace("c_", "", 1)
+
+    # Second pass: Generate combo definitions
+    if "chords" in jocke_data and isinstance(jocke_data["chords"], list):
+        # Reset used names again to ensure consistency if generate_zmk_name relies on it
+        _used_zmk_names.clear() # Clear names before generating combos/referencing macros
+        for item in jocke_data["chords"]:
+            if not isinstance(item, dict): continue
+            combo_keys = item.get("combo", [])
+            output_val = item.get("output")
+            behavior = item.get("behavior")
+            if not combo_keys or (output_val is None and behavior is None): continue
+
+            # Determine Base Name and Macro Binding
+            base_name_src = ""
+            macro_binding = None
+            shifted_macro_binding = None
+
+            if behavior:
+                print(f"Warning: Behavior '{behavior}' found, direct binding not yet implemented. Skipping combo for {behavior}.")
+                continue
+            elif output_val is not None:
+                base_name_src = output_val[0] if isinstance(output_val, list) else output_val
+                # Regenerate name to match macro pass - IMPORTANT: ensure generate_zmk_name is deterministic
+                # or that the state (_used_zmk_names) is reset correctly between passes.
+                base_zmk_name = generate_zmk_name(base_name_src, prefix="m")
+                macro_binding = f"&{base_zmk_name}"
+                # Check if shifted version exists (based on first char of output)
+                output_text = output_val[0] if isinstance(output_val, list) else output_val
+                _, shifted_bindings_str = create_macro_bindings(output_text)
+                if shifted_bindings_str:
+                    # Need the shifted name again
+                    shifted_zmk_name = base_zmk_name.replace("m_", "m_S_", 1)
+                    shifted_macro_binding = f"&{shifted_zmk_name}"
+
+            if not macro_binding: continue # Skip if no valid binding (e.g., behavior only)
+
+            # Prepare Key Positions
+            key_positions = []
+            valid_combo = True
+            for key in combo_keys:
+                zmk_keycode = ZMK_KEYCODE_MAP.get(key)
+                if not zmk_keycode:
+                    print(f"Warning: No ZMK keycode mapping for '{key}' in combo for '{base_name_src}'. Skipping combo.")
+                    valid_combo = False; break
+                pos_num = key_name_to_pos_num.get(zmk_keycode)
+                if pos_num is None:
+                    print(f"Warning: Could not find position for ZMK keycode '{zmk_keycode}' (from '{key}') in combo for '{base_name_src}'. Skipping combo.")
+                    valid_combo = False; break
+                key_positions.append(str(pos_num))
+
+            if valid_combo:
+                # Derive combo name from base ZMK name used for the macro
+                combo_zmk_name = base_zmk_name.replace("m_", "c_", 1)
+                chord_arg_name = combo_zmk_name.replace("c_", "", 1) # Name for the CHORD macro argument
                 combo_comment = f"// Combo for word: {base_name_src} (Chord: {''.join(sorted(k.lower() for k in combo_keys if k.lower() in ZMK_KEYCODE_MAP))})"
-                output_content += f"""
+                combos_definitions.append(f"""
         {combo_comment}
-        CHORD({chord_arg_name}, {macro_binding}, <{" ".join(sorted(key_positions, key=int))}>)
-"""
+        CHORD({chord_arg_name}, {macro_binding}, <{" ".join(sorted(key_positions, key=int))}>)""")
 
                 # Add shifted combo if applicable
                 if shifted_macro_binding and shift_pos_num is not None:
-                    shifted_chord_arg_name = chord_arg_name.replace("c_", "S_", 1)
+                    # The CHORD macro itself needs a unique name for the shifted version
+                    shifted_chord_arg_name = f"S_{chord_arg_name}"
                     shifted_key_positions = sorted(key_positions + [str(shift_pos_num)], key=int)
                     shifted_combo_comment = f"// Shifted combo for word: {base_name_src}"
-                    output_content += f"""
+                    combos_definitions.append(f"""
         {shifted_combo_comment}
-        CHORD(S_{chord_arg_name}, {shifted_macro_binding}, <{" ".join(shifted_key_positions)}>)
-"""
+        CHORD({shifted_chord_arg_name}, {shifted_macro_binding}, <{" ".join(shifted_key_positions)}>)""")
 
-    # Close the combos section and the root node
+
+    # Append combo definitions to output
+    output_content += "\n".join(combos_definitions)
     output_content += """
     }; // end of combos
 }; // end of /
