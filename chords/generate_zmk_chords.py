@@ -188,9 +188,6 @@ def main():
  * Automatically included by glove80.keymap
  * DO NOT EDIT MANUALLY
  */
-
-/ {{
-    macros {{
 """.format(INPUT_CHORDS_FILE=INPUT_CHORDS_FILE)
 
     # --- Generate ZMK Combos ---
