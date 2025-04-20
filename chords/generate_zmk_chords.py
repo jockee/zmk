@@ -212,7 +212,7 @@ def main():
 #define CHORD(name, keypress, keypos, timeout) \\
   LAYER_CHORD(name, keypress, keypos, LAYER_Base, timeout)
 
-/ {{
+/ {{ // Start the single root node
     macros {{
 """ # Start macros node
 
