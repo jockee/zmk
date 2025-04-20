@@ -177,10 +177,11 @@ def main():
     print(f"Using hardcoded map with {len(key_name_to_pos_num)} keys.")
     # --- End of Hardcoded Positions ---
 
-    # --- Prepare content for the new single output file ---
-    output_content = f"""
+    # --- Prepare static header content ---
+    # Use a regular string, NOT an f-string, for the #defines
+    static_header = """
 /*
- * Generated ZMK Chords & Macros from {INPUT_CHORDS_FILE}
+ * Generated ZMK Chords & Macros from """ + INPUT_CHORDS_FILE + """
  * Automatically included by glove80.keymap
  * DO NOT EDIT MANUALLY
  */
