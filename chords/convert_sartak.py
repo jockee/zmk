@@ -1,86 +1,439 @@
+#!/usr/bin/env python3
 import json
+import os
+import re
 import string
+from pathlib import Path
+from collections import defaultdict
 
-# Input and output file names
-input_file = "sartak_chords.json"
-output_file = "sartak_chordable_map.json"
+# === Configuration ===
+INPUT_CHORDS_FILE = "chords/jocke_chords.json" # Use your chord file
+OUTPUT_MACROS_FILE = Path("config/generated_macros.dtsi")
+OUTPUT_COMBOS_FILE = Path("config/generated_combos.dtsi")
+KEYMAP_FILE = Path("config/glove80.keymap")
 
-# Load the input JSON
-try:
-    with open(input_file, 'r') as f:
-        sartak_data = json.load(f)
-except FileNotFoundError:
-    print(f"Error: Input file '{input_file}' not found.")
-    exit(1)
-except json.JSONDecodeError:
-    print(f"Error: Could not decode JSON from '{input_file}'.")
-    exit(1)
-
-word_to_chord_map = {}
-
-# Iterate through the chord definitions in the "chords" list
-if "chords" in sartak_data and isinstance(sartak_data["chords"], list):
-    for item in sartak_data["chords"]:
-        # Skip non-dictionary items (like comments/strings)
-        if not isinstance(item, dict):
-            continue
-
-        # Get combo keys and output value, handling potential missing keys
-        combo_keys = item.get("combo")
-        output_val = item.get("output")
-
-        # Skip entries missing essential data or with empty combos
-        if not combo_keys or not output_val:
-            continue
-
-        # --- Process Output Word ---
-        word = ""
-        if isinstance(output_val, list):
-            if output_val: # Ensure list is not empty
-                word = output_val[0] # Take the first word if it's a list
-        elif isinstance(output_val, str):
-            word = output_val
-
-        # Clean the word: remove leading \b, strip whitespace, lowercase
-        word = word.lstrip('\b').strip().lower()
-
-        # Skip if word becomes empty after cleaning
-        if not word:
-            continue
-
-        # --- Process Combo Keys ---
-        # Filter keys: keep only single lowercase letters
-        # This excludes keys like "Dup", "Bksp", "." etc.
-        filtered_combo = [
-            k.lower() for k in combo_keys
-            if isinstance(k, str) and len(k) == 1 and k.islower()
-        ]
-
-        # Skip if combo is empty after filtering (no valid keys found)
-        if not filtered_combo:
-             continue
-
-        # Create the chord string: sorted, lowercase keys joined together
-        chord_string = "".join(sorted(filtered_combo))
-
-        # Add to map (overwrite if word already exists, last one wins)
-        word_to_chord_map[word] = chord_string
-
-else:
-    print(f"Warning: Expected 'chords' key with a list value in '{input_file}'. No chords processed.")
-
-
-# Prepare the final output structure, matching chordable_map.json format
-output_data = {
-    "words": word_to_chord_map,
-    "ngrams": [] # Ngrams are not generated from this source file
+# === ZMK Key Mapping (Add DUP) ===
+ZMK_KEYCODE_MAP = {
+    'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'f': 'F', 'g': 'G',
+    'h': 'H', 'i': 'I', 'j': 'J', 'k': 'K', 'l': 'L', 'm': 'M', 'n': 'N',
+    'o': 'O', 'p': 'P', 'q': 'Q', 'r': 'R', 's': 'S', 't': 'T', 'u': 'U',
+    'v': 'V', 'w': 'W', 'x': 'X', 'y': 'Y', 'z': 'Z',
+    '1': 'N1', '2': 'N2', '3': 'N3', '4': 'N4', '5': 'N5',
+    '6': 'N6', '7': 'N7', '8': 'N8', '9': 'N9', '0': 'N0',
+    ' ': 'SPACE', '\b': 'BSPC', '\n': 'RET', '\t': 'TAB', # Use BSPC for backspace
+    '!': 'EXCL', '@': 'AT', '#': 'HASH', '$': 'DLLR', '%': 'PRCNT', # Use ZMK names
+    '^': 'CARET', '&': 'AMPS', '*': 'ASTRK', '(': 'LPAR', ')': 'RPAR', # Use ZMK names
+    '-': 'MINUS', '_': 'UNDER', '=': 'EQUAL', '+': 'PLUS', '[': 'LBKT',
+    ']': 'RBKT', '{': 'LBRC', '}': 'RBRC', '\\': 'BSLH', '|': 'PIPE',
+    ';': 'SEMI', ':': 'COLON', "'": 'SQT', '"': 'DQT', ',': 'COMMA',
+    '.': 'DOT', '/': 'FSLH', '<': 'LT', '>': 'GT', '?': 'QMARK', # Use ZMK names
+    '`': 'GRAVE', '~': 'TILDE',
+    'Dup': 'DUP', # Add Dup mapping - Ensure 'DUP' exists in your keymap defines or use a placeholder like K_F13
+    # Add mappings for any other special keys used in your combos (e.g., Bksp, Ret)
+    'Bksp': 'BSPC',
+    'Ret': 'RET',
+    'Spc': 'SPACE',
+    'Tab': 'TAB',
+    # Add any other mappings needed from your jocke_chords.json 'combo' keys
 }
 
-# Save the output JSON
-try:
-    with open(output_file, 'w') as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False) # ensure_ascii=False for potential unicode chars
-    print(f"Successfully created '{output_file}' with {len(word_to_chord_map)} word chords.")
-except IOError:
-    print(f"Error: Could not write to output file '{output_file}'.")
-    exit(1)
+# Keys that represent modifiers or layers, not standard key presses
+NON_OUTPUT_KEYS = {'LSHFT', 'RSHFT', 'LCTRL', 'RCTRL', 'LALT', 'RALT', 'LGUI', 'RGUI', 'LSFT', 'RSFT'}
+
+# === Helper Functions ===
+
+def parse_keymap_for_positions_and_bindings(keymap_path):
+    """Parse the keymap file to get key positions and base layer bindings."""
+    key_name_to_pos_num = {}
+    pos_defines = {}
+    shift_pos_num = None
+
+    try:
+        with open(keymap_path, 'r') as f:
+            content = f.read()
+
+        # 1. Extract position defines (#define POS_... number)
+        for match in re.finditer(r"#define\s+(POS_[A-Z0-9_]+)\s+(\d+)", content):
+            pos_defines[match.group(1)] = int(match.group(2))
+
+        # 2. Extract Base layer bindings to map key names to position names
+        base_layer_match = re.search(r"layer_Base\s*{[^}]*bindings\s*=\s*<([^>]*)>", content, re.DOTALL)
+        if base_layer_match:
+            bindings_str = base_layer_match.group(1)
+            # Clean up bindings string (remove comments, newlines)
+            bindings_str = re.sub(r"//.*?\n", "", bindings_str)
+            bindings_str = bindings_str.replace('\n', ' ').strip()
+            bindings = bindings_str.split()
+
+            current_pos_index = 0
+            for binding in bindings:
+                # Find the POS_ define corresponding to the current index
+                # We need to do this *before* checking the binding type,
+                # as the index increments regardless of the binding.
+                pos_name = next((name for name, num in pos_defines.items() if num == current_pos_index), None)
+
+                if binding.startswith('&kp'): # Simple &kp binding
+                    key_name_match = re.match(r"&kp\s+([A-Z0-9_]+)", binding)
+                    if key_name_match:
+                        key_name = key_name_match.group(1)
+                        if pos_name and key_name not in NON_OUTPUT_KEYS:
+                            key_name_to_pos_num[key_name] = current_pos_index
+                            # Check for Shift key
+                            if key_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT') and shift_pos_num is None:
+                                shift_pos_num = current_pos_index
+                                print(f"Found Shift key: {key_name} at position {shift_pos_num}")
+                elif binding.startswith('&'): # Other behavior bindings
+                     # Try matching mod-tap or other complex behaviors if needed
+                     # Example: &mt LSHFT A -> key name is A
+                     # Example: &lt LAYER KEY -> key name is KEY
+                     # Example: &ag KEY -> key name is KEY
+                     complex_match = re.match(r"&\w+\s+(?:[A-Z0-9_]+\s+)?([A-Z0-9_]+)", binding)
+                     if complex_match:
+                         key_name = complex_match.group(1)
+                         if pos_name and key_name not in NON_OUTPUT_KEYS:
+                             # Store the position even if it's a complex binding,
+                             # but prioritize &kp bindings if duplicates occur.
+                             if key_name not in key_name_to_pos_num:
+                                 key_name_to_pos_num[key_name] = current_pos_index
+                             # Check for Shift key in complex bindings too
+                             if key_name in ('LSHFT', 'LSFT', 'RSHFT', 'RSFT') and shift_pos_num is None:
+                                 shift_pos_num = current_pos_index
+                                 print(f"Found Shift key (complex): {key_name} at position {shift_pos_num}")
+                     # else:
+                         # print(f"Skipping complex binding: {binding}")
+
+                current_pos_index += 1 # Increment position index
+
+        else:
+            print(f"Warning: Could not find 'layer_Base' bindings in {keymap_path}")
+
+        # Add mappings for keys defined in ZMK_KEYCODE_MAP but potentially not in base layer (like DUP)
+        for key, zmk_code in ZMK_KEYCODE_MAP.items():
+             if zmk_code not in key_name_to_pos_num:
+                 # Try to find the position number directly if the zmk_code matches a POS_ define's number
+                 # This is less reliable than parsing bindings but a fallback
+                 found_pos = next((num for name, num in pos_defines.items() if name.endswith(zmk_code)), None)
+                 if found_pos is not None:
+                      # Check if this position is already mapped to a different key via &kp
+                      already_mapped_key = next((k for k, p in key_name_to_pos_num.items() if p == found_pos), None)
+                      if not already_mapped_key:
+                           print(f"Fallback mapping for {zmk_code} to position {found_pos}")
+                           key_name_to_pos_num[zmk_code] = found_pos
+                      # else:
+                      #      print(f"Skipping fallback for {zmk_code}, position {found_pos} already mapped to {already_mapped_key}")
+
+
+                 # Add specific logic for DUP if needed, e.g., find its binding to &key_repeat_behavior
+                 if zmk_code == 'DUP':
+                     dup_match = re.search(r"layer_Base\s*{[^}]*bindings\s*=\s*<([^>]*)>", content, re.DOTALL)
+                     if dup_match:
+                         bindings_str = dup_match.group(1)
+                         bindings_str = re.sub(r"//.*?\n", "", bindings_str)
+                         bindings_str = bindings_str.replace('\n', ' ').strip()
+                         bindings = bindings_str.split()
+                         dup_index = -1
+                         for i, binding in enumerate(bindings):
+                             if binding == '&key_repeat_behavior':
+                                 dup_index = i
+                                 break
+                         if dup_index != -1:
+                             key_name_to_pos_num['DUP'] = dup_index
+                             print(f"Found DUP key (&key_repeat_behavior) at position {dup_index}")
+                         else:
+                             print("Warning: Could not find '&key_repeat_behavior' in layer_Base bindings for DUP.")
+                     else:
+                          print("Warning: Could not parse layer_Base to find DUP key.")
+
+
+        if shift_pos_num is None:
+             print("Error: Could not automatically find Shift key position in keymap.")
+             # exit(1) # Optional: exit if shift is critical
+
+        return key_name_to_pos_num, shift_pos_num
+
+    except Exception as e:
+        print(f"Error parsing keymap: {e}")
+        return {}, None
+
+
+def create_macro_bindings(text):
+    """Create ZMK macro bindings for the given text, handling shifts."""
+    if not text:
+        return "", "" # Return empty strings for base and shifted
+
+    base_bindings = []
+    shifted_bindings = []
+    needs_shifted_macro = False
+    first_char_processed = False
+
+    # Handle leading backspace
+    if text.startswith('\b'):
+        base_bindings.append("&kp BSPC")
+        shifted_bindings.append("&kp BSPC")
+        text = text[1:]
+
+    for char in text:
+        is_first_char = not first_char_processed
+        first_char_processed = True
+
+        if char.islower() and char in ZMK_KEYCODE_MAP:
+            zmk_code = ZMK_KEYCODE_MAP[char]
+            base_bindings.append(f"&kp {zmk_code}")
+            shifted_bindings.append(f"&kp LS({zmk_code})")
+            if is_first_char:
+                needs_shifted_macro = True # Need shift version if first char is lowercase
+        elif char.isupper() and char.lower() in ZMK_KEYCODE_MAP:
+            zmk_code = ZMK_KEYCODE_MAP[char.lower()]
+            base_bindings.append(f"&kp LS({zmk_code})")
+            shifted_bindings.append(f"&kp LS({zmk_code})") # Shifted uppercase is still shifted uppercase
+        elif char in ZMK_KEYCODE_MAP:
+            zmk_code = ZMK_KEYCODE_MAP[char]
+            base_bindings.append(f"&kp {zmk_code}")
+            # How to handle shifted symbols? Depends on layout. Assume base for now.
+            # You might need a more complex mapping for shifted symbols.
+            shifted_bindings.append(f"&kp {zmk_code}")
+        else:
+            print(f"Warning: Unknown character '{char}' in text '{text}' for macro generation.")
+
+    # Only return shifted bindings if the first character required a shift
+    return " ".join(base_bindings), " ".join(shifted_bindings) if needs_shifted_macro else None
+
+_used_zmk_names = {}
+def generate_zmk_name(base_name, prefix="m"):
+    """Generate a unique and valid ZMK identifier."""
+    # Sanitize base_name
+    name = ''.join(c for c in base_name.lower() if c.isalnum() or c == '_')
+    name = re.sub(r'_+', '_', name).strip('_') # Replace multiple underscores and strip ends
+
+    if not name: # Handle cases where sanitization results in empty string
+        name = f"{prefix}_unnamed"
+    elif not name[0].isalpha():
+        name = f"{prefix}_{name}"
+    else:
+        name = f"{prefix}_{name}"
+
+    # Ensure uniqueness
+    original_name = name
+    count = 1
+    while name in _used_zmk_names:
+        name = f"{original_name}_{count}"
+        count += 1
+    _used_zmk_names[name] = True
+
+    # ZMK identifiers have length limits (e.g., 31 for labels)
+    return name[:31]
+
+# === Main Processing ===
+def main():
+    # Load the input JSON
+    try:
+        with open(INPUT_CHORDS_FILE, 'r') as f:
+            jocke_data = json.load(f)
+    except FileNotFoundError:
+        print(f"Error: Input file '{INPUT_CHORDS_FILE}' not found.")
+        exit(1)
+    except json.JSONDecodeError:
+        print(f"Error: Could not decode JSON from '{INPUT_CHORDS_FILE}'.")
+        exit(1)
+
+    # Parse the keymap for positions
+    key_name_to_pos_num, shift_pos_num = parse_keymap_for_positions_and_bindings(KEYMAP_FILE)
+    if not key_name_to_pos_num:
+        print("Error: Failed to parse key positions from keymap. Exiting.")
+        exit(1)
+    # Add manual mapping for DUP if needed and not found automatically
+    if 'DUP' not in key_name_to_pos_num:
+         # Find the position number assigned to &key_repeat_behavior if you add it
+         # Example: key_name_to_pos_num['DUP'] = 79 # Assuming K_PP was at 79 and replaced
+         print("Warning: 'DUP' key position not found automatically. Add manual mapping or ensure it's bound with &kp DUP or &key_repeat_behavior in base layer.")
+
+
+    # --- Generate ZMK Macros ---
+    macros_content = """
+/*
+ * Generated ZMK Macros from {INPUT_CHORDS_FILE}
+ * Automatically included by glove80.keymap
+ * DO NOT EDIT MANUALLY
+ */
+
+/ {{
+    macros {{
+""".format(INPUT_CHORDS_FILE=INPUT_CHORDS_FILE)
+
+    # --- Generate ZMK Combos ---
+    combos_content = """
+/*
+ * Generated ZMK Combos from {INPUT_CHORDS_FILE}
+ * Automatically included by glove80.keymap
+ * DO NOT EDIT MANUALLY
+ */
+
+/ {{
+    combos {{
+        compatible = "zmk,combos";
+""".format(INPUT_CHORDS_FILE=INPUT_CHORDS_FILE)
+
+    combos_data = [] # Store tuples: (zmk_name, key_positions_str, macro_binding)
+
+    # Process chords
+    if "chords" in jocke_data and isinstance(jocke_data["chords"], list):
+        for item in jocke_data["chords"]:
+            if not isinstance(item, dict):
+                continue
+
+            combo_keys = item.get("combo", [])
+            output_val = item.get("output")
+            behavior = item.get("behavior") # Check for behavior definition
+            exact = item.get("exact", False)
+            shift_override = item.get("shift") # Sartak's explicit shift output
+
+            if not combo_keys or (output_val is None and behavior is None):
+                continue
+
+            # --- Determine Base Name for ZMK Identifier ---
+            base_name_src = ""
+            if behavior:
+                 base_name_src = behavior.replace('-', '_') # Use behavior name
+            elif isinstance(output_val, list) and output_val:
+                base_name_src = output_val[0]
+            elif isinstance(output_val, str):
+                base_name_src = output_val
+            else:
+                 base_name_src = f"chord_{len(_used_zmk_names)}" # Fallback name
+
+            base_zmk_name = generate_zmk_name(base_name_src, prefix="m") # Macro name
+            combo_zmk_name = base_zmk_name.replace("m_", "c_", 1) # Combo name
+
+            # --- Handle Output/Behavior ---
+            macro_binding = None
+            shifted_macro_binding = None
+            macro_to_generate = None
+            shifted_macro_to_generate = None
+
+            if behavior:
+                 # Directly use behavior if defined (no macro needed)
+                 # Convert behavior name to ZMK binding if possible, e.g., &kp, &mo, etc.
+                 # This part needs specific mapping based on desired behaviors
+                 print(f"Warning: Behavior '{behavior}' found, direct binding not yet implemented in script. Skipping combo generation for {base_name_src}.")
+                 # Example: if behavior == 'delete-word': macro_binding = '&kp LA(BSPC)'
+                 continue # Skip combo generation for now if behavior is complex
+
+            elif output_val is not None:
+                # Use output to generate macro(s)
+                output_text = output_val[0] if isinstance(output_val, list) else output_val
+                output_text_clean = output_text # Keep leading backspace for create_macro_bindings
+                add_space = not exact
+
+                base_bindings_str, shifted_bindings_str = create_macro_bindings(output_text_clean)
+
+                if base_bindings_str:
+                    macro_binding = f"&{base_zmk_name}"
+                    macro_to_generate = (base_zmk_name, base_bindings_str, add_space, output_text) # Pass original text for comment
+
+                if shifted_bindings_str:
+                    # Generate shifted macro name
+                    shifted_zmk_name = base_zmk_name.replace("m_", "m_S_", 1)
+                    shifted_macro_binding = f"&{shifted_zmk_name}"
+                    shifted_macro_to_generate = (shifted_zmk_name, shifted_bindings_str, add_space, output_text) # Pass original text
+
+
+            # --- Generate Macro Definitions ---
+            if macro_to_generate:
+                m_name, m_bindings, m_add_space, m_orig_text = macro_to_generate
+                final_bindings = m_bindings + (" &kp SPACE" if m_add_space else "")
+                macros_content += f"""
+        {m_name}: {m_name} {{ // Output: '{m_orig_text}'{' + SPACE' if m_add_space else ''}
+            compatible = "zmk,behavior-macro";
+            label = "{m_name.upper()}";
+            #binding-cells = <0>;
+            wait-ms = <1>; // Adjust timing if needed
+            tap-ms = <1>;
+            bindings = <{final_bindings}>;
+        }};"""
+
+            if shifted_macro_to_generate:
+                sm_name, sm_bindings, sm_add_space, sm_orig_text = shifted_macro_to_generate
+                final_s_bindings = sm_bindings + (" &kp SPACE" if sm_add_space else "")
+                macros_content += f"""
+        {sm_name}: {sm_name} {{ // Shifted Output: '{sm_orig_text}'{' + SPACE' if sm_add_space else ''}
+            compatible = "zmk,behavior-macro";
+            label = "{sm_name.upper()}";
+            #binding-cells = <0>;
+            wait-ms = <1>;
+            tap-ms = <1>;
+            bindings = <{final_s_bindings}>;
+        }};"""
+
+            # --- Prepare Combo Data ---
+            key_positions = []
+            valid_combo = True
+            for key in combo_keys:
+                # Map key name (from JSON) to ZMK keycode name used in keymap
+                zmk_keycode = ZMK_KEYCODE_MAP.get(key)
+                if not zmk_keycode:
+                    print(f"Warning: No ZMK keycode mapping for '{key}' in combo for '{base_name_src}'. Skipping combo.")
+                    valid_combo = False
+                    break
+                # Map ZMK keycode name to position number
+                pos_num = key_name_to_pos_num.get(zmk_keycode)
+                if pos_num is None:
+                    print(f"Warning: Could not find position for ZMK keycode '{zmk_keycode}' (from '{key}') in combo for '{base_name_src}'. Skipping combo.")
+                    valid_combo = False
+                    break
+                key_positions.append(str(pos_num))
+
+            if valid_combo and macro_binding:
+                # Generate comment for combo
+                combo_comment = f"// Combo for word: {base_name_src} (Chord: {''.join(sorted(k.lower() for k in combo_keys if k.lower() in ZMK_KEYCODE_MAP))})"
+                combos_data.append((combo_zmk_name, " ".join(sorted(key_positions, key=int)), macro_binding, combo_comment))
+
+                # Add shifted combo if applicable
+                if shifted_macro_binding and shift_pos_num is not None:
+                    shifted_combo_name = combo_zmk_name.replace("c_", "c_S_", 1)
+                    shifted_key_positions = sorted(key_positions + [str(shift_pos_num)], key=int)
+                    shifted_combo_comment = f"// Shifted combo for word: {base_name_src}"
+                    combos_data.append((shifted_combo_name, " ".join(shifted_key_positions), shifted_macro_binding, shifted_combo_comment))
+
+
+    # --- Generate Combo Definitions ---
+    for c_name, c_pos_str, c_binding, c_comment in combos_data:
+         # Basic timeout, could be adjusted based on len(c_pos_str.split())
+         key_count = len(c_pos_str.split())
+         timeout = 40 + (key_count - 1) * 10 if key_count > 1 else 40 # Base timeout 40ms
+         timeout = min(timeout, 80) # Cap timeout at 80ms for now
+         combos_content += f"""
+        {c_comment}
+        {c_name}: {c_name} {{
+            key-positions = <{c_pos_str}>;
+            timeout-ms = <{timeout}>; /* Timeout based on key count */
+            bindings = <{c_binding}>;
+            // layers = <LAYER_Base>; // Optional: restrict to specific layers
+        }};"""
+
+    # Close the content blocks
+    macros_content += """
+    }; // end of macros
+}; // end of /
+"""
+    combos_content += """
+    }; // end of combos
+}; // end of /
+"""
+
+    # Save the output files
+    try:
+        os.makedirs(os.path.dirname(OUTPUT_MACROS_FILE), exist_ok=True)
+        with open(OUTPUT_MACROS_FILE, 'w') as f:
+            f.write(macros_content)
+        print(f"Successfully created '{OUTPUT_MACROS_FILE}'")
+
+        os.makedirs(os.path.dirname(OUTPUT_COMBOS_FILE), exist_ok=True)
+        with open(OUTPUT_COMBOS_FILE, 'w') as f:
+            f.write(combos_content)
+        print(f"Successfully created '{OUTPUT_COMBOS_FILE}'")
+    except IOError as e:
+        print(f"Error writing output files: {e}")
+        exit(1)
+
+if __name__ == "__main__":
+    main()
