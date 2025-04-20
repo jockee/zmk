@@ -21,15 +21,6 @@
 
 #include "generated_chords.keymap" // Include the generated chord definitions
 
-// Define a MACRO macro for generating simple macros (REMOVED - Now in generated_chords.keymap)
-/* #define ZMK_MACRO(name, bindings_list) \
-    name: name { \
-        compatible = "zmk,behavior-macro"; \
-        #binding-cells = <0>; \
-        wait-ms = <1>; \
-        tap-ms = <1>; \
-        bindings = <bindings_list>; \
-    }; */
 
 // Define a CHORD macro for generating combos (REMOVED - Now in generated_chords.keymap)
 /* #define CHORD(name, keypress, keypos, timeout) \
@@ -306,6 +297,7 @@
              compatible = "zmk,behavior-key-repeat";
              label = "KEY_REPEAT";
              #binding-cells = <0>;
+             usage-pages = <>;
         };
     };
 };
@@ -336,7 +328,7 @@
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
             &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo 1  &kp RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
- &magic LAYER_Magic 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &kp DEL  &kp LC(BSPC)  &kp BSPC      &mo 2          &kp UP   &kp DOWN  &kp BSPC  &key_repeat_behavior  &kp PG_DN
+ &magic LAYER_Magic 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior &kp LC(BSPC)  &kp BSPC  &mo 2          &kp UP   &kp DOWN  &kp BSPC  &kp PG_DN
             >;
         };
 
