@@ -8,8 +8,9 @@ from collections import defaultdict
 
 # === Configuration ===
 INPUT_CHORDS_FILE = "chords/jocke_chords.json" # Use your chord file
-OUTPUT_MACROS_FILE = Path("config/generated_macros.dtsi")
-OUTPUT_COMBOS_FILE = Path("config/generated_combos.dtsi")
+OUTPUT_CHORDS_KEYMAP_FILE = Path("config/generated_chords.keymap") # New output file
+# OUTPUT_MACROS_FILE = Path("config/generated_macros.dtsi") # Old
+# OUTPUT_COMBOS_FILE = Path("config/generated_combos.dtsi") # Old
 KEYMAP_FILE = Path("config/glove80.keymap")
 
 # === ZMK Key Mapping (Add DUP) ===
