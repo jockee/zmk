@@ -405,7 +405,7 @@
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
             &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
- &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+ &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &pc_ret  &pc_spc   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
 
