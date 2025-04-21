@@ -22,10 +22,16 @@
     key-positions = <keypos>; \
     layers = <lays>; \
   };
-
-#define CHORD(name, keypress, keypos) \
-  LAYER_CHORD(name, keypress, keypos, ALPHA POST_CHORD)
-
+ 
+// Modified CHORD macro to inline keys
+#define CHORD(name, keys, keypos) \
+  chord_##name { \
+    timeout-ms = <30>; \
+    bindings = <keys &kp SPC &to ALPHA>; /* Inline keys, add space, add transition */ \
+    key-positions = <keypos>; \
+    layers = <0 1>; /* Use layer indices directly: ALPHA=0, POST_CHORD=1 */ \
+  };
+ 
 #define MACRO(name, keys) \
   name: name##_macro { \
   compatible = "zmk,behavior-macro"; \
