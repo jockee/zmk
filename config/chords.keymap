@@ -22,7 +22,7 @@
     key-positions = <keypos>; \
     layers = <lays>; \
   };
- 
+
 // Modified CHORD macro to inline keys
 #define CHORD(name, keys, keypos) \
   chord_##name { \
