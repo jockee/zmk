@@ -21,7 +21,7 @@
 #define LAYER_CHORD(name, keypress, keypos, lays) \
   chord_##name { \
     timeout-ms = <30>; \
-    bindings = <keypress>; \
+    bindings = <keypress &to ALPHA>; /* Add transition back to ALPHA */ \
     key-positions = <keypos>; \
     layers = <lays>; \
   };
