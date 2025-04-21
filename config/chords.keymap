@@ -1,0 +1,65 @@
+#define str(s) #s
+
+#define THCHORD(name, tapMacro, holdMacro) \
+  name: name { \
+    compatible = "zmk,behavior-hold-tap"; \
+    label = str(name); \
+    #binding-cells = <2>; \
+    tapping_term_ms = <200>; \
+    quick_tap_ms = <0>; \
+    flavor = "tap-preferred"; \
+    bindings = <&holdMacro>, <&tapMacro>; \
+  };
+
+#define COMBO(name, keypress, keypos) \
+  combo_##name { \
+    timeout-ms = <60>; \
+    bindings = <keypress>; \
+    key-positions = <keypos>; \
+  };
+
+#define LAYER_CHORD(name, keypress, keypos, lays) \
+  chord_##name { \
+    timeout-ms = <60>; \
+    bindings = <keypress>; \
+    key-positions = <keypos>; \
+    layers = <lays>; \
+  };
+
+#define CHORD(name, keypress, keypos) \
+  LAYER_CHORD(name, keypress, keypos, ALPHA POST_CHORD)
+
+#define MACRO(name, keys) \
+  name: name##_macro { \
+  label = #name; \
+  compatible = "zmk,behavior-macro"; \
+  #binding-cells = <0>; \
+  tap-ms = <1>; \
+  wait-ms = <1>; \
+  bindings = <keys>; \
+  };
+
+#define CHMAC(name, keys) \
+  name: name##_macro { \
+    label = #name; \
+    compatible = "zmk,behavior-macro"; \
+    #binding-cells = <0>; \
+    tap-ms = <1>; \
+    wait-ms = <1>; \
+    bindings = <keys>, <&to POST_CHORD>; \
+  };
+
+/ {
+  combos {
+    compatible = "zmk,combos";
+    CHORD(ch_the, &ch_the, 38 59 42)
+    CHORD(ch_S_the, &ch_S_the, 38 59 42 57)
+  };
+};
+
+/ {
+  macros {
+    CHMAC(ch_the, &kp T &kp H &kp E &kp SPC)
+    CHMAC(ch_S_the, &kp LS(T) &kp H &kp E &kp SPC)
+  }; 
+}; 
