@@ -319,7 +319,7 @@
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       tap-ms = <1>;
-      wait-ms = <1>; // Apply formatter changes if any
+      wait-ms = <1>;
       bindings = <&kp BSPC &kp DOT &kp SPC &to ALPHA>;
     };
     post_chord_comma: post_chord_comma {
@@ -327,47 +327,7 @@
       #binding-cells = <0>;
       tap-ms = <1>;
       wait-ms = <1>;
-      bindings = <&kp BSPC &kp FSLH &kp SPC &to ALPHA>;
-    };
-    post_chord_apos: post_chord_apos {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      tap-ms = <1>;
-      wait-ms = <1>;
-      bindings = <&kp BSPC &kp APOS &to ALPHA>;
-    };
-    post_chord_qmark: post_chord_qmark {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      tap-ms = <1>;
-      wait-ms = <1>;
-      bindings = <&kp BSPC &kp QMARK &to ALPHA>;
-    };
-    post_chord_exclam: post_chord_exclam {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      tap-ms = <1>;
-      wait-ms = <1>;
-      bindings = <&kp BSPC &kp EXCL &to ALPHA>;
-    };
-    post_chord_colon: post_chord_colon {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      tap-ms = <1>;
-      wait-ms = <1>;
-      bindings = <&kp BSPC &kp COLON &to ALPHA>;
-    };
-    pc_spc: pc_spc { // Post-Chord Space
-        compatible = "zmk,behavior-macro";
-        #binding-cells = <0>;
-        wait-ms = <1>; tap-ms = <1>;
-        bindings = <&kp SPC &to ALPHA>;
-    };
-    pc_ret: pc_ret { // Post-Chord Return/Enter
-        compatible = "zmk,behavior-macro";
-        #binding-cells = <0>;
-        wait-ms = <1>; tap-ms = <1>;
-        bindings = <&kp RET &to ALPHA>;
+      bindings = <&kp BSPC &kp COMMA &kp SPC &to ALPHA>;
     };
   };
 };
@@ -405,7 +365,7 @@
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
             &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
- &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &pc_ret  &pc_spc   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+ &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
 

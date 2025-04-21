@@ -55,7 +55,7 @@
     LAYER_CHORD(ch_excl_s, &ch_excl_s, KS KT, POST_CHORD)
     LAYER_CHORD(ch_excl, &kp EXCL, KS KT, ALPHA SYM NUM)
     LAYER_CHORD(ch_qmark_s, &ch_qmark_s, KN KE, POST_CHORD)
-    LAYER_CHORD(ch_qmark, &kp LS(FSLH), KN KE, ALPHA SYM NUM) // Use Shift + Forward Slash for Swedish '?'
+    LAYER_CHORD(ch_qmark, &kp LS(MINUS), KN KE, ALPHA SYM NUM) 
     CHORD(ch_the, &ch_the, KT KH KE)
     CHORD(ch_S_the, &ch_S_the, KT KH KE KSFT)
   };
@@ -64,7 +64,7 @@
 / {
   macros {
     CHMAC(ch_excl_s, &kp BSPC &kp EXCL &kp SPC)
-    CHMAC(ch_qmark_s, &kp BSPC &kp LS(FSLH) &kp SPC) // Use Shift + Forward Slash for Swedish '?'
+    CHMAC(ch_qmark_s, &kp BSPC &kp LS(MINUS) &kp SPC) 
     CHMAC(ch_the, &kp T &kp H &kp E &kp SPC)
     CHMAC(ch_S_the, &kp LS(T) &kp H &kp E &kp SPC)
   }; 
