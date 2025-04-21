@@ -26,7 +26,7 @@
 // Modified CHORD macro to inline keys
 #define CHORD(name, keys, keypos) \
   chord_##name { \
-    timeout-ms = <30>; \
+    timeout-ms = <50>; /* Ensure timeout is 50ms */ \
     bindings = <keys &kp SPC &to ALPHA>; /* Inline keys, add space, add transition */ \
     key-positions = <keypos>; \
     layers = <0 1>; /* Use layer indices directly: ALPHA=0, POST_CHORD=1 */ \
