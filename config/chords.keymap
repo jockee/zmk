@@ -17,7 +17,7 @@
 
 #define LAYER_CHORD(name, keypress, keypos, lays) \
   chord_##name { \
-    timeout-ms = <30>; \
+    timeout-ms = <50>; /* Increased timeout to match CHORD */ \
     bindings = <keypress &to ALPHA>; /* Add transition back to ALPHA */ \
     key-positions = <keypos>; \
     layers = <0 1>; /* Use layer indices directly: ALPHA=0, POST_CHORD=1 */ \
