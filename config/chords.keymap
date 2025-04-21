@@ -55,7 +55,7 @@
     LAYER_CHORD(ch_excl_s, &ch_excl_s, KS KT, POST_CHORD)
     LAYER_CHORD(ch_excl, &kp EXCL, KS KT, ALPHA SYM NUM)
     LAYER_CHORD(ch_qmark_s, &ch_qmark_s, KN KE, POST_CHORD)
-    LAYER_CHORD(ch_qmark, &kp QMARK, KN KE, ALPHA SYM NUM)
+    LAYER_CHORD(ch_qmark, &kp LS(FSLH), KN KE, ALPHA SYM NUM) // Use Shift + Forward Slash for Swedish '?'
     CHORD(ch_the, &ch_the, KT KH KE)
     CHORD(ch_S_the, &ch_S_the, KT KH KE KSFT)
   };
