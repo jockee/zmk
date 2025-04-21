@@ -20,7 +20,7 @@
     timeout-ms = <30>; \
     bindings = <keypress &to ALPHA>; /* Add transition back to ALPHA */ \
     key-positions = <keypos>; \
-    layers = <lays>; \
+    layers = <0 1>; /* Use layer indices directly: ALPHA=0, POST_CHORD=1 */ \
   };
 
 // Modified CHORD macro to inline keys
@@ -32,27 +32,15 @@
     layers = <0 1>; /* Use layer indices directly: ALPHA=0, POST_CHORD=1 */ \
   };
  
-#define MACRO(name, keys) \
-  name: name##_macro { \
-  compatible = "zmk,behavior-macro"; \
-  #binding-cells = <0>; \
-  tap-ms = <1>; \
-  wait-ms = <1>; \
-  bindings = <keys>; \
-  };
 
-#define CHMAC(name, keys) \
-  name: name##_macro { \
-    compatible = "zmk,behavior-macro"; \
-    #binding-cells = <0>; \
-    tap-ms = <1>; \
-    wait-ms = <1>; \
-    bindings = <keys>, <&to POST_CHORD>; \
-  };
 
 / {
   combos {
     compatible = "zmk,combos";
+    LAYER_CHORD(ch_excl_s, &kp BSPC &kp EXCL &kp SPC, KS KT, POST_CHORD)
+    LAYER_CHORD(ch_excl, &kp EXCL, KS KT, ALPHA SYM NUM)
+    LAYER_CHORD(ch_qmark_s, &kp BSPC &kp LS(MINUS) &kp SPC, KI KE, POST_CHORD)
+    LAYER_CHORD(ch_qmark, &kp LS(MINUS), KI KE, ALPHA SYM NUM) 
     CHORD(ch_the, &kp T &kp H &kp E, KT KH KE)
     CHORD(ch_i, &kp I, KI KDUP)
     CHORD(ch_be, &kp B &kp E, KB KE)
