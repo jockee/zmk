@@ -32,11 +32,6 @@
     layers = <0 1>; /* Use layer indices directly: ALPHA=0, POST_CHORD=1 */ \
   };
  
-
-
-/ {
-  combos {
-    compatible = "zmk,combos";
     LAYER_CHORD(ch_excl_s, &kp BSPC &kp EXCL &kp SPC, KS KT, POST_CHORD)
     LAYER_CHORD(ch_excl, &kp EXCL, KS KT, ALPHA SYM NUM)
     LAYER_CHORD(ch_qmark_s, &kp BSPC &kp LS(MINUS) &kp SPC, KI KE, POST_CHORD)
@@ -318,11 +313,3 @@
     CHORD(ch_question, &kp Q &kp E &kp S, KQ KE KS)
     CHORD(ch_during, &kp D &kp U &kp R, KD KU KR)
     CHORD(ch_play, &kp P &kp L &kp Y, KP KL KY)
-  };
-};
-
-/ {
-  macros {
-    // This block is intentionally left empty as the macros are now inlined
-  };
-};
