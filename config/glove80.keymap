@@ -319,43 +319,55 @@
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       tap-ms = <1>;
-      wait-ms = <1>;
-      bindings = <&kp BSPC &kp DOT &kp SPC>;
+      wait-ms = <1>; // Apply formatter changes if any
+      bindings = <&kp BSPC &kp DOT &kp SPC &to ALPHA>;
     };
     post_chord_comma: post_chord_comma {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       tap-ms = <1>;
       wait-ms = <1>;
-      bindings = <&kp BSPC &kp FSLH &kp SPC>;
+      bindings = <&kp BSPC &kp FSLH &kp SPC &to ALPHA>;
     };
     post_chord_apos: post_chord_apos {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       tap-ms = <1>;
       wait-ms = <1>;
-      bindings = <&kp BSPC &kp APOS>;
+      bindings = <&kp BSPC &kp APOS &to ALPHA>;
     };
     post_chord_qmark: post_chord_qmark {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       tap-ms = <1>;
       wait-ms = <1>;
-      bindings = <&kp BSPC &kp QMARK>;
+      bindings = <&kp BSPC &kp QMARK &to ALPHA>;
     };
     post_chord_exclam: post_chord_exclam {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       tap-ms = <1>;
       wait-ms = <1>;
-      bindings = <&kp BSPC &kp EXCL>;
+      bindings = <&kp BSPC &kp EXCL &to ALPHA>;
     };
     post_chord_colon: post_chord_colon {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       tap-ms = <1>;
       wait-ms = <1>;
-      bindings = <&kp BSPC &kp COLON>;
+      bindings = <&kp BSPC &kp COLON &to ALPHA>;
+    };
+    pc_spc: pc_spc { // Post-Chord Space
+        compatible = "zmk,behavior-macro";
+        #binding-cells = <0>;
+        wait-ms = <1>; tap-ms = <1>;
+        bindings = <&kp SPC &to ALPHA>;
+    };
+    pc_ret: pc_ret { // Post-Chord Return/Enter
+        compatible = "zmk,behavior-macro";
+        #binding-cells = <0>;
+        wait-ms = <1>; tap-ms = <1>;
+        bindings = <&kp RET &to ALPHA>;
     };
   };
 };
