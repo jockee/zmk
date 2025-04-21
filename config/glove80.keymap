@@ -19,9 +19,37 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
 
-/* On demand includes */
-#include "chords.keymap" // Include the generated chord definitions
-
+#define KSFT 57
+#define KDOT 60
+#define KCOMMA 61
+/* #define K 62 */
+/* #define K; 32 */
+#define KA 35
+#define KB 27
+#define KC 49
+#define KD 50
+#define KE 42
+#define KF 25
+#define KG 39
+#define KH 59
+#define KI 43
+#define KJ 28
+#define KK 52
+#define KL 29
+#define KM 40
+#define KN 41
+#define KO 44
+#define KP 26
+#define KQ 23
+#define KR 36
+#define KS 37
+#define KT 38
+#define KU 30
+#define KV 51
+#define KW 24
+#define KX 48
+#define KY 31
+#define KZ 47
 
 /* Automatically generated layer name #define */
 #define ALPHA 0
@@ -29,6 +57,10 @@
 #define SYM 2
 #define NUM 3
 #define MAGIC 4
+
+/* On demand includes */
+#include "chords.keymap" // Include the generated chord definitions
+
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -187,8 +219,8 @@
 };
 
 /* #define for key positions */
-#define POS_LH_T1 52
 #define POS_LH_T2 53
+#define POS_LH_T1 52
 #define POS_LH_T3 54
 #define POS_LH_T4 69
 #define POS_LH_T5 70
@@ -360,8 +392,8 @@
             &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                     &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
-            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo 1  &kp RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
- &magic LAYER_Magic 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo 2          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
 
@@ -371,8 +403,8 @@
             &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                     &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
-            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo 1  &kp RSHFT   &kp K   &kp H  &kp COMMA   &post_chord_dot  &post_chord_comma  &kp PG_UP
- &magic LAYER_Magic 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo 2          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &post_chord_comma &post_chord_dot  &kp FSLH  &kp PG_UP
+ &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
 
