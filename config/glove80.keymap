@@ -55,7 +55,7 @@
 #define KARING 33
 #define KZ 47
 #define KSPC 70
-#define KDUP 72
+#define KDUP 71
 
 /* Automatically generated layer name #define */
 #define ALPHA 0
@@ -370,7 +370,7 @@
             &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                     &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
-            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &sk RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
  &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
@@ -381,7 +381,7 @@
             &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                     &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
-            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &sk RSHFT   &kp K   &kp H  &post_chord_comma &post_chord_dot  &kp FSLH  &kp PG_UP
+            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &post_chord_comma &post_chord_dot  &kp FSLH  &kp PG_UP
  &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
