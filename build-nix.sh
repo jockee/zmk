@@ -46,6 +46,8 @@ else
     # Fetch updates and checkout the desired branch/tag
     echo "Checking out branch/tag '$BRANCH' in $ZMK_DIR..." >&2
     (cd "$ZMK_DIR" && git fetch origin --tags && git checkout "$BRANCH" && git pull origin "$BRANCH" --ff-only --depth=100 || git checkout "$BRANCH") # Attempt pull if branch, otherwise just checkout tag/commit
+    echo "Using ZMK commit:" >&2
+    (cd "$ZMK_DIR" && git rev-parse HEAD)
 fi
 
 
