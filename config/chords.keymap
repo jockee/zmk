@@ -18,7 +18,7 @@
     #binding-cells = <0>; \
     tap-ms = <1>; \
     wait-ms = <1>; \
-    bindings = <keys>, <&to POST_CHORD>; \
+    bindings = <keys>, <&osl POST_CHORD>; /* Use One-Shot Layer */ \
   };
 
 
@@ -586,11 +586,23 @@
     CHORD(ch_S_play, &ch_S_play, KP KL KY LSFT)
   };
 };
-
 / {
   macros {
-    CHMAC(ch_excl_s, &kp BSPC &kp EXCL &kp SPC)
-    CHMAC(ch_qmark_s, &kp BSPC &kp LS(MINUS) &kp SPC)
+    // Redefine post-chord punctuation macros WITHOUT layer change
+    ch_excl_s: ch_excl_s_macro {
+        compatible = "zmk,behavior-macro";
+        #binding-cells = <0>;
+        tap-ms = <1>;
+        wait-ms = <1>;
+        bindings = <&kp BSPC &kp EXCL &kp SPC>; // No layer change here
+    };
+    ch_qmark_s: ch_qmark_s_macro {
+        compatible = "zmk,behavior-macro";
+        #binding-cells = <0>;
+        tap-ms = <1>;
+        wait-ms = <1>;
+        bindings = <&kp BSPC &kp QMARK &kp SPC>; // No layer change here (Corrected to QMARK)
+    };
     CHMAC(ch_the, &kp T &kp H &kp E &kp SPC)
     CHMAC(ch_S_the, &kp LS(T) &kp H &kp E &kp SPC)
     CHMAC(ch_i, &kp I &kp SPC)
