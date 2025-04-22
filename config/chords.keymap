@@ -2,7 +2,7 @@
 
 #define LAYER_CHORD(name, keypress, keypos, lays, tmout) \
   chord_##name { \
-    timeout-ms = <tmout >; \
+    timeout-ms = <tmout>; \
     bindings = <keypress>; \
     require-prior-idle-ms = <100>; /* Require 100ms idle before chord */ \
     key-positions = <keypos>; \
