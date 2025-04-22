@@ -1,10 +1,10 @@
 #define str(s) #s
 
-#define LAYER_CHORD(name, keypress, keypos, lays, tmout) \
+#define LAYER_CHORD(name, keypress, keypos, lays, tmout, idlems) \
   chord_##name { \
     timeout-ms = <tmout>; \
     bindings = <keypress>; \
-    require-prior-idle-ms = <100>; /* Require 100ms idle before chord */ \
+    require-prior-idle-ms = <idlems>; /* Require idle time before chord */ \
     key-positions = <keypos>; \
     layers = <lays>; \
   };
