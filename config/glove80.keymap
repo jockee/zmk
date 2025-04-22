@@ -39,7 +39,6 @@
 #define KM 40
 #define KN 41
 #define KO 44
-// #define KO 45 // Removed conflicting definition
 #define KAUML 45
 #define KP 26
 #define KQ 23
