@@ -3,7 +3,7 @@
     timeout-ms = <100>; \
     bindings = <keypress>; \
     key-positions = <keypos>; \
-    layers = <CHORD>; \
+    layers = <CHORDL>; \
   };
 
 #define CHMAC(name, keys) \
