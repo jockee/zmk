@@ -26,9 +26,9 @@ OUTPUT_FILE="glove80.uf2" # Final firmware file name (matches CI copy step)
 # --- Helper Functions ---
 fetch_nixpkgs() {
     echo "Fetching Nixpkgs channel: $NIX_CHANNEL_URL" >&2
-    # Using fetchTarball ensures we get the specific channel version
+    # Use nix-prefetch-url to reliably fetch and unpack the tarball
     local nixpkgs_path
-    nixpkgs_path=$(nix-build --no-out-link "<nixpkgs>" -A fetchTarball --argstr url "$NIX_CHANNEL_URL" --argstr sha256 "$NIX_CHANNEL_SHA256")
+    nixpkgs_path=$(nix-prefetch-url --unpack "$NIX_CHANNEL_URL" --name nixpkgs --sha256 "$NIX_CHANNEL_SHA256")
     echo "$nixpkgs_path"
 }
 
