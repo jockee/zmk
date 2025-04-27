@@ -76,36 +76,36 @@ nix-build config \
 echo "Copying result to $OUTPUT_FILE..." >&2
 if [ -f "$RESULT_LINK/$OUTPUT_FILE" ]; then
     # Try to copy the file, but handle permission errors
-    if ! cp "$RESULT_LINK/$OUTPUT_FILE" "./$OUTPUT_FILE" 2>/dev/null; then
-        echo "Permission denied when copying to ./$OUTPUT_FILE" >&2
+    if ! cp "$LEFT_RESULT_LINK/zmk.uf2" "./$LEFT_OUTPUT_FILE" 2>/dev/null; then
+        echo "Permission denied when copying to ./$LEFT_OUTPUT_FILE" >&2
 
         # Create a user-specific directory in home folder
         USER_FIRMWARE_DIR="$HOME/firmware_output"
         mkdir -p "$USER_FIRMWARE_DIR"
 
-        echo "Trying to copy to $USER_FIRMWARE_DIR/$OUTPUT_FILE instead..." >&2
+        echo "Trying to copy to $USER_FIRMWARE_DIR/$LEFT_OUTPUT_FILE instead..." >&2
 
         # Remove existing file if it exists
-        if [ -f "$USER_FIRMWARE_DIR/$OUTPUT_FILE" ]; then
-            rm -f "$USER_FIRMWARE_DIR/$OUTPUT_FILE" 2>/dev/null
+        if [ -f "$USER_FIRMWARE_DIR/$LEFT_OUTPUT_FILE" ]; then
+            rm -f "$USER_FIRMWARE_DIR/$LEFT_OUTPUT_FILE" 2>/dev/null
         fi
 
-        if cp "$RESULT_LINK/$OUTPUT_FILE" "$USER_FIRMWARE_DIR/$OUTPUT_FILE"; then
-            echo "Firmware copied to $USER_FIRMWARE_DIR/$OUTPUT_FILE" >&2
+        if cp "$LEFT_RESULT_LINK/zmk.uf2" "$USER_FIRMWARE_DIR/$LEFT_OUTPUT_FILE"; then
+            echo "Firmware copied to $USER_FIRMWARE_DIR/$LEFT_OUTPUT_FILE" >&2
             echo "You can flash this file directly or copy it with:" >&2
-            echo "cp $USER_FIRMWARE_DIR/$OUTPUT_FILE ./$OUTPUT_FILE" >&2
+            echo "cp $USER_FIRMWARE_DIR/$LEFT_OUTPUT_FILE ./$LEFT_OUTPUT_FILE" >&2
         else
             echo "Failed to copy firmware to alternate location." >&2
             echo "You can access the firmware directly at:" >&2
-            echo "$RESULT_LINK/$OUTPUT_FILE" >&2
+            echo "$LEFT_RESULT_LINK/zmk.uf2" >&2
             echo "And copy it manually with:" >&2
-            echo "sudo cp $RESULT_LINK/$OUTPUT_FILE ./$OUTPUT_FILE" >&2
+            echo "sudo cp $LEFT_RESULT_LINK/zmk.uf2 ./$LEFT_OUTPUT_FILE" >&2
         fi
     else
-        echo "Successfully copied firmware to ./$OUTPUT_FILE" >&2
+        echo "Successfully copied firmware to ./$LEFT_OUTPUT_FILE" >&2
     fi
 else
-    echo "Error: Built firmware file not found at $RESULT_LINK/$OUTPUT_FILE" >&2
+    echo "Error: Built firmware file not found at $LEFT_RESULT_LINK/zmk.uf2" >&2
     exit 1
 fi
 
