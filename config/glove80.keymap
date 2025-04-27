@@ -34,7 +34,7 @@
 #define KH 59
 #define KI 43
 #define KJ 28
-#define KK 52
+#define KK 58
 #define KL 29
 #define KM 40
 #define KN 41
@@ -50,15 +50,16 @@
 #define KW 24
 #define KX 48
 #define KY 31
-#define KORING 32
+#define KOUML 32
 #define KARING 33
 #define KZ 47
-#define KSPC 70
-#define KDUP 71
+#define KSPACE 70
+#define KDUP 74
+#define KAPOS 999999
 
 /* Automatically generated layer name #define */
 #define ALPHA 0
-#define POST_CHORD 1
+#define CHORDL 1
 #define SYM 2
 #define NUM 3
 #define MAGIC 4
@@ -309,12 +310,6 @@
 / {
     behaviors {
         // Basic Key Repeat behavior for Dup key
-        key_repeat_behavior: key_repeat_behavior {
-             compatible = "zmk,behavior-key-repeat";
-             label = "KEY_REPEAT";
-             #binding-cells = <0>;
-             usage-pages = <>;
-        };
     };
 };
 /* Custom Defined Macros */
@@ -357,11 +352,15 @@
       };
     };
 
+&sk {
+     release-after-ms = <2000>;
+    quick-release;
+};
+ 
 /* Automatically generated keymap */
 / {
     keymap {
         compatible = "zmk,keymap";
-
 
         ALPHA {
             bindings = <
@@ -369,19 +368,19 @@
             &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                     &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
               &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
               &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
-            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
- &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &sk RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+ &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &mo CHORDL  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
 
-        POST_CHORD {
+        CHORDL {
             bindings = <
-               &kp F1    &kp F2   &kp F3    &kp F4     &kp F5                                                                                     &kp F6     &kp F7    &kp F8    &kp F9    &kp F10
-            &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                     &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
-              &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
-              &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
-            &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &kp RSHFT   &kp K   &kp H  &post_chord_comma &post_chord_dot  &kp FSLH  &kp PG_UP
- &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &key_repeat_behavior  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+  &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
+  &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+  &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+  &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+  &none   &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans    &none          &none         &post_chord_comma  &post_chord_dot &none   &none   
+          &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &none     &none          &none         &none  &none &none   
             >;
         };
 
@@ -406,6 +405,7 @@
   &none   &none         &none       &none         &none          &trans  &trans  &trans  &trans  &trans  &trans                  &none         &none  &trans   &none   &none
             >;
         };
+
 
         MAGIC {
             bindings = <
