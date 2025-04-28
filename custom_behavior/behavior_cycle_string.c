@@ -7,7 +7,7 @@
 
 #define DT_DRV_COMPAT chord_cycle_behavior_cycle_string
 
-#include <zephyr/drivers/behavior.h> // Corrected path
+#include <drivers/behavior.h>
 #include <zephyr/device.h>
 #include <zephyr/logging/log.h>
 
