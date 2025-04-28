@@ -13,6 +13,8 @@
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
+#include <behaviors.h>
+#include <dt-bindings/zmk/keys.h>
 #include <zmk/behavior.h> // Main behavior header
 
 // Required includes for behavior functionality
