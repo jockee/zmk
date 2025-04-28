@@ -1,5 +1,3 @@
 zephyr_library()
 
-target_sources(app
-    behavior_cycle_string.c
-)
+zephyr_library_sources(behavior_cycle_string.c)
