@@ -7,7 +7,7 @@
 
 #define DT_DRV_COMPAT chord_cycle_behavior_cycle_string
 
-#include <drivers/behavior.h>
+#include <zephyr/drivers/behavior.h> // Corrected path
 #include <zephyr/device.h>
 #include <zephyr/logging/log.h>
 
@@ -15,19 +15,17 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <zmk/behavior.h>
 
-/* <zmk/keymap.h> */
-/* #include <zmk/behavior_queue.h> // For zmk_behavior_queue_add */
-/* #include <zmk/event_manager.h> */
-/* #include <zmk/events/keycode_state_changed.h> // For keycode events used
- * by macros */
-/* #include <zmk/events/modifiers_state_changed.h> // For modifier events
- * used by macros */
-/* #include <zmk/events/position_state_changed.h> */
-/* #include <zmk/hid.h> // For zmk_hid_get_keycode_t, HID usage IDs */
-/* #include <zmk/keymap.h> */
-/**/
-/* // Include macro helper header */
-/* #include <zmk/behavior/macro.h> */
+// Required includes for behavior functionality
+#include <zmk/keymap.h>
+#include <zmk/behavior_queue.h> // For zmk_behavior_queue_add
+#include <zmk/event_manager.h>
+#include <zmk/events/keycode_state_changed.h> // For keycode events used by macros
+#include <zmk/events/modifiers_state_changed.h> // For modifier events used by macros
+#include <zmk/events/position_state_changed.h>
+#include <zmk/hid.h> // For zmk_hid_get_keycode_t, HID usage IDs
+
+// Include macro helper header
+#include <zmk/behavior/macro.h>
 
 // Define the strings to cycle through
 static const char *cycle_strings[] = {"work", "working"};
