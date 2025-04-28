@@ -7,13 +7,13 @@
 
 #define DT_DRV_COMPAT chord_cycle_behavior_cycle_string
 
-#include <drivers/behavior.h>
+#include <zephyr/kernel.h> // Include kernel for basic types if needed elsewhere
 #include <zephyr/device.h>
 #include <zephyr/logging/log.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#include <zmk/behavior.h>
+#include <zmk/behavior.h> // Main behavior header
 
 // Required includes for behavior functionality
 #include <zmk/keymap.h>
