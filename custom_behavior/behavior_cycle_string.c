@@ -10,9 +10,8 @@
 #include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
-
-/* #include <zmk/behavior.h> */
-/* #include <zmk/behavior_queue.h> // For zmk_behavior_queue_add */
+#include <zmk/behavior.h>
+#include <zmk/behavior_queue.h> // For zmk_behavior_queue_add
 /* #include <zmk/event_manager.h> */
 /* #include <zmk/events/keycode_state_changed.h> // For keycode events used by
  * macros */
