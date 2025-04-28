@@ -1,1 +1,6 @@
 
+# SPDX-License-Identifier: MIT
+description: Chord Cycle String Behavior
+compatible: "chord-cycle,behavior-cycle-string"
+
+include: zmk,behavior.yaml
