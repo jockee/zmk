@@ -5,7 +5,7 @@
  * Based on behavior_caps_word.c
  */
 
-#define DT_DRV_COMPAT my_behavior_cycle_string // Changed vendor prefix
+#define DT_DRV_COMPAT chord_cycle_behavior_cycle_string
 
 #include <drivers/behavior.h>
 #include <zephyr/device.h>
