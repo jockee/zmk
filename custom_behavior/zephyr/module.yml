@@ -1,4 +1,4 @@
 name: custom_behavior
 build:
   cmake: ..
-dts_root: dts
+# dts_root: dts
