@@ -26,9 +26,9 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h> // For HID usage IDs and helper functions
 #include <zmk/keymap.h>
-// #include <zmk/split.h> // No longer needed
+#include <zmk/split.h> // For split role detection
 
-// Helper to tap a usage ID by raising keycode state changed events
+// Helper to tap a usage ID
 static inline void tap_usage(uint32_t usage) {
     // Raise key down event
     ZMK_EVENT_INIT(
