@@ -7,3 +7,6 @@ zephyr_include_directories(${ZMK_BASE}/app/include)
 
 zephyr_library_sources(behavior_cycle_string.c)
 
+# Link against the main ZMK app library to access HID functions etc.
+zephyr_library_link_libraries(app)
+
