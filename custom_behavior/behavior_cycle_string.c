@@ -83,19 +83,35 @@ static zmk_key_t ascii_to_keycode(char character) {
   return 0; // No mapping found
 }
 
-// Define the strings to cycle through
-static const char *cycle_strings[] = {"work", "working"};
-static const size_t cycle_strings_len =
-    sizeof(cycle_strings) / sizeof(cycle_strings[0]);
+// Define the different lists of strings to cycle through
+static const char *work_strings[] = {"work", "working"};
+static const char *test_strings[] = {"test", "testing", "tested"};
+// Add more lists here as needed...
+// static const char *another_list[] = {"one", "two", "three"};
 
-// State for the behavior instance
+// Structure to hold a cycle list and its length
+typedef struct {
+    const char **strings;
+    const size_t len;
+} cycle_list_t;
+
+// Array containing all the cycle lists
+static const cycle_list_t all_cycle_lists[] = {
+    {.strings = work_strings, .len = ARRAY_SIZE(work_strings)},
+    {.strings = test_strings, .len = ARRAY_SIZE(test_strings)},
+    // Add corresponding entries for new lists here...
+    // {.strings = another_list, .len = ARRAY_SIZE(another_list)},
+};
+static const size_t all_cycle_lists_len = ARRAY_SIZE(all_cycle_lists);
+
+// State for the behavior instance (remains the same)
 struct behavior_cycle_string_state {
   uint8_t current_index;
   bool active; // Track if the behavior is currently active (pressed)
 };
 
-// Configuration structure (empty for this simple behavior)
-struct behavior_cycle_string_config {};
+// Configuration structure is no longer needed as list is selected by param1
+// struct behavior_cycle_string_config {};
 
 // Initialize the behavior
 static int behavior_cycle_string_init(const struct device *dev) {
@@ -121,12 +137,12 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   //    tracking.
   if (state->active) { // Only backspace if it was already active (i.e., repeat
                        // press)
-    // Calculate the index of the string that was *just* typed
+    // Calculate the index of the string that was *just* typed from the selected list
     uint8_t previous_index =
-        (state->current_index + cycle_strings_len - 1) % cycle_strings_len;
-    size_t prev_len = strlen(cycle_strings[previous_index]);
-    LOG_DBG("Backspacing previous string: '%s' (length %zu)",
-            cycle_strings[previous_index], prev_len);
+        (state->current_index + current_list->len - 1) % current_list->len;
+    const char *prev_string = current_list->strings[previous_index];
+    size_t prev_len = strlen(prev_string);
+    LOG_DBG("Backspacing previous string: '%s' (length %zu)", prev_string, prev_len);
     // Use the tap_usage helper
     for (size_t i = 0; i < prev_len; ++i) {
       tap_usage(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
@@ -137,13 +153,12 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     LOG_DBG("First press in cycle, no backspace needed.");
   }
 
-  // 2. Add key taps for the CURRENT string
-  const char *current_string = cycle_strings[state->current_index];
+  // 2. Add key taps for the CURRENT string from the *selected list*
+  const char *current_string = current_list->strings[state->current_index];
   size_t current_len = strlen(current_string);
-  LOG_DBG("Typing current string: '%s' (length %zu)", current_string,
-          current_len);
+  LOG_DBG("Typing current string: '%s' (length %zu)", current_string, current_len);
 
-  // Use the local helper function
+  // Use the local helper function to tap out the string
   for (size_t i = 0; i < current_len; ++i) {
     zmk_key_t keycode = ascii_to_keycode(current_string[i]);
     if (keycode == 0) { // Check for 0, which indicates no mapping found
@@ -159,8 +174,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 
   // Macro execution happens directly above, no queueing needed.
 
-  // 4. Update state for the next press
-  state->current_index = (state->current_index + 1) % cycle_strings_len;
+  // 4. Update state for the next press, using the selected list's length
+  state->current_index = (state->current_index + 1) % current_list->len;
   state->active = true; // Mark as active
 
   return ZMK_BEHAVIOR_OPAQUE; // Consume the event
@@ -197,14 +212,13 @@ static const struct behavior_driver_api behavior_cycle_string_driver_api = {
     // .locality_changed = NULL, // Not needed for this behavior
 };
 
-// Instantiate the behavior driver data and config
+// Instantiate the behavior driver data (state only, config removed)
 #define CYC_STR_INST(n)                                                        \
   static struct behavior_cycle_string_state behavior_cycle_string_state_##n;   \
-  static const struct behavior_cycle_string_config                             \
-      behavior_cycle_string_config_##n;                                        \
+  /* Config struct removed */                                                  \
   BEHAVIOR_DT_INST_DEFINE(                                                     \
       n, behavior_cycle_string_init, NULL, /* Deinit function, not needed */   \
-      &behavior_cycle_string_state_##n, &behavior_cycle_string_config_##n,     \
+      &behavior_cycle_string_state_##n, NULL, /* No config */                  \
       POST_KERNEL, /* Initialize after kernel */                               \
       CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &behavior_cycle_string_driver_api);
 

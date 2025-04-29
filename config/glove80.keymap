@@ -166,7 +166,7 @@
         combo_work_cycle {
             timeout-ms = <50>;       // Adjust timing: Max time between key presses for combo
             key-positions = <KW KR KK>; // Keys to press for the combo
-            bindings = <&cyc_wrk>;   // Bind the combo to trigger your custom behavior instance
+            bindings = <&cyc_wrk 0>; // Pass index 0 to use the first list ("work", "working")
             layers = <0>;            // Specify which layer(s) the combo is active on (e.g., base layer 0)
             // slow-release;         // Optional: uncomment if keys might be released slightly apart
         };
@@ -175,7 +175,7 @@
     behaviors {
         cyc_wrk: cycle_work_working {
             compatible = "chord-cycle,behavior-cycle-string";
-            #binding-cells = <0>;
+            #binding-cells = <1>; // Behavior now takes 1 parameter (list index)
             label = "CYCLE_WORK_WORKING";
         };
 

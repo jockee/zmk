@@ -8,7 +8,17 @@ description: |
 
 compatible: "chord-cycle,behavior-cycle-string" # Must match DT_DRV_COMPAT in C code
 
+binding-cells:
+  - param1
+
 properties:
+  param1:
+    type: int
+    required: true
+    description: |
+      Index of the string list to cycle through. The lists are defined
+      in the behavior's C code (behavior_cycle_string.c). Index 0
+      corresponds to the first list defined, index 1 to the second, etc.
   label:
     type: string
     required: true
