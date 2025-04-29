@@ -12,10 +12,9 @@ zephyr_include_directories(${ZMK_BASE}/app/include)
 zephyr_include_directories(${ZMK_BASE}/app/drivers)
 zephyr_include_directories(${ZEPHYR_KERNEL_BASE}/include)
 
-# Specify the source file
-zephyr_library_sources(behavior_cycle_string.c)
-message(STATUS "Source files: ${CMAKE_CURRENT_SOURCE_DIR}/behavior_cycle_string.c")
+# Add the behavior source file directly to the main 'app' target
+# only if the Kconfig option is enabled.
+target_sources_ifdef(CONFIG_ZMK_BEHAVIOR_CYCLE_STRING app PRIVATE behavior_cycle_string.c)
+message(STATUS "Adding source ${CMAKE_CURRENT_SOURCE_DIR}/behavior_cycle_string.c to app target")
 
-# Link against the 'app' target and potentially the 'zmk-app' target directly
-zephyr_library_link_libraries(app)
-message(STATUS "Linking against: app")
+# No explicit linking needed as the source is compiled as part of 'app'
