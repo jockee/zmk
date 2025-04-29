@@ -29,12 +29,11 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 // Helper to tap a usage ID
 static inline void tap_usage(uint32_t usage) {
-  // zmk_hid_press(usage); // <-- Temporarily comment out for debugging linker error
+  zmk_hid_press(usage);
   // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
   // needed
-  // zmk_hid_release(usage); // <-- Temporarily comment out for debugging linker error
+  zmk_hid_release(usage);
   // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
-  LOG_WRN("HID press/release commented out for usage 0x%04X", usage); // Add log
 }
 
 // Simple ASCII to keycode helper (add more mappings as needed)
@@ -137,6 +136,10 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   // 4. Update state for the next press
   state->current_index = (state->current_index + 1) % cycle_strings_len;
   state->active = true; // Mark as active
+
+  // Test call to another ZMK subsystem function
+  LOG_DBG("Attempting to activate layer 0");
+  zmk_keymap_layer_activate(0);
 
   return ZMK_BEHAVIOR_OPAQUE; // Consume the event
 }
