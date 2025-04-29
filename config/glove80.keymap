@@ -163,7 +163,7 @@
 / {
     combos {
         compatible = "zmk,combos";
-            combo_work_cycle {
+        combo_work_cycle {
             timeout-ms = <50>;       // Adjust timing: Max time between key presses for combo
             key-positions = <KW KR KK>; // Keys to press for the combo
             bindings = <&cyc_wrk>;   // Bind the combo to trigger your custom behavior instance
