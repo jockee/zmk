@@ -57,10 +57,6 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   LOG_DBG("Cycle string '%s' pressed, current index: %d", binding->behavior_dev,
           state->current_index);
 
-  // Prepare the macro commands
-  zmk_behavior_macro_command_t commands[ZMK_BEHAVIOR_MACRO_MAX_COMMANDS] = {0};
-  size_t command_count = 0;
-
   // 1. Add backspaces for the PREVIOUS string, only if not the first press of a
   // cycle
   //    Note: This assumes the user hasn't typed anything else between chord
@@ -74,11 +70,10 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     size_t prev_len = strlen(cycle_strings[previous_index]);
     LOG_DBG("Backspacing previous string: '%s' (length %zu)",
             cycle_strings[previous_index], prev_len);
-    for (size_t i = 0;
-         i < prev_len && command_count < ZMK_BEHAVIOR_MACRO_MAX_COMMANDS - 1;
-         ++i) {
-      commands[command_count++] =
-          ZMK_BEHAVIOR_MACRO_CMD_TAP_KEYCODE(HID_USAGE_KEY_KEYBOARD_BACKSPACE);
+    // Use new macro helper directly
+    for (size_t i = 0; i < prev_len; ++i) {
+        zmk_bhv_macros_tap_keycode(HID_USAGE_KEY_KEYBOARD_BACKSPACE);
+        // Optional: k_msleep(ZMK_BHV_MACRO_DEFAULT_WAIT);
     }
   } else {
     LOG_DBG("First press in cycle, no backspace needed.");
@@ -90,9 +85,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   LOG_DBG("Typing current string: '%s' (length %zu)", current_string,
           current_len);
 
-  for (size_t i = 0;
-       i < current_len && command_count < ZMK_BEHAVIOR_MACRO_MAX_COMMANDS - 1;
-       ++i) {
+  // Use new macro helpers directly
+  for (size_t i = 0; i < current_len; ++i) {
     zmk_keycode_t keycode = zmk_hid_ascii_to_keycode(current_string[i]);
     if (keycode == ZMK_HID_NO_KEYCODE) {
       LOG_ERR("Cannot map character '%c' to keycode", current_string[i]);
@@ -100,28 +94,16 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     }
     // Check if it's an uppercase character or symbol requiring shift
     if (zmk_hid_requires_shift(keycode)) {
-      commands[command_count++] = ZMK_BEHAVIOR_MACRO_CMD_PRESS_MODS(MOD_LSFT);
-      commands[command_count++] =
-          ZMK_BEHAVIOR_MACRO_CMD_TAP_KEYCODE(zmk_hid_apply_basic_mods(keycode));
-      commands[command_count++] = ZMK_BEHAVIOR_MACRO_CMD_RELEASE_MODS(MOD_LSFT);
+        zmk_bhv_macros_press_mods(MOD_LSFT);
+        zmk_bhv_macros_tap_keycode(zmk_hid_apply_basic_mods(keycode));
+        zmk_bhv_macros_release_mods(MOD_LSFT);
     } else {
-      commands[command_count++] =
-          ZMK_BEHAVIOR_MACRO_CMD_TAP_KEYCODE(zmk_hid_strip_mods(keycode));
+        zmk_bhv_macros_tap_keycode(zmk_hid_strip_mods(keycode));
     }
-
-    // Add a small delay between key taps if needed, especially for longer
-    // strings commands[command_count++] = ZMK_BEHAVIOR_MACRO_CMD_WAIT_MS(10);
+    // Optional: k_msleep(ZMK_BHV_MACRO_DEFAULT_WAIT);
   }
 
-  // 3. Queue the macro execution
-  if (command_count > 0) {
-    commands[command_count++] = ZMK_BEHAVIOR_MACRO_CMD_END(); // Null terminate
-    zmk_behavior_queue_add(event.position, binding->behavior_dev, true,
-                           binding->param1, binding->param2, commands,
-                           ZMK_MACRO_DEFAULT_WAIT_MS, ZMK_MACRO_DEFAULT_TAP_MS);
-  } else {
-    LOG_WRN("No macro commands generated for cycle string.");
-  }
+  // Macro execution happens directly above, no queueing needed.
 
   // 4. Update state for the next press
   state->current_index = (state->current_index + 1) % cycle_strings_len;
@@ -148,9 +130,7 @@ static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
   // `state->active` flag helps differentiate the first press from subsequent
   // ones.
 
-  // Release any queued macro actions (important!)
-  zmk_behavior_queue_add(event.position, binding->behavior_dev, false,
-                         binding->param1, binding->param2, NULL, 0, 0);
+  // No queued actions to release with the new macro API
 
   return ZMK_BEHAVIOR_OPAQUE; // Consume the event
 }
