@@ -1,5 +1,4 @@
-# Define this directory as a Zephyr library
-zephyr_library()
+# No separate library needed when adding sources directly to 'app'
 
 set(ZMK_BASE "/build/source") # Assuming this path is correct within the Nix build
 
@@ -7,10 +6,9 @@ set(ZMK_BASE "/build/source") # Assuming this path is correct within the Nix bui
 zephyr_include_directories(${ZMK_BASE}/include)
 zephyr_include_directories(${ZMK_BASE}/app/include)
 
-# Specify the source file for this library
-zephyr_library_sources(behavior_cycle_string.c)
+# Add the behavior source file directly to the main 'app' target
+# only if the Kconfig option is enabled.
+target_sources_ifdef(CONFIG_ZMK_BEHAVIOR_CYCLE_STRING app PRIVATE behavior_cycle_string.c)
 
-# Link this library against the main ZMK application library ('app')
-# This *should* provide access to core ZMK functions like zmk_hid_press
-zephyr_library_link_libraries(app)
+# No explicit linking needed as the source is compiled as part of 'app'
 

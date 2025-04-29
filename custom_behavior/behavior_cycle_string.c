@@ -137,10 +137,6 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   state->current_index = (state->current_index + 1) % cycle_strings_len;
   state->active = true; // Mark as active
 
-  // Test call to another ZMK subsystem function
-  LOG_DBG("Attempting to activate layer 0");
-  zmk_keymap_layer_activate(0);
-
   return ZMK_BEHAVIOR_OPAQUE; // Consume the event
 }
 
