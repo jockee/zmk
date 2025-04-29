@@ -34,7 +34,7 @@ static inline void press_keycode(zmk_key_t keycode) {
         .state = true,
         .timestamp = k_uptime_get()
     };
-    ZMK_EVENT_RAISE(&event);
+    ZMK_EVENT_RAISE(event);
 }
 
 static inline void release_keycode(zmk_key_t keycode) {
@@ -44,7 +44,7 @@ static inline void release_keycode(zmk_key_t keycode) {
         .state = false,
         .timestamp = k_uptime_get()
     };
-    ZMK_EVENT_RAISE(&event);
+    ZMK_EVENT_RAISE(event);
 }
 
 static inline void tap_keycode(zmk_key_t keycode) {
@@ -57,11 +57,11 @@ static inline void tap_keycode(zmk_key_t keycode) {
 // Helper to set the absolute modifier state
 static inline void set_mods(zmk_mod_flags_t mods) {
      zmk_hid_register_mods(mods);
-     ZMK_EVENT_RAISE(new_zmk_modifiers_state_changed(
-         (struct zmk_modifiers_state_changed){.mods = mods,
-                                              .timestamp = k_uptime_get()
+     struct zmk_modifiers_state_changed event = {
+        .mods = mods,
+        .timestamp = k_uptime_get()
      };
-     ZMK_EVENT_RAISE(&event);
+     ZMK_EVENT_RAISE(event);
 }
 
 
