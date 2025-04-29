@@ -13,9 +13,10 @@
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#include <zmk/behavior.h> // Main behavior header
+#include <drivers/behavior.h> // Main behavior header
+#include <zmk/behavior.h>     // Main behavior header
 // #include <zmk/behavior/macros.h> // New macro helpers - Removed
-#include <zmk/keys.h>            // For key definitions like MOD_LSFT
+#include <zmk/keys.h> // For key definitions like MOD_LSFT
 
 // Required includes for behavior functionality
 // #include <zmk/behavior_queue.h> // No longer needed
@@ -28,32 +29,33 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 // Helper to tap a usage ID
 static inline void tap_usage(uint32_t usage) {
-    zmk_hid_press(usage);
-    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
-    zmk_hid_release(usage);
-    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
+  zmk_hid_press(usage);
+  // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
+  // needed
+  zmk_hid_release(usage);
+  // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
 }
 
 // Simple ASCII to keycode helper (add more mappings as needed)
 // Returns 0 if no mapping found
 static zmk_key_t ascii_to_keycode(char character) {
-    // Basic lowercase letters
-    if (character >= 'a' && character <= 'z') {
-        return HID_USAGE_KEY_KEYBOARD_A + (character - 'a');
-    }
-    // Add other mappings here if needed (numbers, symbols, etc.)
-    // Example:
-    // if (character >= '1' && character <= '9') {
-    //     return HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION + (character - '1');
-    // }
-    // if (character == '0') {
-    //     return HID_USAGE_KEY_KEYBOARD_0_AND_RIGHT_PARENTHESIS;
-    // }
-    // if (character == ' ') {
-    //     return HID_USAGE_KEY_KEYBOARD_SPACEBAR;
-    // }
+  // Basic lowercase letters
+  if (character >= 'a' && character <= 'z') {
+    return HID_USAGE_KEY_KEYBOARD_A + (character - 'a');
+  }
+  // Add other mappings here if needed (numbers, symbols, etc.)
+  // Example:
+  // if (character >= '1' && character <= '9') {
+  //     return HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION + (character - '1');
+  // }
+  // if (character == '0') {
+  //     return HID_USAGE_KEY_KEYBOARD_0_AND_RIGHT_PARENTHESIS;
+  // }
+  // if (character == ' ') {
+  //     return HID_USAGE_KEY_KEYBOARD_SPACEBAR;
+  // }
 
-    return 0; // No mapping found
+  return 0; // No mapping found
 }
 
 // Define the strings to cycle through
@@ -102,8 +104,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
             cycle_strings[previous_index], prev_len);
     // Use the tap_usage helper
     for (size_t i = 0; i < prev_len; ++i) {
-        tap_usage(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
-        // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
+      tap_usage(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
+      // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
+      // needed
     }
   } else {
     LOG_DBG("First press in cycle, no backspace needed.");
@@ -124,13 +127,14 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     }
     // Check if it's an uppercase character or symbol requiring shift
     if (zmk_hid_requires_shift(keycode)) {
-        zmk_hid_register_mods(MOD_LSFT); // Press Shift
-        tap_usage(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
-        zmk_hid_register_mods(0); // Release Shift (reset all mods)
+      zmk_hid_register_mods(MOD_LSFT);              // Press Shift
+      tap_usage(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
+      zmk_hid_register_mods(0); // Release Shift (reset all mods)
     } else {
-        tap_usage(zmk_hid_strip_mods(keycode)); // Tap the base key
+      tap_usage(zmk_hid_strip_mods(keycode)); // Tap the base key
     }
-    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
+    // needed
   }
 
   // Macro execution happens directly above, no queueing needed.
@@ -145,8 +149,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 // Behavior release handler
 static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
                                       struct zmk_behavior_binding_event event) {
-  // const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev); // dev not needed
-  // struct behavior_cycle_string_state *state = dev->data; // state not needed
+  // const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
+  // // dev not needed struct behavior_cycle_string_state *state = dev->data; //
+  // state not needed
 
   LOG_DBG("Cycle string '%s' released", binding->behavior_dev);
 
