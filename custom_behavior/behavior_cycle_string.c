@@ -125,14 +125,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
       LOG_ERR("Cannot map character '%c' to keycode", current_string[i]);
       continue; // Skip character if no mapping
     }
-    // Check if it's an uppercase character or symbol requiring shift
-    if (zmk_hid_requires_shift(keycode)) {
-      zmk_hid_register_mods(MOD_LSFT);              // Press Shift
-      tap_usage(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
-      zmk_hid_register_mods(0); // Release Shift (reset all mods)
-    } else {
-      tap_usage(zmk_hid_strip_mods(keycode)); // Tap the base key
-    }
+    // Directly tap the keycode, as shift handling is not needed for current strings
+    tap_usage(keycode);
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
     // needed
   }
