@@ -27,23 +27,27 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/keymap.h>
 
 // Helper functions to raise keycode/modifier events
-static inline void press_keycode(zmk_keycode_t keycode) {
-    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(
-        (struct zmk_keycode_state_changed){.usage_page = HID_USAGE_KEY,
-                                           .keycode = keycode,
-                                           .state = true,
-                                           .timestamp = k_uptime_get()}));
+static inline void press_keycode(zmk_key_t keycode) {
+    struct zmk_keycode_state_changed event = {
+        .usage_page = HID_USAGE_KEY,
+        .keycode = keycode,
+        .state = true,
+        .timestamp = k_uptime_get()
+    };
+    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(&event));
 }
 
-static inline void release_keycode(zmk_keycode_t keycode) {
-    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(
-        (struct zmk_keycode_state_changed){.usage_page = HID_USAGE_KEY,
-                                           .keycode = keycode,
-                                           .state = false,
-                                           .timestamp = k_uptime_get()}));
+static inline void release_keycode(zmk_key_t keycode) {
+    struct zmk_keycode_state_changed event = {
+        .usage_page = HID_USAGE_KEY,
+        .keycode = keycode,
+        .state = false,
+        .timestamp = k_uptime_get()
+    };
+    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(&event));
 }
 
-static inline void tap_keycode(zmk_keycode_t keycode) {
+static inline void tap_keycode(zmk_key_t keycode) {
     press_keycode(keycode);
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
     release_keycode(keycode);
@@ -55,7 +59,9 @@ static inline void set_mods(zmk_mod_flags_t mods) {
      zmk_hid_register_mods(mods);
      ZMK_EVENT_RAISE(new_zmk_modifiers_state_changed(
          (struct zmk_modifiers_state_changed){.mods = mods,
-                                              .timestamp = k_uptime_get()}));
+                                              .timestamp = k_uptime_get()
+     };
+     ZMK_EVENT_RAISE(&event);
 }
 
 
@@ -120,7 +126,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 
   // Use new macro helpers directly
   for (size_t i = 0; i < current_len; ++i) {
-    zmk_keycode_t keycode = zmk_hid_ascii_to_keycode(current_string[i]);
+    zmk_key_t keycode = zmk_hid_ascii_to_keycode(current_string[i]);
     if (keycode == ZMK_HID_NO_KEYCODE) {
       LOG_ERR("Cannot map character '%c' to keycode", current_string[i]);
       continue; // Skip character if no mapping
