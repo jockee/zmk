@@ -124,13 +124,20 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
                                      struct zmk_behavior_binding_event event) {
   const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
   struct behavior_cycle_string_state *state = dev->data;
-  // const struct behavior_cycle_string_config *config = dev->config; // Not
-  // used here
+  // Get the list index from the binding's parameter
+  uint32_t list_index = binding->param1;
 
-  LOG_DBG("Cycle string '%s' pressed, current index: %d", binding->behavior_dev,
+  if (list_index >= all_cycle_lists_len) {
+      LOG_ERR("Invalid list index %d for behavior %s", list_index, binding->behavior_dev);
+      return ZMK_BEHAVIOR_OPAQUE; // Consume event but do nothing
+  }
+
+  const cycle_list_t *current_list = &all_cycle_lists[list_index];
+
+  LOG_DBG("Cycle string '%s' (list %d) pressed, current string index: %d", binding->behavior_dev, list_index,
           state->current_index);
 
-  // 1. Add backspaces for the PREVIOUS string, only if not the first press of a
+  // 1. Add backspaces for the PREVIOUS string in the *selected list*, only if not the first press of a
   // cycle
   //    Note: This assumes the user hasn't typed anything else between chord
   //    presses. A more robust implementation might need more complex state
