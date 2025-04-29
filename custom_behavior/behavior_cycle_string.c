@@ -28,23 +28,25 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 // Helper functions to raise keycode/modifier events
 static inline void press_keycode(zmk_key_t keycode) {
-    struct zmk_keycode_state_changed event = {
-        .usage_page = HID_USAGE_KEY,
-        .keycode = keycode,
-        .state = true,
-        .timestamp = k_uptime_get()
-    };
-    zmk_event_manager_raise(new_zmk_keycode_state_changed(&event));
+    ZMK_EVENT_INIT(
+        zmk_keycode_state_changed, keycode_ev,
+        ((struct zmk_keycode_state_changed){
+            .usage_page = HID_USAGE_KEY,
+            .keycode = keycode,
+            .state = true,
+            .timestamp = k_uptime_get()}));
+    ZMK_EVENT_RAISE(keycode_ev);
 }
 
 static inline void release_keycode(zmk_key_t keycode) {
-    struct zmk_keycode_state_changed event = {
-        .usage_page = HID_USAGE_KEY,
-        .keycode = keycode,
-        .state = false,
-        .timestamp = k_uptime_get()
-    };
-    zmk_event_manager_raise(new_zmk_keycode_state_changed(&event));
+    ZMK_EVENT_INIT(
+        zmk_keycode_state_changed, keycode_ev,
+        ((struct zmk_keycode_state_changed){
+            .usage_page = HID_USAGE_KEY,
+            .keycode = keycode,
+            .state = false,
+            .timestamp = k_uptime_get()}));
+    ZMK_EVENT_RAISE(keycode_ev);
 }
 
 static inline void tap_keycode(zmk_key_t keycode) {
@@ -57,11 +59,13 @@ static inline void tap_keycode(zmk_key_t keycode) {
 // Helper to set the absolute modifier state
 static inline void set_mods(zmk_mod_flags_t mods) {
      zmk_hid_register_mods(mods);
-     struct zmk_modifiers_state_changed event = {
-        .mods = mods,
-        .timestamp = k_uptime_get()
-     };
-     zmk_event_manager_raise(new_zmk_modifiers_state_changed(&event));
+     ZMK_EVENT_INIT(
+        zmk_modifiers_state_changed, mod_ev,
+        ((struct zmk_modifiers_state_changed){
+            .modifiers = mods,
+            .state = (mods != 0), // Set state based on mods
+            .timestamp = k_uptime_get()}));
+     ZMK_EVENT_RAISE(mod_ev);
 }
 
 
