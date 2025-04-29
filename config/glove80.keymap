@@ -58,13 +58,14 @@
 
 /* Automatically generated layer name #define */
 #define ALPHA 0
-#define CHORDL 1
+#define SWEDISH_CHORDS 1
 #define SYM 2
 #define NUM 3
 #define MAGIC 4
+#define POST_CHORD_LAYER 5
 
 /* On demand includes */
-/* #include "chords.keymap" // Include the generated chord definitions */
+#include "chords.keymap" // Include the generated chord definitions
 
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
@@ -160,23 +161,293 @@
     quick-release;
 };
 
+#define CYCLE_COMBO(name, keys, tout, idx, lays) \
+    name { \
+        timeout-ms = <tout>; \
+        key-positions = <keys>; \
+        bindings = <&cyc_wrk idx>; \
+        layers = <lays>;  \
+    };
+
 / {
     combos {
         compatible = "zmk,combos";
-        combo_work_cycle {
-            timeout-ms = <50>;       // Adjust timing: Max time between key presses for combo
-            key-positions = <KW KR KK>; // Keys to press for the combo
-            bindings = <&cyc_wrk 0>; // Pass index 0 to use the first list ("work", "working")
-            layers = <0>;            // Specify which layer(s) the combo is active on (e.g., base layer 0)
-            // slow-release;         // Optional: uncomment if keys might be released slightly apart
-        };
+        CYCLE_COMBO(combo_en_the, KT KH KE, 50, 0, 0)
+        CYCLE_COMBO(combo_en_be, KB KE, 50, 1, 0)
+        CYCLE_COMBO(combo_en_is, KI KS, 50, 2, 0)
+        CYCLE_COMBO(combo_en_are, KA KR KE, 50, 3, 0)
+        CYCLE_COMBO(combo_en_was, KW KA KS, 50, 4, 0)
+        CYCLE_COMBO(combo_en_were, KA KR KS KT KN KE KO KI, 50, 5, 0)
+        CYCLE_COMBO(combo_en_and, KA KN KD, 50, 6, 0)
+        CYCLE_COMBO(combo_en_a, KA KDUP, 50, 7, 0)
+        CYCLE_COMBO(combo_en_of, KO KF, 50, 8, 0)
+        CYCLE_COMBO(combo_en_to, KT KO, 50, 9, 0)
+        CYCLE_COMBO(combo_en_in, KI KN, 50, 10, 0)
+        CYCLE_COMBO(combo_en_i, KI KDUP, 50, 11, 0)
+        CYCLE_COMBO(combo_en_you, KY KU, 50, 12, 0)
+        CYCLE_COMBO(combo_en_it, KI KT, 50, 13, 0)
+        CYCLE_COMBO(combo_en_have, KH KA KV, 50, 14, 0)
+        CYCLE_COMBO(combo_en_that, KT KH KA, 50, 15, 0)
+        CYCLE_COMBO(combo_en_for, KF KO KR, 50, 16, 0)
+        CYCLE_COMBO(combo_en_do, KD KO, 50, 17, 0)
+        CYCLE_COMBO(combo_en_he, KH KE, 50, 18, 0)
+        CYCLE_COMBO(combo_en_with, KW KI KT, 50, 19, 0)
+        CYCLE_COMBO(combo_en_on, KO KN, 50, 20, 0)
+        CYCLE_COMBO(combo_en_this, KT KH KI, 50, 21, 0)
+        CYCLE_COMBO(combo_en_we, KW KE, 50, 22, 0)
+        CYCLE_COMBO(combo_en_not, KN KO KT, 50, 23, 0)
+        CYCLE_COMBO(combo_en_but, KB KU, 50, 24, 0)
+        CYCLE_COMBO(combo_en_they, KT KH KY, 50, 25, 0)
+        CYCLE_COMBO(combo_en_say, KS KA KY, 50, 26, 0)
+        CYCLE_COMBO(combo_en_at, KA KT, 50, 27, 0)
+        CYCLE_COMBO(combo_en_what, KW KH KA, 50, 28, 0)
+        CYCLE_COMBO(combo_en_from, KF KR KO, 50, 29, 0)
+        CYCLE_COMBO(combo_en_go, KG KO, 50, 30, 0)
+        CYCLE_COMBO(combo_en_or, KO KR, 50, 31, 0)
+        CYCLE_COMBO(combo_en_by, KB KY, 50, 32, 0)
+        CYCLE_COMBO(combo_en_get, KG KE KDUP, 50, 33, 0)
+        CYCLE_COMBO(combo_en_she, KS KH KE, 50, 34, 0)
+        CYCLE_COMBO(combo_en_can, KC KA KN, 50, 35, 0)
+        CYCLE_COMBO(combo_en_as, KA KS, 50, 36, 0)
+        CYCLE_COMBO(combo_en_know, KK KO KW, 50, 37, 0)
+        CYCLE_COMBO(combo_en_if, KI KF, 50, 38, 0)
+        CYCLE_COMBO(combo_en_me, KM KE, 50, 11, 0)
+        CYCLE_COMBO(combo_en_your, KY KU KR, 50, 12, 0)
+        CYCLE_COMBO(combo_en_all, KA KL, 50, 39, 0)
+        CYCLE_COMBO(combo_en_who, KW KH KO, 50, 40, 0)
+        CYCLE_COMBO(combo_en_about, KA KB KO, 50, 41, 0)
+        CYCLE_COMBO(combo_en_will, KW KI KL, 50, 42, 0)
+        CYCLE_COMBO(combo_en_so, KS KO, 50, 43, 0)
+        CYCLE_COMBO(combo_en_would, KW KO KU, 50, 44, 0)
+        CYCLE_COMBO(combo_en_make, KM KQ, 50, 45, 0)
+        CYCLE_COMBO(combo_en_just, KJ KU KS, 50, 46, 0)
+        CYCLE_COMBO(combo_en_up, KU KP, 50, 47, 0)
+        CYCLE_COMBO(combo_en_think, KT KI KK, 50, 48, 0)
+        CYCLE_COMBO(combo_en_time, KT KI KM, 50, 49, 0)
+        CYCLE_COMBO(combo_en_there, KT KH KR, 50, 50, 0)
+        CYCLE_COMBO(combo_en_see, KS KE, 50, 51, 0)
+        CYCLE_COMBO(combo_en_out, KO KU KT, 50, 52, 0)
+        CYCLE_COMBO(combo_en_one, KO KN KE, 50, 53, 0)
+        CYCLE_COMBO(combo_en_come, KC KO KM, 50, 54, 0)
+        CYCLE_COMBO(combo_en_people, KP KE KO, 50, 55, 0)
+        CYCLE_COMBO(combo_en_take, KT KA KK, 50, 56, 0)
+        CYCLE_COMBO(combo_en_year, KY KE KA, 50, 57, 0)
+        CYCLE_COMBO(combo_en_him, KH KI KDUP, 50, 18, 0)
+        CYCLE_COMBO(combo_en_them, KT KE KM, 50, 25, 0)
+        CYCLE_COMBO(combo_en_some, KS KO KM, 50, 58, 0)
+        CYCLE_COMBO(combo_en_want, KW KA KN, 50, 59, 0)
+        CYCLE_COMBO(combo_en_how, KH KO KW, 50, 60, 0)
+        CYCLE_COMBO(combo_en_when, KW KH KE, 50, 61, 0)
+        CYCLE_COMBO(combo_en_which, KW KH KI, 50, 62, 0)
+        CYCLE_COMBO(combo_en_now, KN KO KW, 50, 63, 0)
+        CYCLE_COMBO(combo_en_like, KL KI KQ, 50, 64, 0)
+        CYCLE_COMBO(combo_en_other, KO KT KH, 50, 65, 0)
+        CYCLE_COMBO(combo_en_our, KO KU KR, 50, 22, 0)
+        CYCLE_COMBO(combo_en_into, KI KN KT, 50, 66, 0)
+        CYCLE_COMBO(combo_en_here, KH KE KR, 50, 67, 0)
+        CYCLE_COMBO(combo_en_then, KT KE KN, 50, 68, 0)
+        CYCLE_COMBO(combo_en_than, KT KA KN, 50, 69, 0)
+        CYCLE_COMBO(combo_en_look, KL KO KQ, 50, 70, 0)
+        CYCLE_COMBO(combo_en_way, KW KA KY, 50, 71, 0)
+        CYCLE_COMBO(combo_en_more, KM KO KR, 50, 72, 0)
+        CYCLE_COMBO(combo_en_these, KT KE KS, 50, 73, 0)
+        CYCLE_COMBO(combo_en_no, KN KO, 50, 74, 0)
+        CYCLE_COMBO(combo_en_thing, KT KH KI, 50, 75, 0)
+        CYCLE_COMBO(combo_en_well, KW KE KL, 50, 76, 0)
+        CYCLE_COMBO(combo_en_because, KB KE KC, 50, 77, 0)
+        CYCLE_COMBO(combo_en_also, KA KL KS, 50, 78, 0)
+        CYCLE_COMBO(combo_en_two, KT KW KO, 50, 79, 0)
+        CYCLE_COMBO(combo_en_use, KU KS, 50, 80, 0)
+        CYCLE_COMBO(combo_en_tell, KT KE KL, 50, 81, 0)
+        CYCLE_COMBO(combo_en_good, KG KO KDUP, 50, 82, 0)
+        CYCLE_COMBO(combo_en_first, KF KI KR, 50, 83, 0)
+        CYCLE_COMBO(combo_en_man, KM KA KDUP, 50, 84, 0)
+        CYCLE_COMBO(combo_en_day, KD KA KY, 50, 85, 0)
+        CYCLE_COMBO(combo_en_find, KF KI KN, 50, 86, 0)
+        CYCLE_COMBO(combo_en_give, KG KI KE, 50, 87, 0)
+        CYCLE_COMBO(combo_en_new, KN KE KW, 50, 88, 0)
+        CYCLE_COMBO(combo_en_us, KU KS, 50, 22, 0)
+        CYCLE_COMBO(combo_en_any, KA KN KY, 50, 89, 0)
+        CYCLE_COMBO(combo_en_those, KT KH KO, 50, 90, 0)
+        CYCLE_COMBO(combo_en_very, KV KE KR, 50, 91, 0)
+        CYCLE_COMBO(combo_en_need, KN KE KD, 50, 92, 0)
+        CYCLE_COMBO(combo_en_back, KB KA KK, 50, 93, 0)
+        CYCLE_COMBO(combo_en_should, KS KH KO, 50, 94, 0)
+        CYCLE_COMBO(combo_en_even, KE KV KN, 50, 95, 0)
+        CYCLE_COMBO(combo_en_only, KO KL KY, 50, 96, 0)
+        CYCLE_COMBO(combo_en_many, KM KA KDUP, 50, 97, 0)
+        CYCLE_COMBO(combo_en_really, KR KL KY, 50, 98, 0)
+        CYCLE_COMBO(combo_en_work, KW KO KK, 50, 99, 0)
+        CYCLE_COMBO(combo_en_life, KL KI KF, 50, 100, 0)
+        CYCLE_COMBO(combo_en_why, KW KH KY, 50, 101, 0)
+        CYCLE_COMBO(combo_en_right, KR KI KG, 50, 102, 0)
+        CYCLE_COMBO(combo_en_down, KD KO KW, 50, 103, 0)
+        CYCLE_COMBO(combo_en_try, KT KR KY, 50, 104, 0)
+        CYCLE_COMBO(combo_en_let, KL KE KT, 50, 105, 0)
+        CYCLE_COMBO(combo_en_something, KS KO KE, 50, 106, 0)
+        CYCLE_COMBO(combo_en_too, KT KO, 50, 107, 0)
+        CYCLE_COMBO(combo_en_call, KC KA KL, 50, 108, 0)
+        CYCLE_COMBO(combo_en_woman, KW KO KM, 50, 109, 0)
+        CYCLE_COMBO(combo_en_may, KM KA KY, 50, 110, 0)
+        CYCLE_COMBO(combo_en_still, KS KT KI, 50, 111, 0)
+        CYCLE_COMBO(combo_en_through, KT KH KR, 50, 112, 0)
+        CYCLE_COMBO(combo_en_mean, KM KE KA, 50, 113, 0)
+        CYCLE_COMBO(combo_en_after, KA KF KT, 50, 114, 0)
+        CYCLE_COMBO(combo_en_never, KN KE KV, 50, 115, 0)
+        CYCLE_COMBO(combo_en_world, KW KO KD, 50, 116, 0)
+        CYCLE_COMBO(combo_en_feel, KF KE KL, 50, 117, 0)
+        CYCLE_COMBO(combo_en_great, KG KR KE, 50, 118, 0)
+        CYCLE_COMBO(combo_en_last, KL KA KS, 50, 119, 0)
+        CYCLE_COMBO(combo_en_child, KC KH KI, 50, 120, 0)
+        CYCLE_COMBO(combo_en_oh, KO KH, 50, 121, 0)
+        CYCLE_COMBO(combo_en_ah, KA KH, 50, 122, 0)
+        CYCLE_COMBO(combo_en_over, KO KV KE, 50, 123, 0)
+        CYCLE_COMBO(combo_en_ask, KA KS KK, 50, 124, 0)
+        CYCLE_COMBO(combo_en_state, KS KT KA, 50, 125, 0)
+        CYCLE_COMBO(combo_en_much, KM KU KC, 50, 126, 0)
+        CYCLE_COMBO(combo_en_talk, KT KA KL, 50, 127, 0)
+        CYCLE_COMBO(combo_en_keep, KK KE KP, 50, 128, 0)
+        CYCLE_COMBO(combo_en_leave, KL KE KA, 50, 129, 0)
+        CYCLE_COMBO(combo_en_put, KP KU KDUP, 50, 130, 0)
+        CYCLE_COMBO(combo_en_help, KH KE KP, 50, 131, 0)
+        CYCLE_COMBO(combo_en_big, KB KI KDUP, 50, 132, 0)
+        CYCLE_COMBO(combo_en_where, KW KH KE, 50, 133, 0)
+        CYCLE_COMBO(combo_en_same, KS KA KM, 50, 134, 0)
+        CYCLE_COMBO(combo_en_own, KO KW KN, 50, 135, 0)
+        CYCLE_COMBO(combo_en_while, KW KH KI, 50, 136, 0)
+        CYCLE_COMBO(combo_en_start, KS KT KA, 50, 137, 0)
+        CYCLE_COMBO(combo_en_three, KT KH KR, 50, 138, 0)
+        CYCLE_COMBO(combo_en_high, KH KI KG, 50, 139, 0)
+        CYCLE_COMBO(combo_en_every, KE KV KR, 50, 140, 0)
+        CYCLE_COMBO(combo_en_another, KA KN KO, 50, 141, 0)
+        CYCLE_COMBO(combo_en_become, KB KE KC, 50, 142, 0)
+        CYCLE_COMBO(combo_en_most, KM KO KS, 50, 143, 0)
+        CYCLE_COMBO(combo_en_between, KB KE KW, 50, 144, 0)
+        CYCLE_COMBO(combo_en_happen, KH KA KP, 50, 145, 0)
+        CYCLE_COMBO(combo_en_family, KF KA KM, 50, 146, 0)
+        CYCLE_COMBO(combo_en_old, KO KL KD, 50, 147, 0)
+        CYCLE_COMBO(combo_en_yes, KY KE KS, 50, 148, 0)
+        CYCLE_COMBO(combo_en_house, KH KO KU, 50, 149, 0)
+        CYCLE_COMBO(combo_en_show, KS KH KO, 50, 150, 0)
+        CYCLE_COMBO(combo_en_again, KA KG KI, 50, 151, 0)
+        CYCLE_COMBO(combo_en_student, KS KT KU, 50, 152, 0)
+        CYCLE_COMBO(combo_en_seem, KS KE KM, 50, 153, 0)
+        CYCLE_COMBO(combo_en_might, KM KI KG, 50, 154, 0)
+        CYCLE_COMBO(combo_en_part, KP KA KR, 50, 155, 0)
+        CYCLE_COMBO(combo_en_hear, KH KE KA, 50, 156, 0)
+        CYCLE_COMBO(combo_en_its, KI KT KS, 50, 13, 0)
+        CYCLE_COMBO(combo_en_place, KP KL KA, 50, 157, 0)
+        CYCLE_COMBO(combo_en_problem, KP KR KO, 50, 158, 0)
+        CYCLE_COMBO(combo_en_believe, KB KE KL, 50, 159, 0)
+        CYCLE_COMBO(combo_en_country, KC KO KU, 50, 160, 0)
+        CYCLE_COMBO(combo_en_always, KA KL KW, 50, 161, 0)
+        CYCLE_COMBO(combo_en_week, KW KE KK, 50, 162, 0)
+        CYCLE_COMBO(combo_en_point, KP KO KI, 50, 163, 0)
+        CYCLE_COMBO(combo_en_hand, KH KA KD, 50, 164, 0)
+        CYCLE_COMBO(combo_en_off, KO KF, 50, 165, 0)
+        CYCLE_COMBO(combo_en_play, KP KL KA, 50, 166, 0)
+        CYCLE_COMBO(combo_en_turn, KT KU KR, 50, 167, 0)
+        CYCLE_COMBO(combo_en_few, KF KE KW, 50, 168, 0)
+        CYCLE_COMBO(combo_en_group, KG KR KO, 50, 169, 0)
+        CYCLE_COMBO(combo_en_such, KS KU KH, 50, 170, 0)
+        CYCLE_COMBO(combo_en_fact, KF KA KT, 50, 171, 0)
+        CYCLE_COMBO(combo_en_against, KA KG KI, 50, 172, 0)
+        CYCLE_COMBO(combo_en_case, KC KA KE, 50, 173, 0)
+        CYCLE_COMBO(combo_en_around, KA KR KO, 50, 174, 0)
+        CYCLE_COMBO(combo_en_company, KC KO KM, 50, 175, 0)
+        CYCLE_COMBO(combo_en_system, KS KY KT, 50, 176, 0)
+        CYCLE_COMBO(combo_en_each, KE KA KC, 50, 177, 0)
+        CYCLE_COMBO(combo_en_program, KP KR KO, 50, 178, 0)
+        CYCLE_COMBO(combo_en_question, KQ KU KS, 50, 179, 0)
+        CYCLE_COMBO(combo_en_during, KD KU KR, 50, 180, 0)
+        CYCLE_COMBO(combo_en_run, KR KU KN, 50, 181, 0)
+        CYCLE_COMBO(combo_en_small, KS KM KA, 50, 182, 0)
+        CYCLE_COMBO(combo_en_number, KN KU KB, 50, 183, 0)
+        CYCLE_COMBO(combo_en_move, KM KO KV, 50, 184, 0)
+        CYCLE_COMBO(combo_en_night, KN KI KG, 50, 185, 0)
+        CYCLE_COMBO(combo_en_live, KL KI KV, 50, 186, 0)
+        CYCLE_COMBO(combo_en_hold, KH KO KD, 50, 187, 0)
+        CYCLE_COMBO(combo_en_today, KT KO KY, 50, 188, 0)
+        CYCLE_COMBO(combo_en_bring, KB KR KI, 50, 189, 0)
+        CYCLE_COMBO(combo_en_next, KN KE KX, 50, 190, 0)
+        CYCLE_COMBO(combo_en_without, KW KI KT, 50, 191, 0)
+        CYCLE_COMBO(combo_en_before, KB KE KF, 50, 192, 0)
+        CYCLE_COMBO(combo_en_large, KL KA KR, 50, 193, 0)
+        CYCLE_COMBO(combo_en_must, KM KU KS, 50, 194, 0)
+        CYCLE_COMBO(combo_en_home, KH KO KE, 50, 195, 0)
+        CYCLE_COMBO(combo_en_under, KU KN KD, 50, 196, 0)
+        CYCLE_COMBO(combo_en_water, KW KA KT, 50, 197, 0)
+        CYCLE_COMBO(combo_en_room, KR KO KM, 50, 198, 0)
+        CYCLE_COMBO(combo_en_write, KW KI KE, 50, 199, 0)
+        CYCLE_COMBO(combo_en_area, KA KR KDUP, 50, 200, 0)
+        CYCLE_COMBO(combo_en_national, KN KA KT, 50, 201, 0)
+        CYCLE_COMBO(combo_en_money, KM KO KY, 50, 202, 0)
+        CYCLE_COMBO(combo_en_story, KS KT KO, 50, 203, 0)
+        CYCLE_COMBO(combo_en_young, KY KN KG, 50, 204, 0)
+        CYCLE_COMBO(combo_en_month, KM KO KT, 50, 205, 0)
+        CYCLE_COMBO(combo_en_different, KD KI KF, 50, 206, 0)
+        CYCLE_COMBO(combo_en_lot, KL KO KT, 50, 207, 0)
+        CYCLE_COMBO(combo_en_study, KS KT KU, 50, 208, 0)
+        CYCLE_COMBO(combo_en_book, KB KO KQ, 50, 209, 0)
+        CYCLE_COMBO(combo_en_job, KJ KO KB, 50, 210, 0)
+        CYCLE_COMBO(combo_en_word, KW KO KD, 50, 211, 0)
+        CYCLE_COMBO(combo_en_though, KT KH KU, 50, 212, 0)
+        CYCLE_COMBO(combo_en_business, KB KU KS, 50, 213, 0)
+        CYCLE_COMBO(combo_en_issue, KI KS KU, 50, 214, 0)
+        CYCLE_COMBO(combo_en_side, KS KI KD, 50, 215, 0)
+        CYCLE_COMBO(combo_en_kind, KK KI KD, 50, 216, 0)
+        CYCLE_COMBO(combo_en_four, KF KO KU, 50, 217, 0)
+        CYCLE_COMBO(combo_en_head, KH KE KA, 50, 218, 0)
+        CYCLE_COMBO(combo_en_far, KF KA KDUP, 50, 219, 0)
+        CYCLE_COMBO(combo_en_black, KB KL KA, 50, 220, 0)
+        CYCLE_COMBO(combo_en_long, KL KO KG, 50, 221, 0)
+        CYCLE_COMBO(combo_en_both, KB KO KH, 50, 222, 0)
+        CYCLE_COMBO(combo_en_little, KL KI KT, 50, 223, 0)
+        CYCLE_COMBO(combo_en_since, KS KI KN, 50, 224, 0)
+        CYCLE_COMBO(combo_en_provide, KP KR KO, 50, 225, 0)
+        CYCLE_COMBO(combo_en_service, KS KE KR, 50, 226, 0)
+        CYCLE_COMBO(combo_en_friend, KF KR KI, 50, 227, 0)
+        CYCLE_COMBO(combo_en_important, KI KM KP, 50, 228, 0)
+        CYCLE_COMBO(combo_en_father, KF KA KT, 50, 229, 0)
+        CYCLE_COMBO(combo_en_sit, KS KI KT, 50, 230, 0)
+        CYCLE_COMBO(combo_en_away, KA KW KY, 50, 231, 0)
+        CYCLE_COMBO(combo_en_until, KU KN KT, 50, 232, 0)
+        CYCLE_COMBO(combo_en_power, KP KO KW, 50, 233, 0)
+        CYCLE_COMBO(combo_en_hour, KH KO KU, 50, 234, 0)
+        CYCLE_COMBO(combo_en_game, KG KA KM, 50, 235, 0)
+        CYCLE_COMBO(combo_en_often, KO KF KT, 50, 236, 0)
+        CYCLE_COMBO(combo_en_yet, KY KE KT, 50, 237, 0)
+        CYCLE_COMBO(combo_en_line, KL KI KE, 50, 238, 0)
+        CYCLE_COMBO(combo_en_end, KE KN KD, 50, 239, 0)
+        CYCLE_COMBO(combo_en_among, KA KM KO, 50, 240, 0)
+        CYCLE_COMBO(combo_en_ever, KE KV KR, 50, 241, 0)
+        CYCLE_COMBO(combo_en_stand, KS KT KA, 50, 242, 0)
+        CYCLE_COMBO(combo_en_bad, KB KA KDUP, 50, 243, 0)
+        CYCLE_COMBO(combo_en_lose, KL KO KS, 50, 244, 0)
+        CYCLE_COMBO(combo_en_however, KH KO KV, 50, 245, 0)
+        CYCLE_COMBO(combo_en_member, KM KE KB, 50, 246, 0)
+        CYCLE_COMBO(combo_en_pay, KP KA KY, 50, 247, 0)
+        CYCLE_COMBO(combo_en_law, KL KA KU, 50, 248, 0)
+        CYCLE_COMBO(combo_en_meet, KM KE KT, 50, 249, 0)
+        CYCLE_COMBO(combo_en_car, KC KA KR, 50, 250, 0)
+        CYCLE_COMBO(combo_en_city, KC KI KT, 50, 251, 0)
+        CYCLE_COMBO(combo_en_almost, KA KL KO, 50, 252, 0)
+        CYCLE_COMBO(combo_en_include, KI KN KC, 50, 253, 0)
+        CYCLE_COMBO(combo_en_continue, KC KO KN, 50, 254, 0)
+        CYCLE_COMBO(combo_en_set, KS KE KT, 50, 255, 0)
+        CYCLE_COMBO(combo_en_later, KL KA KT, 50, 256, 0)
+        CYCLE_COMBO(combo_en_community, KC KO KM, 50, 257, 0)
+        CYCLE_COMBO(combo_en_name, KN KA KE, 50, 258, 0)
+        CYCLE_COMBO(combo_en_five, KF KI KV, 50, 259, 0)
+        CYCLE_COMBO(combo_en_once, KO KN KC, 50, 260, 0)
+        CYCLE_COMBO(combo_en_white, KW KH KI, 50, 261, 0)
+        CYCLE_COMBO(combo_en_least, KL KE KA, 50, 223, 0)
     };
 
     behaviors {
         cyc_wrk: cycle_work_working {
             compatible = "chord-cycle,behavior-cycle-string";
             #binding-cells = <1>; // Behavior now takes 1 parameter (list index)
-            label = "CYCLE_WORK_WORKING";
         };
 
         magic: magic {
@@ -332,11 +603,11 @@
                 &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
                 &kp ESC     &kp A    &kp R     &kp S      &kp T   &kp G                                                                      &kp M   &kp N      &kp E     &kp I     &kp O    &kp SQT
                 &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL   &kp LALT  &kp LGUI    &caps_word     &mo SYM  &sk RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
-                &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &mo CHORDL  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+                &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp RET  &kp SPACE   &mo SWEDISH_CHORDS  &kp LC(BSPC)  &kp BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
 
-        CHORDL {
+        SWEDISH_CHORDS {
             bindings = <
                 &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
                 &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
@@ -378,6 +649,17 @@
                 &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
                 &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none      &sys_reset
                 &none            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &none
+            >;
+        };
+
+        POST_CHORD_LAYER {
+            bindings = <
+                &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
+                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+                &none   &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans    &none          &none         &post_chord_comma  &post_chord_dot &none   &none   
+                &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &none     &none          &none         &none  &none &none   
             >;
         };
 
