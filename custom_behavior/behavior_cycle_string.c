@@ -24,8 +24,15 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/modifiers_state_changed.h> // For modifier events used by macros
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h> // For HID usage IDs and helper functions
-#include <zmk/action.h> // For zmk_keys_tap
 #include <zmk/keymap.h>
+
+// Helper to tap a usage ID
+static inline void tap_usage(uint32_t usage) {
+    zmk_hid_press(usage);
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
+    zmk_hid_release(usage);
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
+}
 
 // Simple ASCII to keycode helper (add more mappings as needed)
 // Returns 0 if no mapping found
@@ -93,9 +100,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     size_t prev_len = strlen(cycle_strings[previous_index]);
     LOG_DBG("Backspacing previous string: '%s' (length %zu)",
             cycle_strings[previous_index], prev_len);
-    // Use standard ZMK key tap function
+    // Use the tap_usage helper
     for (size_t i = 0; i < prev_len; ++i) {
-        zmk_keys_tap(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
+        tap_usage(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
         // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
     }
   } else {
@@ -118,10 +125,10 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     // Check if it's an uppercase character or symbol requiring shift
     if (zmk_hid_requires_shift(keycode)) {
         zmk_hid_register_mods(MOD_LSFT); // Press Shift
-        zmk_keys_tap(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
+        tap_usage(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
         zmk_hid_register_mods(0); // Release Shift (reset all mods)
     } else {
-        zmk_keys_tap(zmk_hid_strip_mods(keycode)); // Tap the base key
+        tap_usage(zmk_hid_strip_mods(keycode)); // Tap the base key
     }
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
   }
