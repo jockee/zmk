@@ -179,6 +179,10 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     // needed
   }
 
+  // 3. Add a space after the typed string
+  tap_usage(HID_USAGE_KEY_KEYBOARD_SPACEBAR);
+  LOG_DBG("Tapped space after string '%s'", current_string);
+
   // Macro execution happens directly above, no queueing needed.
 
   // 4. Update state for the next press, using the selected list's length
