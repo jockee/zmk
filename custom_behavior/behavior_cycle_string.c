@@ -72,7 +72,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
             cycle_strings[previous_index], prev_len);
     // Use standard ZMK key tap function
     for (size_t i = 0; i < prev_len; ++i) {
-        zmk_keys_tap(HID_USAGE_KEY_KEYBOARD_BACKSPACE);
+        zmk_keys_tap(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
         // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
     }
   } else {
