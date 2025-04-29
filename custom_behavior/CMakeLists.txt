@@ -1,16 +1,21 @@
-# Define this directory as a Zephyr library
-zephyr_library()
+cmake_minimum_required(VERSION 3.12.0)
+find_package(Zephyr REQUIRED HINTS ${ZEPHYR_BASE})
+project(zmk_behavior_cycle_string)
 
-set(ZMK_BASE "/build/source") # Assuming this path is correct within the Nix build
+# Define the ZMK base directory
+set(ZMK_BASE "/build/source")
+message(STATUS "ZMK_BASE: ${ZMK_BASE}")
 
-# Include necessary ZMK headers
+# Include necessary ZMK include directories
 zephyr_include_directories(${ZMK_BASE}/include)
 zephyr_include_directories(${ZMK_BASE}/app/include)
+zephyr_include_directories(${ZMK_BASE}/app/drivers)
+zephyr_include_directories(${ZEPHYR_KERNEL_BASE}/include)
 
-# Specify the source file for this library
+# Specify the source file
 zephyr_library_sources(behavior_cycle_string.c)
+message(STATUS "Source files: ${CMAKE_CURRENT_SOURCE_DIR}/behavior_cycle_string.c")
 
-# Link this library against the main ZMK application library ('app')
-# This *should* provide access to core ZMK functions like zmk_hid_press
+# Link against the 'app' target and potentially the 'zmk-app' target directly
 zephyr_library_link_libraries(app)
-
+message(STATUS "Linking against: app")
