@@ -14,7 +14,7 @@
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <zmk/behavior.h> // Main behavior header
-#include <zmk/behavior/macros.h> // New macro helpers
+// #include <zmk/behavior/macros.h> // New macro helpers - Removed
 #include <zmk/keys.h>            // For key definitions like MOD_LSFT
 
 // Required includes for behavior functionality
@@ -25,6 +25,39 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h> // For zmk_hid_get_keycode_t, HID usage IDs
 #include <zmk/keymap.h>
+
+// Helper functions to raise keycode/modifier events
+static inline void press_keycode(zmk_keycode_t keycode) {
+    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(
+        (struct zmk_keycode_state_changed){.usage_page = HID_USAGE_KEY,
+                                           .keycode = keycode,
+                                           .state = true,
+                                           .timestamp = k_uptime_get()}));
+}
+
+static inline void release_keycode(zmk_keycode_t keycode) {
+    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(
+        (struct zmk_keycode_state_changed){.usage_page = HID_USAGE_KEY,
+                                           .keycode = keycode,
+                                           .state = false,
+                                           .timestamp = k_uptime_get()}));
+}
+
+static inline void tap_keycode(zmk_keycode_t keycode) {
+    press_keycode(keycode);
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
+    release_keycode(keycode);
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
+}
+
+// Helper to set the absolute modifier state
+static inline void set_mods(zmk_mod_flags_t mods) {
+     zmk_hid_register_mods(mods);
+     ZMK_EVENT_RAISE(new_zmk_modifiers_state_changed(
+         (struct zmk_modifiers_state_changed){.mods = mods,
+                                              .timestamp = k_uptime_get()}));
+}
+
 
 // Define the strings to cycle through
 static const char *cycle_strings[] = {"work", "working"};
@@ -70,10 +103,10 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     size_t prev_len = strlen(cycle_strings[previous_index]);
     LOG_DBG("Backspacing previous string: '%s' (length %zu)",
             cycle_strings[previous_index], prev_len);
-    // Use new macro helper directly
+    // Use new helper function
     for (size_t i = 0; i < prev_len; ++i) {
-        zmk_bhv_macros_tap_keycode(HID_USAGE_KEY_KEYBOARD_BACKSPACE);
-        // Optional: k_msleep(ZMK_BHV_MACRO_DEFAULT_WAIT);
+        tap_keycode(HID_USAGE_KEY_KEYBOARD_BACKSPACE);
+        // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
     }
   } else {
     LOG_DBG("First press in cycle, no backspace needed.");
