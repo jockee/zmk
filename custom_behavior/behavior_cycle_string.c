@@ -23,10 +23,31 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/keycode_state_changed.h> // For keycode events used by macros
 #include <zmk/events/modifiers_state_changed.h> // For modifier events used by macros
 #include <zmk/events/position_state_changed.h>
-#include <zmk/hid.h> // For zmk_hid_get_keycode_t, HID usage IDs
-#include <zmk/hid_io.h> // For HID helper functions like zmk_hid_ascii_to_keycode
+#include <zmk/hid.h> // For HID usage IDs and helper functions
 #include <zmk/action.h> // For zmk_keys_tap
 #include <zmk/keymap.h>
+
+// Simple ASCII to keycode helper (add more mappings as needed)
+// Returns 0 if no mapping found
+static zmk_key_t ascii_to_keycode(char character) {
+    // Basic lowercase letters
+    if (character >= 'a' && character <= 'z') {
+        return HID_USAGE_KEY_KEYBOARD_A + (character - 'a');
+    }
+    // Add other mappings here if needed (numbers, symbols, etc.)
+    // Example:
+    // if (character >= '1' && character <= '9') {
+    //     return HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION + (character - '1');
+    // }
+    // if (character == '0') {
+    //     return HID_USAGE_KEY_KEYBOARD_0_AND_RIGHT_PARENTHESIS;
+    // }
+    // if (character == ' ') {
+    //     return HID_USAGE_KEY_KEYBOARD_SPACEBAR;
+    // }
+
+    return 0; // No mapping found
+}
 
 // Define the strings to cycle through
 static const char *cycle_strings[] = {"work", "working"};
@@ -87,9 +108,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   LOG_DBG("Typing current string: '%s' (length %zu)", current_string,
           current_len);
 
-  // Use new macro helpers directly
+  // Use the local helper function
   for (size_t i = 0; i < current_len; ++i) {
-    zmk_key_t keycode = zmk_hid_ascii_to_keycode(current_string[i]);
+    zmk_key_t keycode = ascii_to_keycode(current_string[i]);
     if (keycode == 0) { // Check for 0, which indicates no mapping found
       LOG_ERR("Cannot map character '%c' to keycode", current_string[i]);
       continue; // Skip character if no mapping
