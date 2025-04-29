@@ -104,10 +104,11 @@ static const cycle_list_t all_cycle_lists[] = {
 };
 static const size_t all_cycle_lists_len = ARRAY_SIZE(all_cycle_lists);
 
-// State for the behavior instance (remains the same)
+// State for the behavior instance
 struct behavior_cycle_string_state {
   uint8_t current_index;
   bool active; // Track if the behavior is currently active (pressed)
+  uint32_t last_list_index; // Track which list was last used
 };
 
 // Configuration structure is no longer needed as list is selected by param1
@@ -115,7 +116,10 @@ struct behavior_cycle_string_state {
 
 // Initialize the behavior
 static int behavior_cycle_string_init(const struct device *dev) {
-  // Initialize state if needed (already implicitly zeroed)
+  struct behavior_cycle_string_state *state = dev->data;
+  state->current_index = 0;
+  state->active = false;
+  state->last_list_index = UINT32_MAX; // Initialize with an invalid index
   return 0;
 };
 
@@ -140,10 +144,17 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   // 1. Add backspaces for the PREVIOUS string in the *selected list*, only if not the first press of a
   // cycle
   //    Note: This assumes the user hasn't typed anything else between chord
-  //    presses. A more robust implementation might need more complex state
-  //    tracking.
-  if (state->active) { // Only backspace if it was already active (i.e., repeat
-                       // press)
+  //    presses. Resetting active on release helps with this.
+  bool is_new_cycle_sequence = (list_index != state->last_list_index);
+
+  if (is_new_cycle_sequence) {
+      LOG_DBG("New cycle sequence started for list %d.", list_index);
+      state->current_index = 0; // Start from the beginning of the new list
+      // state->active remains false until after typing
+  }
+
+  // Only backspace if it's a repeat press of the *same* cycle sequence
+  if (state->active && !is_new_cycle_sequence) {
     // Calculate the index of the string that was *just* typed from the selected list
     uint8_t previous_index =
         (state->current_index + current_list->len - 1) % current_list->len;
@@ -185,9 +196,13 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 
   // Macro execution happens directly above, no queueing needed.
 
-  // 4. Update state for the next press, using the selected list's length
-  state->current_index = (state->current_index + 1) % current_list->len;
-  state->active = true; // Mark as active
+  // 4. Update state for the next press
+  // If it was a new sequence, current_index is already 0. Otherwise, increment.
+  if (!is_new_cycle_sequence) {
+      state->current_index = (state->current_index + 1) % current_list->len;
+  }
+  state->active = true; // Mark as active *after* potential backspacing and typing
+  state->last_list_index = list_index; // Record the list index used this time
 
   return ZMK_BEHAVIOR_OPAQUE; // Consume the event
 }
@@ -195,16 +210,18 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 // Behavior release handler
 static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
                                       struct zmk_behavior_binding_event event) {
-  // const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
-  // // dev not needed struct behavior_cycle_string_state *state = dev->data; //
-  // state not needed
+  const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
+  struct behavior_cycle_string_state *state = dev->data;
 
   LOG_DBG("Cycle string '%s' released", binding->behavior_dev);
 
-  // Deactivate the behavior. We reset the index on release.
-  // Alternatively, you could add a timer to reset the index if not pressed
-  // again soon. state->active = false; // Resetting index on release might be
-  // simpler state->current_index = 0;
+  // Deactivate the behavior on release. This prevents backspacing if another
+  // key is pressed before the next cycle combo press.
+  // again soon.
+  state->active = false;
+  // We keep state->current_index and state->last_list_index as they were,
+  // so the *next* press of the *same* combo knows where it left off,
+  // but the state->active = false ensures it won't backspace first.
 
   // For now, let's keep the index persistent until the next *different* key is
   // pressed or a timeout occurs (timeout not implemented here). The
