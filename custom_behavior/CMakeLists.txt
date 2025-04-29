@@ -17,4 +17,9 @@ zephyr_include_directories(${ZEPHYR_KERNEL_BASE}/include)
 target_sources_ifdef(CONFIG_ZMK_BEHAVIOR_CYCLE_STRING app PRIVATE behavior_cycle_string.c)
 message(STATUS "Adding source ${CMAKE_CURRENT_SOURCE_DIR}/behavior_cycle_string.c to app target")
 
-# No explicit linking needed as the source is compiled as part of 'app'
+# Also explicitly add the event implementation source to the app target.
+# This is unusual but attempts to force linking in this build environment.
+target_sources_ifdef(CONFIG_ZMK_BEHAVIOR_CYCLE_STRING app PRIVATE ${ZMK_BASE}/app/src/events/keycode_state_changed.c)
+message(STATUS "Also adding keycode_state_changed.c source to app target")
+
+# No explicit linking needed as sources are compiled directly into 'app'
