@@ -26,14 +26,20 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h> // For HID usage IDs and helper functions
 #include <zmk/keymap.h>
+#include <zmk/split.h> // For zmk_split_is_central()
 
 // Helper to tap a usage ID
 static inline void tap_usage(uint32_t usage) {
-  zmk_hid_keyboard_press(usage); // Use keyboard-specific press
-  // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
-  // needed
-  zmk_hid_keyboard_release(usage); // Use keyboard-specific release
-  // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
+  // Only send HID reports from the central side
+  if (zmk_split_is_central()) {
+    zmk_hid_keyboard_press(usage); // Use keyboard-specific press
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
+    // needed
+    zmk_hid_keyboard_release(usage); // Use keyboard-specific release
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
+  } else {
+      LOG_DBG("Peripheral side, skipping HID report for usage 0x%04X", usage);
+  }
 }
 
 // Simple ASCII to keycode helper (add more mappings as needed)
