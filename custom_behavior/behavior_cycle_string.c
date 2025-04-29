@@ -34,7 +34,7 @@ static inline void press_keycode(zmk_key_t keycode) {
         .state = true,
         .timestamp = k_uptime_get()
     };
-    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(&event));
+    ZMK_EVENT_RAISE(&event);
 }
 
 static inline void release_keycode(zmk_key_t keycode) {
@@ -44,7 +44,7 @@ static inline void release_keycode(zmk_key_t keycode) {
         .state = false,
         .timestamp = k_uptime_get()
     };
-    ZMK_EVENT_RAISE(new_zmk_keycode_state_changed(&event));
+    ZMK_EVENT_RAISE(&event);
 }
 
 static inline void tap_keycode(zmk_key_t keycode) {
