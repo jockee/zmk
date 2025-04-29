@@ -5,14 +5,13 @@
  * Based on behavior_caps_word.c
  */
 
-asd asdas
 #define DT_DRV_COMPAT chord_cycle_behavior_cycle_string
 
 #include <zephyr/device.h>
 #include <zephyr/kernel.h> // Include kernel for basic types if needed elsewhere
 #include <zephyr/logging/log.h>
 
-    LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
+LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <drivers/behavior.h> // Main behavior header
 #include <zmk/behavior.h>     // Main behavior header
