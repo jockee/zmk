@@ -148,8 +148,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     uint8_t previous_index =
         (state->current_index + current_list->len - 1) % current_list->len;
     const char *prev_string = current_list->strings[previous_index];
-    size_t prev_len = strlen(prev_string);
-    LOG_DBG("Backspacing previous string: '%s' (length %zu)", prev_string, prev_len);
+    size_t prev_len = strlen(prev_string) + 1; // Add 1 for the space
+    LOG_DBG("Backspacing previous string + space: '%s ' (length %zu)", prev_string, prev_len);
     // Use the tap_usage helper
     for (size_t i = 0; i < prev_len; ++i) {
       tap_usage(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
