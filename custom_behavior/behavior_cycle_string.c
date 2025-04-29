@@ -197,10 +197,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   // Macro execution happens directly above, no queueing needed.
 
   // 4. Update state for the next press
-  // If it was a new sequence, current_index is already 0. Otherwise, increment.
-  if (!is_new_cycle_sequence) {
-      state->current_index = (state->current_index + 1) % current_list->len;
-  }
+  // Always advance the index for the *current* list after typing.
+  state->current_index = (state->current_index + 1) % current_list->len;
   state->active = true; // Mark as active *after* potential backspacing and typing
   state->last_list_index = list_index; // Record the list index used this time
 
