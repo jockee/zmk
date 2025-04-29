@@ -24,6 +24,8 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/modifiers_state_changed.h> // For modifier events used by macros
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h> // For zmk_hid_get_keycode_t, HID usage IDs
+#include <zmk/hid_io.h> // For HID helper functions like zmk_hid_ascii_to_keycode
+#include <zmk/action.h> // For zmk_keys_tap
 #include <zmk/keymap.h>
 
 // Define the strings to cycle through
@@ -49,7 +51,7 @@ static int behavior_cycle_string_init(const struct device *dev) {
 // Behavior press handler
 static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
                                      struct zmk_behavior_binding_event event) {
-  const struct device *dev = zmk_behavior_get_driver(binding->behavior_dev);
+  const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
   struct behavior_cycle_string_state *state = dev->data;
   // const struct behavior_cycle_string_config *config = dev->config; // Not
   // used here
@@ -115,8 +117,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 // Behavior release handler
 static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
                                       struct zmk_behavior_binding_event event) {
-  const struct device *dev = zmk_behavior_get_driver(binding->behavior_dev);
-  struct behavior_cycle_string_state *state = dev->data;
+  // const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev); // dev not needed
+  // struct behavior_cycle_string_state *state = dev->data; // state not needed
 
   LOG_DBG("Cycle string '%s' released", binding->behavior_dev);
 
