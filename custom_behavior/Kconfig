@@ -1,0 +1,5 @@
+config ZMK_BEHAVIOR_CYCLE_STRING
+    bool "Enable Cycle String Behavior"
+    default n
+    help
+        This option enables the custom cycle string behavior.

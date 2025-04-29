@@ -8,9 +8,6 @@ description: |
 
 compatible: "chord-cycle,behavior-cycle-string" # Must match DT_DRV_COMPAT in C code
 
-binding-cells:
-  - name # Expects 0 cells for simple behavior trigger
-
 properties:
   label:
     type: string

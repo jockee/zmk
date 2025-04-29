@@ -1,3 +1,4 @@
+
 #define LAYER_CHORD(name, keypress, keypos, lays, tmout) \
   chord_##name { \
     timeout-ms = <tmout>; \
