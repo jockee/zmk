@@ -26,20 +26,44 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h> // For HID usage IDs and helper functions
 #include <zmk/keymap.h>
-#include <zmk/split.h> // For split role detection
+// #include <zmk/split.h> // No longer needed for event-based approach
 
-// Helper to tap a usage ID
+// Helper to tap a usage ID by raising keycode state changed events
 static inline void tap_usage(uint32_t usage) {
-  // Only send HID reports from the central side
-  if (zmk_split_central_present()) {
-    zmk_hid_keyboard_press(usage); // Use keyboard-specific press
-    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
-    // needed
-    zmk_hid_keyboard_release(usage); // Use keyboard-specific release
+    // Prepare key down event data
+    struct zmk_keycode_state_changed press_event = {
+        .usage_page = HID_USAGE_KEY, // Assuming standard keyboard usage page
+        .keycode = usage,
+        .state = true, // Pressed
+        .timestamp = k_uptime_get()
+    };
+    // Raise key down event using the event manager
+    zmk_event_t* ev_down = new_zmk_keycode_state_changed(&press_event);
+    if (ev_down) {
+        ZMK_EVENT_RAISE(ev_down); // Use ZMK_EVENT_RAISE with the event pointer
+    } else {
+        LOG_ERR("Failed to allocate key down event");
+    }
+
+
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
+
+    // Prepare key up event data
+    struct zmk_keycode_state_changed release_event = {
+        .usage_page = HID_USAGE_KEY, // Assuming standard keyboard usage page
+        .keycode = usage,
+        .state = false, // Released
+        .timestamp = k_uptime_get()
+    };
+    // Raise key up event using the event manager
+    zmk_event_t* ev_up = new_zmk_keycode_state_changed(&release_event);
+     if (ev_up) {
+        ZMK_EVENT_RAISE(ev_up); // Use ZMK_EVENT_RAISE with the event pointer
+    } else {
+        LOG_ERR("Failed to allocate key up event");
+    }
+
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
-  } else {
-      LOG_DBG("Peripheral side, skipping HID report for usage 0x%04X", usage);
-  }
 }
 
 // Simple ASCII to keycode helper (add more mappings as needed)
