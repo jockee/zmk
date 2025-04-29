@@ -1173,6 +1173,41 @@ static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
   return ZMK_BEHAVIOR_OPAQUE; // Consume the event
 }
 
+
+// Global listener to reset cycle state on any key press
+static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
+    const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
+    if (ev == NULL) {
+        return ZMK_EV_EVENT_BUBBLE;
+    }
+
+    // Reset internal state on ANY key PRESS to ensure next chord starts fresh
+    if (ev->state) { // If it's a key press
+        // LOG_DBG("Key press detected, resetting cycle string states...");
+        #define RESET_CYCLE_STATE(n)                                            \
+            const struct device *dev_##n = DEVICE_DT_GET(DT_DRV_INST(n));           \
+            struct behavior_cycle_string_state *state_##n = dev_##n->data;          \
+            if (state_##n->active || state_##n->last_list_index != UINT32_MAX) {    \
+                /* LOG_DBG("Resetting state for instance %s", dev_##n->name); */    \
+                state_##n->active = false;                                          \
+                state_##n->last_list_index = UINT32_MAX;                            \
+            }
+
+        DT_INST_FOREACH_STATUS_OKAY(RESET_CYCLE_STATE)
+        #undef RESET_CYCLE_STATE
+    }
+    // Note: Sticky layer deactivation logic was removed in previous steps as it wasn't working.
+    // If sticky layers are still desired, that logic needs to be revisited separately.
+
+    return ZMK_EV_EVENT_BUBBLE; // Allow other listeners to process the keycode
+}
+
+// Register the listener
+ZMK_LISTENER(behavior_cycle_string, cycle_string_keycode_state_changed_listener);
+// Subscribe the listener
+ZMK_SUBSCRIPTION(behavior_cycle_string, zmk_keycode_state_changed);
+
+
 // Behavior driver API definition
 static const struct behavior_driver_api behavior_cycle_string_driver_api = {
     .binding_pressed = on_keymap_binding_pressed,
