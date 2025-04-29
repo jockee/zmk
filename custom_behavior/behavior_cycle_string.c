@@ -37,14 +37,11 @@ static inline void tap_usage(uint32_t usage) {
         .state = true, // Pressed
         .timestamp = k_uptime_get()
     };
-    // Raise key down event using the event manager
-    zmk_event_t* ev_down = new_zmk_keycode_state_changed(&press_event);
-    if (ev_down) {
-        ZMK_EVENT_RAISE(ev_down); // Use ZMK_EVENT_RAISE with the event pointer
-    } else {
-        LOG_ERR("Failed to allocate key down event");
+    // Raise key down event using the event manager helper function
+    int ret_down = raise_zmk_keycode_state_changed(press_event);
+    if (ret_down != 0) {
+        LOG_ERR("Failed to raise key down event: %d", ret_down);
     }
-
 
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
 
@@ -55,12 +52,10 @@ static inline void tap_usage(uint32_t usage) {
         .state = false, // Released
         .timestamp = k_uptime_get()
     };
-    // Raise key up event using the event manager
-    zmk_event_t* ev_up = new_zmk_keycode_state_changed(&release_event);
-     if (ev_up) {
-        ZMK_EVENT_RAISE(ev_up); // Use ZMK_EVENT_RAISE with the event pointer
-    } else {
-        LOG_ERR("Failed to allocate key up event");
+    // Raise key up event using the event manager helper function
+    int ret_up = raise_zmk_keycode_state_changed(release_event);
+    if (ret_up != 0) {
+        LOG_ERR("Failed to raise key up event: %d", ret_up);
     }
 
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
