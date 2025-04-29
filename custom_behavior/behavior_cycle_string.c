@@ -83,11 +83,6 @@ static zmk_key_t ascii_to_keycode(char character) {
   return 0; // No mapping found
 }
 
-// Define the different lists of strings to cycle through
-static const char *work_strings[] = {"work", "working"};
-static const char *test_strings[] = {"test", "testing", "tested"};
-// Add more lists here as needed...
-// static const char *another_list[] = {"one", "two", "three"};
 
 // Structure to hold a cycle list and its length
 typedef struct {
@@ -95,12 +90,21 @@ typedef struct {
     const size_t len;
 } cycle_list_t;
 
-// Array containing all the cycle lists
+// Array containing all the cycle lists, using compound literals
 static const cycle_list_t all_cycle_lists[] = {
-    {.strings = work_strings, .len = ARRAY_SIZE(work_strings)},
-    {.strings = test_strings, .len = ARRAY_SIZE(test_strings)},
-    // Add corresponding entries for new lists here...
-    // {.strings = another_list, .len = ARRAY_SIZE(another_list)},
+    { // Index 0
+        .strings = (const char *[]){"work", "working"},
+        .len = ARRAY_SIZE(((const char *[]){"work", "working"}))
+    },
+    { // Index 1
+        .strings = (const char *[]){"test", "testing", "tested"},
+        .len = ARRAY_SIZE(((const char *[]){"test", "testing", "tested"}))
+    },
+    // Add more lists directly here using the same pattern:
+    // { // Index 2
+    //     .strings = (const char *[]){"another", "list", "example"},
+    //     .len = ARRAY_SIZE(((const char *[]){"another", "list", "example"}))
+    // },
 };
 static const size_t all_cycle_lists_len = ARRAY_SIZE(all_cycle_lists);
 
