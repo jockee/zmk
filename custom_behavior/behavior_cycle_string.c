@@ -29,10 +29,10 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 // Helper to tap a usage ID
 static inline void tap_usage(uint32_t usage) {
-  zmk_hid_press(usage);
+  zmk_hid_keyboard_press(usage); // Use keyboard-specific press
   // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
   // needed
-  zmk_hid_release(usage);
+  zmk_hid_keyboard_release(usage); // Use keyboard-specific release
   // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
 }
 
