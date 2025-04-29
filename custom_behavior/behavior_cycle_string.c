@@ -14,9 +14,11 @@
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <zmk/behavior.h> // Main behavior header
+#include <zmk/behavior/macros.h> // New macro helpers
+#include <zmk/keys.h>            // For key definitions like MOD_LSFT
 
 // Required includes for behavior functionality
-#include <zmk/behavior_queue.h> // For zmk_behavior_queue_add
+#include <zmk/behavior_queue.h> // For zmk_behavior_queue_add (will be removed later)
 #include <zmk/event_manager.h>
 #include <zmk/events/keycode_state_changed.h> // For keycode events used by macros
 #include <zmk/events/modifiers_state_changed.h> // For modifier events used by macros
