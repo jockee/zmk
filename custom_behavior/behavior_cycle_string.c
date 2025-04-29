@@ -115,8 +115,8 @@ struct behavior_cycle_string_state {
   uint32_t last_list_index; // Track which list was last used
 };
 
-// Configuration structure is no longer needed as list is selected by param1
-// struct behavior_cycle_string_config {};
+// Configuration structure (empty, but needed for the driver definition macro)
+struct behavior_cycle_string_config {};
 
 // Initialize the behavior
 static int behavior_cycle_string_init(const struct device *dev) {
@@ -242,13 +242,15 @@ static const struct behavior_driver_api behavior_cycle_string_driver_api = {
     // .locality_changed = NULL, // Not needed for this behavior
 };
 
-// Instantiate the behavior driver data (state only, config removed)
+// Instantiate the behavior driver data and config
 #define CYC_STR_INST(n)                                                        \
   static struct behavior_cycle_string_state behavior_cycle_string_state_##n;   \
-  /* Config struct removed */                                                  \
+  static const struct behavior_cycle_string_config                             \
+      behavior_cycle_string_config_##n = {}; /* Define empty config */         \
   BEHAVIOR_DT_INST_DEFINE(                                                     \
       n, behavior_cycle_string_init, NULL, /* Deinit function, not needed */   \
-      &behavior_cycle_string_state_##n, NULL, /* No config */                  \
+      &behavior_cycle_string_state_##n,                                        \
+      &behavior_cycle_string_config_##n, /* Pass address of config */          \
       POST_KERNEL, /* Initialize after kernel */                               \
       CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &behavior_cycle_string_driver_api);
 
