@@ -29,11 +29,12 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 // Helper to tap a usage ID
 static inline void tap_usage(uint32_t usage) {
-  zmk_hid_press(usage);
+  // zmk_hid_press(usage); // <-- Temporarily comment out for debugging linker error
   // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
   // needed
-  zmk_hid_release(usage);
+  // zmk_hid_release(usage); // <-- Temporarily comment out for debugging linker error
   // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
+  LOG_WRN("HID press/release commented out for usage 0x%04X", usage); // Add log
 }
 
 // Simple ASCII to keycode helper (add more mappings as needed)
