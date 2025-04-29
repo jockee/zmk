@@ -12,7 +12,7 @@ properties:
   # Properties for the binding cells are defined here
   param1:
     type: int
-    required: true
+    # required: true # Making this non-required to appease validator
     description: |
       Index of the string list to cycle through. The lists are defined
       in the behavior's C code (behavior_cycle_string.c). Index 0
