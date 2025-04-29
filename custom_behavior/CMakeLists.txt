@@ -7,6 +7,6 @@ zephyr_include_directories(${ZMK_BASE}/app/include)
 
 zephyr_library_sources(behavior_cycle_string.c)
 
-# Link against the main ZMK app library to access HID functions etc.
-zephyr_library_link_libraries(app)
+# Link against the Zephyr USB HID interface library
+zephyr_library_link_libraries(zephyr::usbd_hid)
 
