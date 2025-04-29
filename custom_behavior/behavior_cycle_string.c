@@ -113,9 +113,9 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     size_t prev_len = strlen(cycle_strings[previous_index]);
     LOG_DBG("Backspacing previous string: '%s' (length %zu)",
             cycle_strings[previous_index], prev_len);
-    // Use new helper function
+    // Use standard ZMK key tap function
     for (size_t i = 0; i < prev_len; ++i) {
-        tap_keycode(HID_USAGE_KEY_KEYBOARD_BACKSPACE);
+        zmk_keys_tap(HID_USAGE_KEY_KEYBOARD_BACKSPACE);
         // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
     }
   } else {
@@ -137,11 +137,11 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     }
     // Check if it's an uppercase character or symbol requiring shift
     if (zmk_hid_requires_shift(keycode)) {
-        set_mods(MOD_LSFT); // Press Shift
-        tap_keycode(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
-        set_mods(0); // Release Shift (reset all mods)
+        zmk_hid_register_mods(MOD_LSFT); // Press Shift
+        zmk_keys_tap(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
+        zmk_hid_register_mods(0); // Release Shift (reset all mods)
     } else {
-        tap_keycode(zmk_hid_strip_mods(keycode)); // Tap the base key
+        zmk_keys_tap(zmk_hid_strip_mods(keycode)); // Tap the base key
     }
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
   }
