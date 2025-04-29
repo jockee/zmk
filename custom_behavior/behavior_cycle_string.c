@@ -218,10 +218,10 @@ static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
   // Deactivate the behavior on release. This prevents backspacing if another
   // key is pressed before the next cycle combo press.
   // again soon.
-  state->active = false;
+  // state->active = false; // REMOVED: Let the press handler manage active state based on sequence
   // We keep state->current_index and state->last_list_index as they were,
-  // so the *next* press of the *same* combo knows where it left off,
-  // but the state->active = false ensures it won't backspace first.
+  // so the *next* press of the *same* combo knows where it left off.
+  // The press handler will check if it's a new sequence or not.
 
   // For now, let's keep the index persistent until the next *different* key is
   // pressed or a timeout occurs (timeout not implemented here). The
