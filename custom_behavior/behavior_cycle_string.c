@@ -127,13 +127,13 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     }
     // Check if it's an uppercase character or symbol requiring shift
     if (zmk_hid_requires_shift(keycode)) {
-        zmk_bhv_macros_press_mods(MOD_LSFT);
-        zmk_bhv_macros_tap_keycode(zmk_hid_apply_basic_mods(keycode));
-        zmk_bhv_macros_release_mods(MOD_LSFT);
+        set_mods(MOD_LSFT); // Press Shift
+        tap_keycode(zmk_hid_apply_basic_mods(keycode)); // Tap the base key
+        set_mods(0); // Release Shift (reset all mods)
     } else {
-        zmk_bhv_macros_tap_keycode(zmk_hid_strip_mods(keycode));
+        tap_keycode(zmk_hid_strip_mods(keycode)); // Tap the base key
     }
-    // Optional: k_msleep(ZMK_BHV_MACRO_DEFAULT_WAIT);
+    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
   }
 
   // Macro execution happens directly above, no queueing needed.
