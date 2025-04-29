@@ -26,49 +26,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/hid.h> // For zmk_hid_get_keycode_t, HID usage IDs
 #include <zmk/keymap.h>
 
-// Helper functions to raise keycode/modifier events
-static inline void press_keycode(zmk_key_t keycode) {
-    ZMK_EVENT_INIT(
-        zmk_keycode_state_changed, keycode_ev,
-        ((struct zmk_keycode_state_changed){
-            .usage_page = HID_USAGE_KEY,
-            .keycode = keycode,
-            .state = true,
-            .timestamp = k_uptime_get()}));
-    ZMK_EVENT_RAISE(keycode_ev);
-}
-
-static inline void release_keycode(zmk_key_t keycode) {
-    ZMK_EVENT_INIT(
-        zmk_keycode_state_changed, keycode_ev,
-        ((struct zmk_keycode_state_changed){
-            .usage_page = HID_USAGE_KEY,
-            .keycode = keycode,
-            .state = false,
-            .timestamp = k_uptime_get()}));
-    ZMK_EVENT_RAISE(keycode_ev);
-}
-
-static inline void tap_keycode(zmk_key_t keycode) {
-    press_keycode(keycode);
-    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if needed
-    release_keycode(keycode);
-    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
-}
-
-// Helper to set the absolute modifier state
-static inline void set_mods(zmk_mod_flags_t mods) {
-     zmk_hid_register_mods(mods);
-     ZMK_EVENT_INIT(
-        zmk_modifiers_state_changed, mod_ev,
-        ((struct zmk_modifiers_state_changed){
-            .modifiers = mods,
-            .state = (mods != 0), // Set state based on mods
-            .timestamp = k_uptime_get()}));
-     ZMK_EVENT_RAISE(mod_ev);
-}
-
-
 // Define the strings to cycle through
 static const char *cycle_strings[] = {"work", "working"};
 static const size_t cycle_strings_len =
