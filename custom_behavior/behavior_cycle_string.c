@@ -88,7 +88,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   // Use new macro helpers directly
   for (size_t i = 0; i < current_len; ++i) {
     zmk_key_t keycode = zmk_hid_ascii_to_keycode(current_string[i]);
-    if (keycode == ZMK_HID_NO_KEYCODE) {
+    if (keycode == 0) { // Check for 0, which indicates no mapping found
       LOG_ERR("Cannot map character '%c' to keycode", current_string[i]);
       continue; // Skip character if no mapping
     }
