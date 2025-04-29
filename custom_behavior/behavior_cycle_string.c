@@ -5,13 +5,14 @@
  * Based on behavior_caps_word.c
  */
 
+asd asdas
 #define DT_DRV_COMPAT chord_cycle_behavior_cycle_string
 
 #include <zephyr/device.h>
 #include <zephyr/kernel.h> // Include kernel for basic types if needed elsewhere
 #include <zephyr/logging/log.h>
 
-LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
+    LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include <drivers/behavior.h> // Main behavior header
 #include <zmk/behavior.h>     // Main behavior header
@@ -125,7 +126,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
       LOG_ERR("Cannot map character '%c' to keycode", current_string[i]);
       continue; // Skip character if no mapping
     }
-    // Directly tap the keycode, as shift handling is not needed for current strings
+    // Directly tap the keycode, as shift handling is not needed for current
+    // strings
     tap_usage(keycode);
     // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
     // needed
