@@ -1217,8 +1217,7 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
 
   // Special handling for exclamation mark (which is Shift+1)
   bool is_exclamation = (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION);
-  // We can't reliably detect if shift is pressed on split keyboards, so we'll handle
-  // exclamation marks the same way regardless of shift state
+  // We'll handle exclamation marks by explicitly sending shift+1
 
   // Core logic: If an instance was active and the key is punctuation or exclamation
   if (any_instance_was_active && (is_punctuation || is_exclamation)) {
@@ -1231,9 +1230,32 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
     // Optional delay if needed: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
 
     // 2. Send the original punctuation key press/release via tap_usage
-    // For all punctuation including exclamation mark, just send the keycode
-    // The OS will handle the shift state based on the current keyboard state
-    tap_usage(ev->keycode);
+    if (is_exclamation) {
+      // For exclamation mark, we need to explicitly send shift+1
+      // First press shift
+      struct zmk_keycode_state_changed shift_press = {
+          .usage_page = HID_USAGE_KEY,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
+          .state = true,
+          .timestamp = k_uptime_get()
+      };
+      raise_zmk_keycode_state_changed(shift_press);
+      
+      // Then press and release 1
+      tap_usage(HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION);
+      
+      // Then release shift
+      struct zmk_keycode_state_changed shift_release = {
+          .usage_page = HID_USAGE_KEY,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
+          .state = false,
+          .timestamp = k_uptime_get()
+      };
+      raise_zmk_keycode_state_changed(shift_release);
+    } else {
+      // For other punctuation, just send the keycode
+      tap_usage(ev->keycode);
+    }
 
     // 3. Add a space after the punctuation
     tap_usage(HID_USAGE_KEY_KEYBOARD_SPACEBAR);
