@@ -1217,7 +1217,7 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
 
   // Special handling for exclamation mark (which is Shift+1)
   bool is_exclamation = (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION && 
-                         zmk_hid_get_explicit_mods() & MOD_BIT(KC_LSFT));
+                         zmk_hid_get_explicit_mods() & MOD_LSFT);
 
   // Core logic: If an instance was active and the key is punctuation or exclamation
   if (any_instance_was_active && (is_punctuation || is_exclamation)) {
