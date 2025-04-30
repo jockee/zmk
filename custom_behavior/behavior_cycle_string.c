@@ -1193,16 +1193,15 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
 #undef CHECK_ACTIVE_STATE
 
   // Define punctuation keycodes (HID Usages) - Add more as needed
+  // Define punctuation keycodes (HID Usages) that DON'T require special shift handling here
   zmk_key_t punctuation_keys[] = {
-      HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN,
-      HID_USAGE_KEY_KEYBOARD_COMMA_AND_LESS_THAN,
-      HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, // For '/' and '?' (Shift
-                                                      // handled by keymap/OS)
-      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,     // For ';' and ':'
-      HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE,    // For ''' and '"'
-      // HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION removed - handled separately
-      // Add other relevant keys like brackets if desired
-      // HID_USAGE_KEY_KEYBOARD_LEFT_BRACKET_AND_LEFT_BRACE,
+      HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN, // .
+      HID_USAGE_KEY_KEYBOARD_COMMA_AND_LESS_THAN,     // ,
+      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,     // ; (Shift for : handled by OS/keymap)
+      // Keys requiring explicit Shift handling (like !, ?, ') are handled separately below
+      // HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, // Removed, handled below
+      // HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE,    // Removed, handled below
+      // HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION,       // Removed, handled below
       // HID_USAGE_KEY_KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE,
   };
 
@@ -1215,49 +1214,44 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
     }
   }
 
-  // Special handling for exclamation mark (which is Shift+1)
+  // Special handling flags for keys requiring explicit Shift or direct tapping
   bool is_exclamation = (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION);
-  // We'll handle exclamation marks by explicitly sending shift+1
+  bool is_question_mark = (ev->keycode == HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK);
+  bool is_apostrophe = (ev->keycode == HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE);
+  // Add more special cases here if needed (e.g., double quotes, colon)
 
-  // Core logic: If an instance was active and the key is punctuation or exclamation
-  if (any_instance_was_active && (is_punctuation || is_exclamation)) {
-    LOG_DBG("Punctuation key (%d) pressed after active cycle string. Replacing "
-            "space.",
-            ev->keycode);
+  // Core logic: If an instance was active and the key is punctuation (from array) or a special case
+  if (any_instance_was_active && (is_punctuation || is_exclamation || is_question_mark || is_apostrophe)) {
+    LOG_DBG("Punctuation/Special key (%d) pressed after active cycle string. Replacing space.", ev->keycode);
 
     // 1. Send Backspace
     tap_usage(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
     // Optional delay if needed: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
 
-    // 2. Send the original punctuation key press/release via tap_usage
+    // 2. Send the appropriate key sequence
     if (is_exclamation) {
-      // For exclamation mark, we need to explicitly send shift+1
-      // First press shift
-      struct zmk_keycode_state_changed shift_press = {
-          .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
-          .state = true,
-          .timestamp = k_uptime_get()
-      };
-      raise_zmk_keycode_state_changed(shift_press);
-      
-      // Then press and release 1
-      tap_usage(HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION);
-      
-      // Then release shift
-      struct zmk_keycode_state_changed shift_release = {
-          .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
-          .state = false,
-          .timestamp = k_uptime_get()
-      };
-      raise_zmk_keycode_state_changed(shift_release);
-    } else {
-      // For other punctuation, just send the keycode
-      tap_usage(ev->keycode);
+        // Send Shift + 1
+        struct zmk_keycode_state_changed shift_press = {.usage_page = HID_USAGE_KEY, .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT, .state = true, .timestamp = k_uptime_get()};
+        raise_zmk_keycode_state_changed(shift_press);
+        tap_usage(HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION); // Tap '1'
+        struct zmk_keycode_state_changed shift_release = {.usage_page = HID_USAGE_KEY, .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT, .state = false, .timestamp = k_uptime_get()};
+        raise_zmk_keycode_state_changed(shift_release);
+    } else if (is_question_mark) {
+        // Send Shift + /
+        struct zmk_keycode_state_changed shift_press = {.usage_page = HID_USAGE_KEY, .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT, .state = true, .timestamp = k_uptime_get()};
+        raise_zmk_keycode_state_changed(shift_press);
+        tap_usage(HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK); // Tap '/'
+        struct zmk_keycode_state_changed shift_release = {.usage_page = HID_USAGE_KEY, .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT, .state = false, .timestamp = k_uptime_get()};
+        raise_zmk_keycode_state_changed(shift_release);
+    } else if (is_apostrophe) {
+        // Send '
+        tap_usage(HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE);
+    } else { // is_punctuation must be true here
+        // For other punctuation defined in the array, just tap the keycode
+        tap_usage(ev->keycode);
     }
 
-    // 3. Add a space after the punctuation
+    // 3. Add a space after the punctuation/special key
     tap_usage(HID_USAGE_KEY_KEYBOARD_SPACEBAR);
 
 // 4. Reset state for ALL instances
