@@ -1151,7 +1151,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
                                       struct zmk_behavior_binding_event event) {
   const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
-  struct behavior_cycle_string_state *state = dev->data;
+  // Removed unused state variable
 
   LOG_DBG("Cycle string '%s' released", binding->behavior_dev);
 
@@ -1234,7 +1234,7 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
       // For exclamation mark, we need to send shift+1
       struct zmk_keycode_state_changed shift_press = {
           .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_LEFT_SHIFT,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
           .state = true,
           .timestamp = k_uptime_get()
       };
@@ -1244,7 +1244,7 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
       
       struct zmk_keycode_state_changed shift_release = {
           .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_LEFT_SHIFT,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
           .state = false,
           .timestamp = k_uptime_get()
       };
