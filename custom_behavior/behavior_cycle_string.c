@@ -1231,12 +1231,12 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
 
   // Special handling flags for keys requiring explicit Shift or direct tapping
   bool is_exclamation =
-      (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION);
+      (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION); // Key '1'
   bool is_question_mark =
-      (ev->keycode == HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK);
+      (ev->keycode == HID_USAGE_KEY_KEYBOARD_MINUS_AND_UNDERSCORE); // Key '-' (used for '?' with Shift)
   bool is_apostrophe =
-      (ev->keycode == HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE);
-  // Add more special cases here if needed (e.g., double quotes, colon)
+      (ev->keycode == HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE); // Key '\' (used for '' on SE layout)
+  // Add more special cases here if needed
 
   // Core logic: If an instance was active and the key is punctuation (from array) or a special case
   if (any_instance_was_active &&
@@ -1272,7 +1272,7 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
           .state = true,
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(shift_press);
-      tap_usage(HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK); // Tap '/'
+      tap_usage(HID_USAGE_KEY_KEYBOARD_MINUS_AND_UNDERSCORE); // Tap '-'
       struct zmk_keycode_state_changed shift_release = {
           .usage_page = HID_USAGE_KEY,
           .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
@@ -1280,8 +1280,8 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(shift_release);
     } else if (is_apostrophe) {
-        // Send '
-        tap_usage(HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE);
+        // Send '\' keycode (which produces ' on SE layout)
+        tap_usage(HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE);
     } else { // is_punctuation must be true here
       // For other punctuation defined in the array, just tap the keycode
       tap_usage(ev->keycode);
