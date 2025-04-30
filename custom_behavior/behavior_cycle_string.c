@@ -1236,9 +1236,9 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
             }
         DT_INST_FOREACH_STATUS_OKAY(RESET_CYCLE_STATE_PUNCT)
         #undef RESET_CYCLE_STATE_PUNCT
-
-        // 4. Consume the original event
-        return ZMK_EV_EVENT_CONSUMED;
+ 
+        // 4. Capture the original event (preventing it from bubbling)
+        return ZMK_EV_EVENT_CAPTURED;
     } else {
         // Original behavior: Reset state if any key (non-punctuation or punctuation without active state) is pressed
         #define RESET_CYCLE_STATE_ELSE(n)                                       \
