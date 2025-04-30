@@ -1177,29 +1177,84 @@ static int on_keymap_binding_released(struct zmk_behavior_binding *binding,
 // Global listener to reset cycle state on any key press
 static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
     const struct zmk_keycode_state_changed *ev = as_zmk_keycode_state_changed(eh);
-    if (ev == NULL) {
+    if (ev == NULL || !ev->state) { // Only act on key presses, not releases
         return ZMK_EV_EVENT_BUBBLE;
     }
 
-    // Reset internal state on ANY key PRESS to ensure next chord starts fresh
-    if (ev->state) { // If it's a key press
-        // LOG_DBG("Key press detected, resetting cycle string states...");
-        #define RESET_CYCLE_STATE(n)                                            \
-            const struct device *dev_##n = DEVICE_DT_GET(DT_DRV_INST(n));           \
-            struct behavior_cycle_string_state *state_##n = dev_##n->data;          \
-            if (state_##n->active || state_##n->last_list_index != UINT32_MAX) {    \
-                /* LOG_DBG("Resetting state for instance %s", dev_##n->name); */    \
-                state_##n->active = false;                                          \
-                state_##n->last_list_index = UINT32_MAX;                            \
-            }
+    // Check if any instance was active *before* potentially resetting
+    bool any_instance_was_active = false;
+    #define CHECK_ACTIVE_STATE(n)                                           \
+        const struct device *dev_check_##n = DEVICE_DT_GET(DT_DRV_INST(n));     \
+        struct behavior_cycle_string_state *state_check_##n = dev_check_##n->data; \
+        if (state_check_##n->active) {                                          \
+            any_instance_was_active = true;                                     \
+        }
+    DT_INST_FOREACH_STATUS_OKAY(CHECK_ACTIVE_STATE)
+    #undef CHECK_ACTIVE_STATE
 
-        DT_INST_FOREACH_STATUS_OKAY(RESET_CYCLE_STATE)
-        #undef RESET_CYCLE_STATE
+    // Define punctuation keycodes (HID Usages) - Add more as needed
+    zmk_key_t punctuation_keys[] = {
+        HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN,
+        HID_USAGE_KEY_KEYBOARD_COMMA_AND_LESS_THAN,
+        HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, // For '/' and '?' (Shift handled by keymap/OS)
+        HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,     // For ';' and ':'
+        HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE,    // For ''' and '"'
+        HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION,       // For '!' (Shift handled by keymap/OS)
+        // Add other relevant keys like brackets if desired
+        // HID_USAGE_KEY_KEYBOARD_LEFT_BRACKET_AND_LEFT_BRACE,
+        // HID_USAGE_KEY_KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE,
+    };
+
+    // Check if the event keycode is punctuation
+    bool is_punctuation = false;
+    for (size_t i = 0; i < ARRAY_SIZE(punctuation_keys); ++i) {
+        if (ev->keycode == punctuation_keys[i]) {
+            is_punctuation = true;
+            break;
+        }
     }
-    // Note: Sticky layer deactivation logic was removed in previous steps as it wasn't working.
-    // If sticky layers are still desired, that logic needs to be revisited separately.
 
-    return ZMK_EV_EVENT_BUBBLE; // Allow other listeners to process the keycode
+    // Core logic: If an instance was active and the key is punctuation
+    if (any_instance_was_active && is_punctuation) {
+        LOG_DBG("Punctuation key (%d) pressed after active cycle string. Replacing space.", ev->keycode);
+
+        // 1. Send Backspace
+        tap_usage(HID_USAGE_KEY_KEYBOARD_DELETE_BACKSPACE);
+        // Optional delay if needed: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
+
+        // 2. Send the original punctuation key press/release via tap_usage
+        tap_usage(ev->keycode);
+
+        // 3. Reset state for ALL instances
+        #define RESET_CYCLE_STATE_PUNCT(n)                                      \
+            const struct device *dev_reset_##n = DEVICE_DT_GET(DT_DRV_INST(n));     \
+            struct behavior_cycle_string_state *state_reset_##n = dev_reset_##n->data; \
+            if (state_reset_##n->active || state_reset_##n->last_list_index != UINT32_MAX) { \
+                /* LOG_DBG("Resetting state for instance %s", dev_reset_##n->name); */ \
+                state_reset_##n->active = false;                                      \
+                state_reset_##n->last_list_index = UINT32_MAX;                        \
+            }
+        DT_INST_FOREACH_STATUS_OKAY(RESET_CYCLE_STATE_PUNCT)
+        #undef RESET_CYCLE_STATE_PUNCT
+
+        // 4. Consume the original event
+        return ZMK_EV_EVENT_CONSUMED;
+    } else {
+        // Original behavior: Reset state if any key (non-punctuation or punctuation without active state) is pressed
+        #define RESET_CYCLE_STATE_ELSE(n)                                       \
+            const struct device *dev_else_##n = DEVICE_DT_GET(DT_DRV_INST(n));      \
+            struct behavior_cycle_string_state *state_else_##n = dev_else_##n->data; \
+            if (state_else_##n->active || state_else_##n->last_list_index != UINT32_MAX) { \
+                /* LOG_DBG("Resetting state for instance %s (else)", dev_else_##n->name); */ \
+                state_else_##n->active = false;                                       \
+                state_else_##n->last_list_index = UINT32_MAX;                         \
+            }
+        DT_INST_FOREACH_STATUS_OKAY(RESET_CYCLE_STATE_ELSE)
+        #undef RESET_CYCLE_STATE_ELSE
+
+        // Allow the original key press event to bubble
+        return ZMK_EV_EVENT_BUBBLE;
+    }
 }
 
 // Register the listener
