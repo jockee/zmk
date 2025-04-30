@@ -1530,8 +1530,10 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
       tap_usage(ev->keycode);
     }
 
-    // 3. Add a space after the punctuation/special key
-    tap_usage(HID_USAGE_KEY_KEYBOARD_SPACEBAR);
+    // 3. Add a space after the punctuation/special key, *unless* it was an apostrophe
+    if (!is_apostrophe) {
+        tap_usage(HID_USAGE_KEY_KEYBOARD_SPACEBAR);
+    }
 
     // 4. Reset state for ALL instances using the helper function via macro
 #define RESET_CYCLE_STATE(n)                                                   \
