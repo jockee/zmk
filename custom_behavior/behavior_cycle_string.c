@@ -79,6 +79,11 @@ static zmk_key_t ascii_to_keycode(char character) {
   // if (character == ' ') {
   //     return HID_USAGE_KEY_KEYBOARD_SPACEBAR;
   // }
+  if (character == '\'') {
+      // Map apostrophe to the keycode determined for the specific layout (e.g., Backslash on SE)
+      return HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE;
+  }
+
 
   return 0; // No mapping found
 }
