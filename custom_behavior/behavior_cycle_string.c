@@ -1212,14 +1212,12 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
   zmk_key_t punctuation_keys[] = {
       HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN, // .
       HID_USAGE_KEY_KEYBOARD_COMMA_AND_LESS_THAN,     // ,
-      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,  // ; (Shift for : handled by
-      HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE, // Removed, handled below
-                                                   // OS/keymap)
-      // Keys requiring explicit Shift handling (like !, ?, ') are handled
-      // separately below HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, //
-      // Removed, handled below
-      // HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION,       // Removed, handled
-      // below HID_USAGE_KEY_KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE,
+      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,     // ; (Shift for : handled by OS/keymap)
+      // Keys requiring explicit Shift or special handling are checked separately below:
+      // !, ?, '
+      // HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE, // Removed, handled below
+      // HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, // Removed, handled below
+      // HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION,       // Removed, handled below
   };
 
   // Check if the event keycode is punctuation
@@ -1236,14 +1234,14 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
       (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION);
   bool is_question_mark =
       (ev->keycode == HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK);
+  bool is_apostrophe =
+      (ev->keycode == HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE);
   // Add more special cases here if needed (e.g., double quotes, colon)
 
-  // Core logic: If an instance was active and the key is punctuation (from
-  // array) or a special case
+  // Core logic: If an instance was active and the key is punctuation (from array) or a special case
   if (any_instance_was_active &&
-      (is_punctuation || is_exclamation || is_question_mark)) {
-    LOG_DBG("Punctuation/Special key (%d) pressed after active cycle string. "
-            "Replacing space.",
+      (is_punctuation || is_exclamation || is_question_mark || is_apostrophe)) {
+    LOG_DBG("Punctuation/Special key (%d) pressed after active cycle string. Replacing space.",
             ev->keycode);
 
     // 1. Send Backspace
@@ -1281,6 +1279,9 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
           .state = false,
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(shift_release);
+    } else if (is_apostrophe) {
+        // Send '
+        tap_usage(HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE);
     } else { // is_punctuation must be true here
       // For other punctuation defined in the array, just tap the keycode
       tap_usage(ev->keycode);
