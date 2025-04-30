@@ -133,8 +133,8 @@ static const cycle_list_t all_cycle_lists[] = {
      .strings = (const char *[]){"have", "has", "had", "having"},
      .len = 4},
     {// Index 14
-     .strings = (const char *[]){"that"},
-     .len = 1},
+     .strings = (const char *[]){"that", "that's"},
+     .len = 2},
     {// Index 15
      .strings = (const char *[]){"for"},
      .len = 1},
@@ -577,8 +577,8 @@ static const cycle_list_t all_cycle_lists[] = {
      .strings = (const char *[]){"hear", "hears", "hearing", "heard"},
      .len = 4},
     {// Index 162
-     .strings = (const char *[]){"its"},
-     .len = 1},
+     .strings = (const char *[]){"its", "it's"},
+     .len = 2},
     {// Index 163
      .strings = (const char *[]){"place", "places", "placing", "placed"},
      .len = 4},
@@ -1037,6 +1037,235 @@ static const cycle_list_t all_cycle_lists[] = {
     {// Index 313
      .strings = (const char *[]){"reason", "reasons", "reasoning", "reasoned"},
      .len = 4},
+    {// Index 314
+     .strings = (const char *[]){"low", "lower", "lowest"},
+     .len = 3},
+    {// Index 315
+     .strings = (const char *[]){"win", "wins", "winning", "won"},
+     .len = 4},
+    {// Index 316
+     .strings = (const char *[]){"research", "researches", "researching",
+                                 "researched"},
+     .len = 4},
+    {// Index 317
+     .strings = (const char *[]){"girl", "girls"},
+     .len = 2},
+    {// Index 318
+     .strings = (const char *[]){"guy", "guys"},
+     .len = 2},
+    {// Index 319
+     .strings = (const char *[]){"early", "earlier", "earliest"},
+     .len = 3},
+    {// Index 320
+     .strings = (const char *[]){"food", "foods"},
+     .len = 2},
+    {// Index 321
+     .strings = (const char *[]){"moment", "moments"},
+     .len = 2},
+    {// Index 322
+     .strings = (const char *[]){"himself"},
+     .len = 1},
+    {// Index 323
+     .strings = (const char *[]){"air", "airs", "airing", "aired"},
+     .len = 4},
+    {// Index 324
+     .strings = (const char *[]){"force", "forces", "forcing", "forced"},
+     .len = 4},
+    {// Index 325
+     .strings = (const char *[]){"offer", "offers", "offering", "offered"},
+     .len = 4},
+    {// Index 326
+     .strings = (const char *[]){"enough"},
+     .len = 1},
+    {// Index 327
+     .strings = (const char *[]){"although"},
+     .len = 1},
+    {// Index 328
+     .strings =
+         (const char *[]){"remember", "remembers", "remembering", "remembered"},
+     .len = 4},
+    {// Index 329
+     .strings = (const char *[]){"second", "seconds"},
+     .len = 2},
+    {// Index 330
+     .strings = (const char *[]){"boy", "boys"},
+     .len = 2},
+    {// Index 331
+     .strings = (const char *[]){"maybe"},
+     .len = 1},
+    {// Index 332
+     .strings = (const char *[]){"toward"},
+     .len = 1},
+    {// Index 333
+     .strings = (const char *[]){"able"},
+     .len = 1},
+    {// Index 334
+     .strings = (const char *[]){"age", "ages", "aging", "aged"},
+     .len = 4},
+    {// Index 335
+     .strings = (const char *[]){"everything"},
+     .len = 1},
+    {// Index 336
+     .strings = (const char *[]){"love", "loves", "loving", "loved"},
+     .len = 4},
+    {// Index 337
+     .strings =
+         (const char *[]){"process", "processes", "processing", "processed"},
+     .len = 4},
+    {// Index 338
+     .strings = (const char *[]){"input", "inputs"},
+     .len = 2},
+    {// Index 339
+     .strings = (const char *[]){"output", "outputs"},
+     .len = 2},
+    {// Index 340
+     .strings = (const char *[]){"qualifier"},
+     .len = 1},
+    {// Index 341
+     .strings = (const char *[]){"error", "errors"},
+     .len = 2},
+    {// Index 342
+     .strings = (const char *[]){"code", "coding", "codes", "coded"},
+     .len = 4},
+    {// Index 343
+     .strings = (const char *[]){"method", "methods"},
+     .len = 2},
+    {// Index 344
+     .strings = (const char *[]){"object", "objects"},
+     .len = 2},
+    {// Index 345
+     .strings = (const char *[]){"variable", "variables"},
+     .len = 2},
+    {// Index 346
+     .strings = (const char *[]){"array", "arrays"},
+     .len = 2},
+    {// Index 347
+     .strings = (const char *[]){"request", "requests", "requested"},
+     .len = 3},
+    {// Index 348
+     .strings = (const char *[]){"response", "responses", "responded"},
+     .len = 3},
+    {// Index 349
+     .strings = (const char *[]){"access", "accessed", "accesses"},
+     .len = 3},
+    {// Index 350
+     .strings = (const char *[]){"database", "databases"},
+     .len = 2},
+    {// Index 351
+     .strings = (const char *[]){"server", "servers"},
+     .len = 2},
+    {// Index 352
+     .strings = (const char *[]){"log", "login"},
+     .len = 2},
+    {// Index 353
+     .strings = (const char *[]){"connect", "connects", "connecting"},
+     .len = 3},
+    {// Index 354
+     .strings =
+         (const char *[]){"config", "configuration", "configure", "configured"},
+     .len = 4},
+    {// Index 355
+     .strings = (const char *[]){"load", "loading", "loads", "loaded"},
+     .len = 4},
+    {// Index 356
+     .strings = (const char *[]){"save", "saved", "saving", "saves"},
+     .len = 4},
+    {// Index 357
+     .strings = (const char *[]){"user", "users"},
+     .len = 2},
+    {// Index 358
+     .strings = (const char *[]){"admin", "admins"},
+     .len = 2},
+    {// Index 359
+     .strings = (const char *[]){"deploy"},
+     .len = 1},
+    {// Index 360
+     .strings = (const char *[]){"module", "modules"},
+     .len = 2},
+    {// Index 361
+     .strings = (const char *[]){"fail", "fails", "failing", "failed"},
+     .len = 4},
+    {// Index 362
+     .strings = (const char *[]){"music"},
+     .len = 1},
+    {// Index 363
+     .strings =
+         (const char *[]){"consider", "considers", "considering", "considered"},
+     .len = 4},
+    {// Index 364
+     .strings = (const char *[]){"appear", "appears", "appearing", "appeared"},
+     .len = 4},
+    {// Index 365
+     .strings = (const char *[]){"buy", "buys", "buying", "bought"},
+     .len = 4},
+    {// Index 366
+     .strings = (const char *[]){"probably"},
+     .len = 1},
+    {// Index 367
+     .strings = (const char *[]){"human", "humans"},
+     .len = 2},
+    {// Index 368
+     .strings = (const char *[]){"wait", "waits", "waiting", "waited"},
+     .len = 4},
+    {// Index 369
+     .strings = (const char *[]){"serve", "serves", "serving", "served"},
+     .len = 4},
+    {// Index 370
+     .strings = (const char *[]){"market", "markets", "marketing", "marketed"},
+     .len = 4},
+    {// Index 371
+     .strings = (const char *[]){"die", "dies", "dying", "died"},
+     .len = 4},
+    {// Index 372
+     .strings = (const char *[]){"send", "sends", "sending", "sent"},
+     .len = 4},
+    {// Index 373
+     .strings = (const char *[]){"expect", "expects", "expecting", "expected"},
+     .len = 4},
+    {// Index 374
+     .strings = (const char *[]){"sense", "senses", "sensing", "sensed"},
+     .len = 4},
+    {// Index 375
+     .strings = (const char *[]){"build", "builds", "building", "built"},
+     .len = 4},
+    {// Index 376
+     .strings = (const char *[]){"stay", "stays", "staying", "stayed"},
+     .len = 4},
+    {// Index 377
+     .strings = (const char *[]){"fall", "falls", "falling", "fell"},
+     .len = 4},
+    {// Index 378
+     .strings = (const char *[]){"plan", "plans", "planning", "planned"},
+     .len = 4},
+    {// Index 379
+     .strings = (const char *[]){"cut", "cuts", "cutting", "cut"},
+     .len = 4},
+    {// Index 380
+     .strings =
+         (const char *[]){"interest", "interests", "interesting", "interested"},
+     .len = 4},
+    {// Index 381
+     .strings = (const char *[]){"death", "deaths"},
+     .len = 2},
+    {// Index 382
+     .strings = (const char *[]){"course", "courses", "coursing", "coursed"},
+     .len = 4},
+    {// Index 383
+     .strings = (const char *[]){"someone"},
+     .len = 1},
+    {// Index 384
+     .strings = (const char *[]){"experience", "experiences", "experiencing",
+                                 "experienced"},
+     .len = 4},
+    {// Index 385
+     .strings = (const char *[]){"behind"},
+     .len = 1},
+    {// Index 386
+     .strings = (const char *[]){"reach", "reaches", "reaching", "reached"},
+     .len = 4},
+    {// Index 387
+     .strings = (const char *[]){"local"},
+     .len = 1},
 };
 
 static const size_t all_cycle_lists_len = ARRAY_SIZE(all_cycle_lists);
@@ -1212,12 +1441,15 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
   zmk_key_t punctuation_keys[] = {
       HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN, // .
       HID_USAGE_KEY_KEYBOARD_COMMA_AND_LESS_THAN,     // ,
-      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,     // ; (Shift for : handled by OS/keymap)
-      // Keys requiring explicit Shift or special handling are checked separately below:
+      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON, // ; (Shift for : handled by
+                                                  // OS/keymap)
+      // Keys requiring explicit Shift or special handling are checked
+      // separately below:
       // !, ?, '
       // HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE, // Removed, handled below
-      // HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, // Removed, handled below
-      // HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION,       // Removed, handled below
+      // HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, // Removed, handled
+      // below HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION,       // Removed,
+      // handled below
   };
 
   // Check if the event keycode is punctuation
@@ -1233,15 +1465,21 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
   bool is_exclamation =
       (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION); // Key '1'
   bool is_question_mark =
-      (ev->keycode == HID_USAGE_KEY_KEYBOARD_MINUS_AND_UNDERSCORE); // Key '-' (used for '?' with Shift)
+      (ev->keycode ==
+       HID_USAGE_KEY_KEYBOARD_MINUS_AND_UNDERSCORE); // Key '-' (used for '?'
+                                                     // with Shift)
   bool is_apostrophe =
-      (ev->keycode == HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE); // Key '\' (used for '' on SE layout)
+      (ev->keycode ==
+       HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE); // Key '\' (used for '' on SE
+                                                   // layout)
   // Add more special cases here if needed
 
-  // Core logic: If an instance was active and the key is punctuation (from array) or a special case
+  // Core logic: If an instance was active and the key is punctuation (from
+  // array) or a special case
   if (any_instance_was_active &&
       (is_punctuation || is_exclamation || is_question_mark || is_apostrophe)) {
-    LOG_DBG("Punctuation/Special key (%d) pressed after active cycle string. Replacing space.",
+    LOG_DBG("Punctuation/Special key (%d) pressed after active cycle string. "
+            "Replacing space.",
             ev->keycode);
 
     // 1. Send Backspace
@@ -1280,8 +1518,8 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(shift_release);
     } else if (is_apostrophe) {
-        // Send '\' keycode (which produces ' on SE layout)
-        tap_usage(HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE);
+      // Send '\' keycode (which produces ' on SE layout)
+      tap_usage(HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE);
     } else { // is_punctuation must be true here
       // For other punctuation defined in the array, just tap the keycode
       tap_usage(ev->keycode);
