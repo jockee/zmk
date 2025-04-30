@@ -26,6 +26,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/position_state_changed.h>
 #include <zmk/hid.h> // For HID usage IDs and helper functions
 #include <zmk/keymap.h>
+#include <zmk/keys.h> // For key definitions and modifiers
 // #include <zmk/split.h> // No longer needed for event-based approach
 
 // Helper to tap a usage ID by raising keycode state changed events
@@ -1199,8 +1200,7 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
                                                       // handled by keymap/OS)
       HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,     // For ';' and ':'
       HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE,    // For ''' and '"'
-      HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION, // For '!' (Shift handled by
-                                                // keymap/OS)
+      // HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION removed - handled separately
       // Add other relevant keys like brackets if desired
       // HID_USAGE_KEY_KEYBOARD_LEFT_BRACKET_AND_LEFT_BRACE,
       // HID_USAGE_KEY_KEYBOARD_RIGHT_BRACKET_AND_RIGHT_BRACE,
@@ -1215,8 +1215,12 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
     }
   }
 
-  // Core logic: If an instance was active and the key is punctuation
-  if (any_instance_was_active && is_punctuation) {
+  // Special handling for exclamation mark (which is Shift+1)
+  bool is_exclamation = (ev->keycode == HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION && 
+                         zmk_hid_get_explicit_mods() & MOD_BIT(KC_LSFT));
+
+  // Core logic: If an instance was active and the key is punctuation or exclamation
+  if (any_instance_was_active && (is_punctuation || is_exclamation)) {
     LOG_DBG("Punctuation key (%d) pressed after active cycle string. Replacing "
             "space.",
             ev->keycode);
@@ -1226,9 +1230,31 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
     // Optional delay if needed: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
 
     // 2. Send the original punctuation key press/release via tap_usage
-    tap_usage(ev->keycode);
+    if (is_exclamation) {
+      // For exclamation mark, we need to send shift+1
+      struct zmk_keycode_state_changed shift_press = {
+          .usage_page = HID_USAGE_KEY,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFT_SHIFT,
+          .state = true,
+          .timestamp = k_uptime_get()
+      };
+      raise_zmk_keycode_state_changed(shift_press);
+      
+      tap_usage(HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION);
+      
+      struct zmk_keycode_state_changed shift_release = {
+          .usage_page = HID_USAGE_KEY,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFT_SHIFT,
+          .state = false,
+          .timestamp = k_uptime_get()
+      };
+      raise_zmk_keycode_state_changed(shift_release);
+    } else {
+      // For other punctuation, just send the keycode
+      tap_usage(ev->keycode);
+    }
 
-    // 3. Add a space after the typed string
+    // 3. Add a space after the punctuation
     tap_usage(HID_USAGE_KEY_KEYBOARD_SPACEBAR);
 
 // 4. Reset state for ALL instances
