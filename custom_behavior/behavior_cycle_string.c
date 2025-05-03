@@ -2178,22 +2178,22 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
     zmk_key_t keycode = 0;
 
     if (character == '@') {
-      // Send Shift + 2 for '@'
-      struct zmk_keycode_state_changed shift_press = {
+      // Send Right Alt + 2 for '@' (Swedish Layout)
+      struct zmk_keycode_state_changed ralt_press = {
           .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
+          .keycode = HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
           .state = true,
           .timestamp = k_uptime_get()};
-      raise_zmk_keycode_state_changed(shift_press);
+      raise_zmk_keycode_state_changed(ralt_press);
 
       tap_usage(HID_USAGE_KEY_KEYBOARD_2_AND_AT); // Tap '2'
 
-      struct zmk_keycode_state_changed shift_release = {
+      struct zmk_keycode_state_changed ralt_release = {
           .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
+          .keycode = HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
           .state = false,
           .timestamp = k_uptime_get()};
-      raise_zmk_keycode_state_changed(shift_release);
+      raise_zmk_keycode_state_changed(ralt_release);
       // Optional delay after modifier release if needed
       // k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
     } else {
