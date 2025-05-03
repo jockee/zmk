@@ -2177,17 +2177,58 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   LOG_DBG("Typing current string: '%s' (length %zu)", current_string,
           current_len);
 
-  // Tap out the current string character by character
-  for (size_t i = 0; i < current_len; ++i) {
-    char character = current_string[i];
+  // Tap out the current string, handling multi-byte UTF-8 and special chars
+  size_t i = 0;
+  while (i < current_len) {
+    char byte1 = current_string[i];
     zmk_key_t keycode = 0;
+    bool special_handled = false; // Flag to track if character was handled specially
 
-    if (character == '@') {
-      // Send Right Alt + 2 for '@' (Swedish Layout)
+    // Check for 2-byte UTF-8 sequences (specifically for å, ä, ö)
+    if ((byte1 & 0xE0) == 0xC0) { // Potential start of 2-byte sequence
+      if (i + 1 < current_len) {
+        char byte2 = current_string[i + 1];
+        if (byte1 == 0xC3) { // Common first byte for Latin Extended-A
+          if (byte2 == 0xA5) { // å (0xC3 0xA5) -> maps to LBKT ([) on SE layout
+            keycode = HID_USAGE_KEY_KEYBOARD_LEFT_BRACKET_AND_LEFT_BRACE;
+            LOG_DBG("Mapping UTF-8 'å' to LBKT");
+          } else if (byte2 == 0xA4) { // ä (0xC3 0xA4) -> maps to SQT (') on SE layout
+            keycode = HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE;
+             LOG_DBG("Mapping UTF-8 'ä' to SQT");
+         } else if (byte2 == 0xB6) { // ö (0xC3 0xB6) -> maps to SEMI (;) on SE layout
+            keycode = HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON;
+             LOG_DBG("Mapping UTF-8 'ö' to SEMI");
+         }
+          // Add other C3 sequences here if needed
+
+          if (keycode != 0) {
+            tap_usage(keycode);
+            i += 2; // Consume both bytes
+            special_handled = true;
+          } else {
+             // Unknown C3 sequence, treat as error or skip? Skipping for now.
+             LOG_ERR("Unknown UTF-8 sequence: 0xC3 0x%02X", byte2);
+             i += 2; // Skip both bytes
+             special_handled = true; // Mark as handled to prevent further processing this iteration
+          }
+        } else {
+           // Other 2-byte sequences (not starting with C3) - skip for now
+           LOG_ERR("Unsupported 2-byte UTF-8 sequence start: 0x%02X", byte1);
+           i += 2; // Skip both bytes
+           special_handled = true;
+        }
+      } else {
+        // Incomplete 2-byte sequence at end of string
+        LOG_ERR("Incomplete UTF-8 sequence at end of string");
+        i++; // Move past the first byte
+        special_handled = true;
+      }
+    }
+    // Check for '@' symbol (requires Right Alt on SE layout)
+    else if (byte1 == '@') {
       struct zmk_keycode_state_changed ralt_press = {
           .usage_page = HID_USAGE_KEY,
-          .keycode =
-              HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
+          .keycode = HID_USAGE_KEY_KEYBOARD_RIGHTALT,
           .state = true,
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(ralt_press);
@@ -2196,25 +2237,29 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 
       struct zmk_keycode_state_changed ralt_release = {
           .usage_page = HID_USAGE_KEY,
-          .keycode =
-              HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
+          .keycode = HID_USAGE_KEY_KEYBOARD_RIGHTALT,
           .state = false,
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(ralt_release);
-      // Optional delay after modifier release if needed
-      // k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
-    } else {
-      // Handle other characters (letters, '.', ''', etc.)
-      keycode = ascii_to_keycode(character);
+
+      i++; // Consume the '@' character
+      special_handled = true;
+      // Optional delay: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
+    }
+
+    // If not a special UTF-8 sequence or '@', handle as standard ASCII
+    if (!special_handled) {
+      keycode = ascii_to_keycode(byte1);
       if (keycode != 0) {
         tap_usage(keycode);
-        // Optional delay between characters if needed
-        // k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
       } else {
-        LOG_ERR("Cannot map character '%c' to keycode", character);
+        LOG_ERR("Cannot map character '%c' (0x%02X) to keycode", byte1, byte1);
         // Optionally handle the error differently, e.g., skip character
       }
+      i++; // Consume the single byte
     }
+    // Optional delay between characters/sequences if needed
+    // k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
   }
 
   // 3. Add a space after the typed string
