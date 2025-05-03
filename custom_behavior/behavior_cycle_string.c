@@ -2084,6 +2084,10 @@ static const cycle_list_t all_cycle_lists[] = {
     {// Index 653
      .strings = (const char *[]){"gå"},
      .len = 1},
+    // Add the new entry below
+    {// Index 654
+     .strings = (const char *[]){"joakim@joakimekstrom.se"},
+     .len = 1},
 };
 
 static const size_t all_cycle_lists_len = ARRAY_SIZE(all_cycle_lists);
@@ -2164,18 +2168,42 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
   LOG_DBG("Typing current string: '%s' (length %zu)", current_string,
           current_len);
 
-  // Use the local helper function to tap out the string
+  // Tap out the current string character by character
   for (size_t i = 0; i < current_len; ++i) {
-    zmk_key_t keycode = ascii_to_keycode(current_string[i]);
-    if (keycode == 0) { // Check for 0, which indicates no mapping found
-      LOG_ERR("Cannot map character '%c' to keycode", current_string[i]);
-      continue; // Skip character if no mapping
+    char character = current_string[i];
+    zmk_key_t keycode = 0;
+
+    if (character == '@') {
+      // Send Shift + 2 for '@'
+      struct zmk_keycode_state_changed shift_press = {
+          .usage_page = HID_USAGE_KEY,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
+          .state = true,
+          .timestamp = k_uptime_get()};
+      raise_zmk_keycode_state_changed(shift_press);
+
+      tap_usage(HID_USAGE_KEY_KEYBOARD_2_AND_AT); // Tap '2'
+
+      struct zmk_keycode_state_changed shift_release = {
+          .usage_page = HID_USAGE_KEY,
+          .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT,
+          .state = false,
+          .timestamp = k_uptime_get()};
+      raise_zmk_keycode_state_changed(shift_release);
+      // Optional delay after modifier release if needed
+      // k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
+    } else {
+      // Handle other characters (letters, '.', ''', etc.)
+      keycode = ascii_to_keycode(character);
+      if (keycode != 0) {
+        tap_usage(keycode);
+        // Optional delay between characters if needed
+        // k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
+      } else {
+        LOG_ERR("Cannot map character '%c' to keycode", character);
+        // Optionally handle the error differently, e.g., skip character
+      }
     }
-    // Directly tap the keycode, as shift handling is not needed for current
-    // strings
-    tap_usage(keycode);
-    // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS); // Add delay if
-    // needed
   }
 
   // 3. Add a space after the typed string
