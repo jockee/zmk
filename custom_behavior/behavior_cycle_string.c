@@ -84,6 +84,10 @@ static zmk_key_t ascii_to_keycode(char character) {
     // Backslash on SE)
     return HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE;
   }
+  // Add the mapping for period below
+  if (character == '.') {
+      return HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN;
+  }
 
   return 0; // No mapping found
 }
