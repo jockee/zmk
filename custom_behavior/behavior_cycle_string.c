@@ -86,7 +86,7 @@ static zmk_key_t ascii_to_keycode(char character) {
   }
   // Add the mapping for period below
   if (character == '.') {
-      return HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN;
+    return HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN;
   }
 
   return 0; // No mapping found
@@ -1696,401 +1696,406 @@ static const cycle_list_t all_cycle_lists[] = {
      .strings = (const char *[]){"jocke"},
      .len = 1},
     {// Index 523
-     .strings = (const char *[]){"joakim@joakimekstrom.se"},
+     .strings = (const char *[]){"joakim"},
      .len = 1},
     {// Index 524
-     .strings = (const char *[]){"instead"},
+     .strings = (const char *[]){"ekström"},
      .len = 1},
     {// Index 525
-     .strings = (const char *[]){"och"},
-     .len = 1},
+     .strings = (const char *[]){"sweden", "swedish"},
+     .len = 2},
     {// Index 526
-     .strings = (const char *[]){"att"},
+     .strings = (const char *[]){"joakim@joakimekstrom.se"},
      .len = 1},
     {// Index 527
-     .strings = (const char *[]){"det"},
+     .strings = (const char *[]){"instead"},
      .len = 1},
     {// Index 528
-     .strings = (const char *[]){"som"},
+     .strings = (const char *[]){"och"},
      .len = 1},
     {// Index 529
-     .strings = (const char *[]){"en"},
+     .strings = (const char *[]){"att"},
      .len = 1},
     {// Index 530
-     .strings = (const char *[]){"på"},
+     .strings = (const char *[]){"det"},
      .len = 1},
     {// Index 531
-     .strings = (const char *[]){"är"},
+     .strings = (const char *[]){"som"},
      .len = 1},
     {// Index 532
-     .strings = (const char *[]){"av"},
+     .strings = (const char *[]){"en"},
      .len = 1},
     {// Index 533
-     .strings = (const char *[]){"för"},
+     .strings = (const char *[]){"på"},
      .len = 1},
     {// Index 534
-     .strings = (const char *[]){"med"},
+     .strings = (const char *[]){"är"},
      .len = 1},
     {// Index 535
-     .strings = (const char *[]){"till"},
+     .strings = (const char *[]){"av"},
      .len = 1},
     {// Index 536
-     .strings = (const char *[]){"den"},
+     .strings = (const char *[]){"för"},
      .len = 1},
     {// Index 537
-     .strings = (const char *[]){"har"},
+     .strings = (const char *[]){"med"},
      .len = 1},
     {// Index 538
-     .strings = (const char *[]){"de"},
+     .strings = (const char *[]){"till"},
      .len = 1},
     {// Index 539
-     .strings = (const char *[]){"inte"},
+     .strings = (const char *[]){"den"},
      .len = 1},
     {// Index 540
-     .strings = (const char *[]){"om"},
+     .strings = (const char *[]){"har"},
      .len = 1},
     {// Index 541
-     .strings = (const char *[]){"ett"},
+     .strings = (const char *[]){"de"},
      .len = 1},
     {// Index 542
-     .strings = (const char *[]){"han"},
+     .strings = (const char *[]){"inte"},
      .len = 1},
     {// Index 543
-     .strings = (const char *[]){"var"},
+     .strings = (const char *[]){"om"},
      .len = 1},
     {// Index 544
-     .strings = (const char *[]){"jag"},
+     .strings = (const char *[]){"ett"},
      .len = 1},
     {// Index 545
-     .strings = (const char *[]){"sig"},
+     .strings = (const char *[]){"han"},
      .len = 1},
     {// Index 546
-     .strings = (const char *[]){"från"},
+     .strings = (const char *[]){"var"},
      .len = 1},
     {// Index 547
-     .strings = (const char *[]){"vi"},
+     .strings = (const char *[]){"jag"},
      .len = 1},
     {// Index 548
-     .strings = (const char *[]){"så"},
+     .strings = (const char *[]){"sig"},
      .len = 1},
     {// Index 549
-     .strings = (const char *[]){"kan"},
+     .strings = (const char *[]){"från"},
      .len = 1},
     {// Index 550
-     .strings = (const char *[]){"när"},
+     .strings = (const char *[]){"vi"},
      .len = 1},
     {// Index 551
-     .strings = (const char *[]){"år"},
+     .strings = (const char *[]){"så"},
      .len = 1},
     {// Index 552
-     .strings = (const char *[]){"säger"},
+     .strings = (const char *[]){"kan"},
      .len = 1},
     {// Index 553
-     .strings = (const char *[]){"hon"},
+     .strings = (const char *[]){"när"},
      .len = 1},
     {// Index 554
-     .strings = (const char *[]){"också"},
+     .strings = (const char *[]){"år"},
      .len = 1},
     {// Index 555
-     .strings = (const char *[]){"efter"},
+     .strings = (const char *[]){"säger"},
      .len = 1},
     {// Index 556
-     .strings = (const char *[]){"eller"},
+     .strings = (const char *[]){"hon"},
      .len = 1},
     {// Index 557
-     .strings = (const char *[]){"nu"},
+     .strings = (const char *[]){"också"},
      .len = 1},
     {// Index 558
-     .strings = (const char *[]){"sin"},
+     .strings = (const char *[]){"efter"},
      .len = 1},
     {// Index 559
-     .strings = (const char *[]){"där"},
+     .strings = (const char *[]){"eller"},
      .len = 1},
     {// Index 560
-     .strings = (const char *[]){"vid"},
+     .strings = (const char *[]){"nu"},
      .len = 1},
     {// Index 561
-     .strings = (const char *[]){"mot"},
+     .strings = (const char *[]){"sin"},
      .len = 1},
     {// Index 562
-     .strings = (const char *[]){"ska"},
+     .strings = (const char *[]){"där"},
      .len = 1},
     {// Index 563
-     .strings = (const char *[]){"skulle"},
+     .strings = (const char *[]){"vid"},
      .len = 1},
     {// Index 564
-     .strings = (const char *[]){"kommer"},
+     .strings = (const char *[]){"mot"},
      .len = 1},
     {// Index 565
-     .strings = (const char *[]){"ut"},
+     .strings = (const char *[]){"ska"},
      .len = 1},
     {// Index 566
-     .strings = (const char *[]){"får"},
+     .strings = (const char *[]){"skulle"},
      .len = 1},
     {// Index 567
-     .strings = (const char *[]){"finns"},
+     .strings = (const char *[]){"kommer"},
      .len = 1},
     {// Index 568
-     .strings = (const char *[]){"vara"},
+     .strings = (const char *[]){"ut"},
      .len = 1},
     {// Index 569
-     .strings = (const char *[]){"tror"},
+     .strings = (const char *[]){"får"},
      .len = 1},
     {// Index 570
-     .strings = (const char *[]){"hade"},
+     .strings = (const char *[]){"finns"},
      .len = 1},
     {// Index 571
-     .strings = (const char *[]){"alla"},
+     .strings = (const char *[]){"vara"},
      .len = 1},
     {// Index 572
-     .strings = (const char *[]){"andra"},
+     .strings = (const char *[]){"tror"},
      .len = 1},
     {// Index 573
-     .strings = (const char *[]){"mycket"},
+     .strings = (const char *[]){"hade"},
      .len = 1},
     {// Index 574
-     .strings = (const char *[]){"än"},
+     .strings = (const char *[]){"alla"},
      .len = 1},
     {// Index 575
-     .strings = (const char *[]){"här"},
+     .strings = (const char *[]){"andra"},
      .len = 1},
     {// Index 576
-     .strings = (const char *[]){"då"},
+     .strings = (const char *[]){"mycket"},
      .len = 1},
     {// Index 577
-     .strings = (const char *[]){"sedan"},
+     .strings = (const char *[]){"än"},
      .len = 1},
     {// Index 578
-     .strings = (const char *[]){"över"},
+     .strings = (const char *[]){"här"},
      .len = 1},
     {// Index 579
-     .strings = (const char *[]){"bara"},
+     .strings = (const char *[]){"då"},
      .len = 1},
     {// Index 580
-     .strings = (const char *[]){"blir"},
+     .strings = (const char *[]){"sedan"},
      .len = 1},
     {// Index 581
-     .strings = (const char *[]){"upp"},
+     .strings = (const char *[]){"över"},
      .len = 1},
     {// Index 582
-     .strings = (const char *[]){"även"},
+     .strings = (const char *[]){"bara"},
      .len = 1},
     {// Index 583
-     .strings = (const char *[]){"vad"},
+     .strings = (const char *[]){"blir"},
      .len = 1},
     {// Index 584
-     .strings = (const char *[]){"få"},
+     .strings = (const char *[]){"upp"},
      .len = 1},
     {// Index 585
-     .strings = (const char *[]){"två"},
+     .strings = (const char *[]){"även"},
      .len = 1},
     {// Index 586
-     .strings = (const char *[]){"vill"},
+     .strings = (const char *[]){"vad"},
      .len = 1},
     {// Index 587
-     .strings = (const char *[]){"ha"},
+     .strings = (const char *[]){"få"},
      .len = 1},
     {// Index 588
-     .strings = (const char *[]){"många"},
+     .strings = (const char *[]){"två"},
      .len = 1},
     {// Index 589
-     .strings = (const char *[]){"hur"},
+     .strings = (const char *[]){"vill"},
      .len = 1},
     {// Index 590
-     .strings = (const char *[]){"mer"},
+     .strings = (const char *[]){"ha"},
      .len = 1},
     {// Index 591
-     .strings = (const char *[]){"går"},
+     .strings = (const char *[]){"många"},
      .len = 1},
     {// Index 592
-     .strings = (const char *[]){"sverige"},
+     .strings = (const char *[]){"hur"},
      .len = 1},
     {// Index 593
-     .strings = (const char *[]){"kronor"},
+     .strings = (const char *[]){"mer"},
      .len = 1},
     {// Index 594
-     .strings = (const char *[]){"detta"},
+     .strings = (const char *[]){"går"},
      .len = 1},
     {// Index 595
-     .strings = (const char *[]){"nya"},
+     .strings = (const char *[]){"sverige"},
      .len = 1},
     {// Index 596
-     .strings = (const char *[]){"procent"},
+     .strings = (const char *[]){"kronor"},
      .len = 1},
     {// Index 597
-     .strings = (const char *[]){"hans"},
+     .strings = (const char *[]){"detta"},
      .len = 1},
     {// Index 598
-     .strings = (const char *[]){"utan"},
+     .strings = (const char *[]){"nya"},
      .len = 1},
     {// Index 599
-     .strings = (const char *[]){"sina"},
+     .strings = (const char *[]){"procent"},
      .len = 1},
     {// Index 600
-     .strings = (const char *[]){"något"},
+     .strings = (const char *[]){"hans"},
      .len = 1},
     {// Index 601
-     .strings = (const char *[]){"svenska"},
+     .strings = (const char *[]){"utan"},
      .len = 1},
     {// Index 602
-     .strings = (const char *[]){"allt"},
+     .strings = (const char *[]){"sina"},
      .len = 1},
     {// Index 603
-     .strings = (const char *[]){"första"},
+     .strings = (const char *[]){"något"},
      .len = 1},
     {// Index 604
-     .strings = (const char *[]){"fick"},
+     .strings = (const char *[]){"svenska"},
      .len = 1},
     {// Index 605
-     .strings = (const char *[]){"måste"},
+     .strings = (const char *[]){"allt"},
      .len = 1},
     {// Index 606
-     .strings = (const char *[]){"mellan"},
+     .strings = (const char *[]){"första"},
      .len = 1},
     {// Index 607
-     .strings = (const char *[]){"blev"},
+     .strings = (const char *[]){"fick"},
      .len = 1},
     {// Index 608
-     .strings = (const char *[]){"bli"},
+     .strings = (const char *[]){"måste"},
      .len = 1},
     {// Index 609
-     .strings = (const char *[]){"dag"},
+     .strings = (const char *[]){"mellan"},
      .len = 1},
     {// Index 610
-     .strings = (const char *[]){"någon"},
+     .strings = (const char *[]){"blev"},
      .len = 1},
     {// Index 611
-     .strings = (const char *[]){"några"},
+     .strings = (const char *[]){"bli"},
      .len = 1},
     {// Index 612
-     .strings = (const char *[]){"sitt"},
+     .strings = (const char *[]){"dag"},
      .len = 1},
     {// Index 613
-     .strings = (const char *[]){"stor"},
+     .strings = (const char *[]){"någon"},
      .len = 1},
     {// Index 614
-     .strings = (const char *[]){"varit"},
+     .strings = (const char *[]){"några"},
      .len = 1},
     {// Index 615
-     .strings = (const char *[]){"dem"},
+     .strings = (const char *[]){"sitt"},
      .len = 1},
     {// Index 616
-     .strings = (const char *[]){"bland"},
+     .strings = (const char *[]){"stor"},
      .len = 1},
     {// Index 617
-     .strings = (const char *[]){"bra"},
+     .strings = (const char *[]){"varit"},
      .len = 1},
     {// Index 618
-     .strings = (const char *[]){"tre"},
+     .strings = (const char *[]){"dem"},
      .len = 1},
     {// Index 619
-     .strings = (const char *[]){"ta"},
+     .strings = (const char *[]){"bland"},
      .len = 1},
     {// Index 620
-     .strings = (const char *[]){"genom"},
+     .strings = (const char *[]){"bra"},
      .len = 1},
     {// Index 621
-     .strings = (const char *[]){"del"},
+     .strings = (const char *[]){"tre"},
      .len = 1},
     {// Index 622
-     .strings = (const char *[]){"hela"},
+     .strings = (const char *[]){"ta"},
      .len = 1},
     {// Index 623
-     .strings = (const char *[]){"annat"},
+     .strings = (const char *[]){"genom"},
      .len = 1},
     {// Index 624
-     .strings = (const char *[]){"fram"},
+     .strings = (const char *[]){"del"},
      .len = 1},
     {// Index 625
-     .strings = (const char *[]){"gör"},
+     .strings = (const char *[]){"hela"},
      .len = 1},
     {// Index 626
-     .strings = (const char *[]){"ingen"},
+     .strings = (const char *[]){"annat"},
      .len = 1},
     {// Index 627
-     .strings = (const char *[]){"stockholm"},
+     .strings = (const char *[]){"fram"},
      .len = 1},
     {// Index 628
-     .strings = (const char *[]){"göra"},
+     .strings = (const char *[]){"gör"},
      .len = 1},
     {// Index 629
-     .strings = (const char *[]){"enligt"},
+     .strings = (const char *[]){"ingen"},
      .len = 1},
     {// Index 630
-     .strings = (const char *[]){"mig"},
+     .strings = (const char *[]){"stockholm"},
      .len = 1},
     {// Index 631
-     .strings = (const char *[]){"redan"},
+     .strings = (const char *[]){"göra"},
      .len = 1},
     {// Index 632
-     .strings = (const char *[]){"inom"},
+     .strings = (const char *[]){"enligt"},
      .len = 1},
     {// Index 633
-     .strings = (const char *[]){"kom"},
+     .strings = (const char *[]){"mig"},
      .len = 1},
     {// Index 634
-     .strings = (const char *[]){"du"},
+     .strings = (const char *[]){"redan"},
      .len = 1},
     {// Index 635
-     .strings = (const char *[]){"helt"},
+     .strings = (const char *[]){"inom"},
      .len = 1},
     {// Index 636
-     .strings = (const char *[]){"ju"},
+     .strings = (const char *[]){"kom"},
      .len = 1},
     {// Index 637
-     .strings = (const char *[]){"samma"},
+     .strings = (const char *[]){"du"},
      .len = 1},
     {// Index 638
-     .strings = (const char *[]){"kanske"},
+     .strings = (const char *[]){"helt"},
      .len = 1},
     {// Index 639
-     .strings = (const char *[]){"själv"},
+     .strings = (const char *[]){"ju"},
      .len = 1},
     {// Index 640
-     .strings = (const char *[]){"oss"},
+     .strings = (const char *[]){"samma"},
      .len = 1},
     {// Index 641
-     .strings = (const char *[]){"tidigare"},
+     .strings = (const char *[]){"kanske"},
      .len = 1},
     {// Index 642
-     .strings = (const char *[]){"se"},
+     .strings = (const char *[]){"själv"},
      .len = 1},
     {// Index 643
-     .strings = (const char *[]){"verkar"},
+     .strings = (const char *[]){"oss"},
      .len = 1},
     {// Index 644
-     .strings = (const char *[]){"bättre"},
+     .strings = (const char *[]){"tidigare"},
      .len = 1},
     {// Index 645
-     .strings = (const char *[]){"sämre"},
+     .strings = (const char *[]){"se"},
      .len = 1},
     {// Index 646
-     .strings = (const char *[]){"sida"},
+     .strings = (const char *[]){"verkar"},
      .len = 1},
     {// Index 647
-     .strings = (const char *[]){"vem"},
+     .strings = (const char *[]){"bättre"},
      .len = 1},
     {// Index 648
-     .strings = (const char *[]){"varför"},
+     .strings = (const char *[]){"sämre"},
      .len = 1},
     {// Index 649
-     .strings = (const char *[]){"ni"},
+     .strings = (const char *[]){"sida"},
      .len = 1},
     {// Index 650
-     .strings = (const char *[]){"vilken"},
+     .strings = (const char *[]){"vem"},
      .len = 1},
     {// Index 651
-     .strings = (const char *[]){"tid"},
+     .strings = (const char *[]){"varför"},
      .len = 1},
     {// Index 652
-     .strings = (const char *[]){"lite"},
+     .strings = (const char *[]){"ni"},
      .len = 1},
     {// Index 653
-     .strings = (const char *[]){"gå"},
+     .strings = (const char *[]){"vilken"},
      .len = 1},
-    // Add the new entry below
     {// Index 654
-     .strings = (const char *[]){"joakim@joakimekstrom.se"},
+     .strings = (const char *[]){"tid"},
+     .len = 1},
+    {// Index 655
+     .strings = (const char *[]){"lite"},
+     .len = 1},
+    {// Index 656
+     .strings = (const char *[]){"gå"},
      .len = 1},
 };
 
@@ -2181,7 +2186,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
       // Send Right Alt + 2 for '@' (Swedish Layout)
       struct zmk_keycode_state_changed ralt_press = {
           .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
+          .keycode =
+              HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
           .state = true,
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(ralt_press);
@@ -2190,7 +2196,8 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
 
       struct zmk_keycode_state_changed ralt_release = {
           .usage_page = HID_USAGE_KEY,
-          .keycode = HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
+          .keycode =
+              HID_USAGE_KEY_KEYBOARD_RIGHTALT, // <<< Changed to Right Alt
           .state = false,
           .timestamp = k_uptime_get()};
       raise_zmk_keycode_state_changed(ralt_release);
