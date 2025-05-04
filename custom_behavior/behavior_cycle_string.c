@@ -28,6 +28,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/keymap.h>
 #include <zmk/keys.h> // For key definitions and modifiers
 // #include <zmk/split.h> // No longer needed for event-based approach
+#include "cycle_string_lists.h"
 
 // Helper to tap a usage ID by raising keycode state changed events
 static inline void tap_usage(uint32_t usage) {
@@ -91,16 +92,6 @@ static zmk_key_t ascii_to_keycode(char character) {
 
   return 0; // No mapping found
 }
-
-// Structure to hold a cycle list and its length
-typedef struct {
-  const char **strings;
-  const size_t len;
-} cycle_list_t;
-
-static const cycle_list_t all_cycle_lists[] = {};
-
-static const size_t all_cycle_lists_len = ARRAY_SIZE(all_cycle_lists);
 
 // State for the behavior instance
 struct behavior_cycle_string_state {
