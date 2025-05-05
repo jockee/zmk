@@ -471,7 +471,17 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
     } else if (is_apostrophe) {
       // Send '\' keycode (which produces ' on SE layout)
       tap_usage(HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE);
-    } else { // is_punctuation must be true here
+    } else if (is_colon) {
+      // Send Shift + ;
+      press_shift();
+      tap_usage(HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON);
+      release_shift();
+    } else if (is_plus) {
+      // Send Shift + / (for SE layout)
+      press_shift();
+      tap_usage(HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK);
+      release_shift();
+    } else { // is_punctuation must be true here (., ,, ;)
       // For other punctuation defined in the array, just tap the keycode
       tap_usage(ev->keycode);
     }
