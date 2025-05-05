@@ -62,6 +62,27 @@ static inline void tap_usage(uint32_t usage) {
   // Optional: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_TAP_MS); // Add delay if needed
 }
 
+// Helper to press Left Shift
+static inline void press_shift() {
+    struct zmk_keycode_state_changed shift_press = {
+        .usage_page = HID_USAGE_KEY,
+        .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT, // Or RIGHTSHIFT if preferred
+        .state = true,
+        .timestamp = k_uptime_get()};
+    raise_zmk_keycode_state_changed(shift_press);
+}
+
+// Helper to release Left Shift
+static inline void release_shift() {
+    struct zmk_keycode_state_changed shift_release = {
+        .usage_page = HID_USAGE_KEY,
+        .keycode = HID_USAGE_KEY_KEYBOARD_LEFTSHIFT, // Match the keycode used in press_shift
+        .state = false,
+        .timestamp = k_uptime_get()};
+    raise_zmk_keycode_state_changed(shift_release);
+}
+
+
 // Simple ASCII to keycode helper (add more mappings as needed)
 // Returns 0 if no mapping found
 static zmk_key_t ascii_to_keycode(char character) {
@@ -89,6 +110,14 @@ static zmk_key_t ascii_to_keycode(char character) {
   if (character == '.') {
     return HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN;
   }
+  // Map numbers
+  if (character >= '1' && character <= '9') {
+      return HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION + (character - '1');
+  }
+  if (character == '0') {
+      return HID_USAGE_KEY_KEYBOARD_0_AND_RIGHT_PARENTHESIS;
+  }
+
 
   return 0; // No mapping found
 }
@@ -242,8 +271,31 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
       special_handled = true;
       // Optional delay: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
     }
+    // Add handling for Colon (:) - Requires Shift + Semicolon
+    else if (byte1 == ':') {
+        press_shift();
+        tap_usage(HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON);
+        release_shift();
+        i++; // Consume the ':' character
+        special_handled = true;
+        LOG_DBG("Mapped ':' to Shift + SEMI");
+        // Optional delay: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
+    }
+    // Add handling for Plus (+) - Requires Shift + Slash key on SE layout
+    else if (byte1 == '+') {
+        press_shift();
+        // Assuming SE layout where '+' is Shift + the key physically labeled "+ ? \"
+        // which corresponds to HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK
+        tap_usage(HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK);
+        release_shift();
+        i++; // Consume the '+' character
+        special_handled = true;
+        LOG_DBG("Mapped '+' to Shift + SLASH");
+        // Optional delay: k_msleep(CONFIG_ZMK_MACRO_DEFAULT_WAIT_MS);
+    }
 
-    // If not a special UTF-8 sequence or '@', handle as standard ASCII
+
+    // If not a special UTF-8 sequence, '@', ':', or '+' handle as standard ASCII/Number
     if (!special_handled) {
       keycode = ascii_to_keycode(byte1);
       if (keycode != 0) {
@@ -334,16 +386,15 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
 #undef CHECK_ACTIVE_STATE
 
   // Define punctuation keycodes (HID Usages) - Add more as needed
-  // Define punctuation keycodes (HID Usages) that DON'T require special shift
-  // handling here
+  // Define punctuation keycodes (HID Usages) that DON'T require special shift handling here
+  // These are the *base* keys that, when pressed *without* shift, might trigger space replacement.
   zmk_key_t punctuation_keys[] = {
       HID_USAGE_KEY_KEYBOARD_PERIOD_AND_GREATER_THAN, // .
       HID_USAGE_KEY_KEYBOARD_COMMA_AND_LESS_THAN,     // ,
-      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON, // ; (Shift for : handled by
-                                                  // OS/keymap)
-      // Keys requiring explicit Shift or special handling are checked
-      // separately below:
-      // !, ?, '
+      HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON,     // ; (Base for :)
+      // Keys requiring explicit Shift or special handling are checked separately below:
+      // !, ?, ', :, +
+      // Note: Base key for '+' (SLASH on SE) is handled as a special case below, not in this array.
       // HID_USAGE_KEY_KEYBOARD_APOSTROPHE_AND_QUOTE, // Removed, handled below
       // HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK, // Removed, handled
       // below HID_USAGE_KEY_KEYBOARD_1_AND_EXCLAMATION,       // Removed,
@@ -368,16 +419,18 @@ static int cycle_string_keycode_state_changed_listener(const zmk_event_t *eh) {
                                                      // with Shift)
   bool is_apostrophe =
       (ev->keycode ==
-       HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE); // Key '\' (used for '' on SE
-                                                   // layout)
+       HID_USAGE_KEY_KEYBOARD_BACKSLASH_AND_PIPE); // Key '\' (used for '' on SE layout)
   // Add more special cases here if needed
+  bool is_colon =
+      (ev->keycode == HID_USAGE_KEY_KEYBOARD_SEMICOLON_AND_COLON); // Base key for ':'
+  bool is_plus =
+      (ev->keycode == HID_USAGE_KEY_KEYBOARD_SLASH_AND_QUESTION_MARK); // Base key for '+' on SE
 
-  // Core logic: If an instance was active and the key is punctuation (from
-  // array) or a special case
+
+  // Core logic: If an instance was active and the key is punctuation (from array) or a special case
   if (any_instance_was_active &&
-      (is_punctuation || is_exclamation || is_question_mark || is_apostrophe)) {
-    LOG_DBG("Punctuation/Special key (%d) pressed after active cycle string. "
-            "Replacing space.",
+      (is_punctuation || is_exclamation || is_question_mark || is_apostrophe || is_colon || is_plus)) { // Added is_colon, is_plus
+    LOG_DBG("Punctuation/Special key (%d) pressed after active cycle string. Replacing space.",
             ev->keycode);
 
     // 1. Send Backspace
