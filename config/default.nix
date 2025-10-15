@@ -10,17 +10,17 @@ let
     board = "glove80_lh";
     keymap = "${config}/glove80.keymap";
     kconfig = "${config}/glove80.conf";
-    snippets = [
-      ../custom_behavior
-    ];
+    # snippets = [
+    #   ../custom_behavior
+    # ];
   };
   right = firmware.zmk.override {
     board = "glove80_rh";
     keymap = "${config}/glove80.keymap";
     kconfig = "${config}/glove80.conf";
-    snippets = [
-      ../custom_behavior
-    ];
+    # snippets = [
+    #   ../custom_behavior
+    # ];
   };
 
 in
