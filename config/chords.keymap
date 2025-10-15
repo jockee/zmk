@@ -56,8 +56,6 @@
     LAYER_CHORD(ch_colon, &kp LS(DOT), KDOT KCOMMA, ALPHA SYM NUM, 40)
   LAYER_CHORD(ch_underscore, &kp LS(FSLH), KCOMMA KMINUS, ALPHA SYM NUM, 40)
 
-    LAYER_CHORD(ch_ctrla, &kp LC(A), KT KN, ALPHA SYM NUM, 40)
-
 /*     CYCLE_COMBO(combo_en_the_0, KT KH KE, 90, 0, 1) */
 /* CYCLE_COMBO(combo_en_be_1, KB KE, 80, 1, 1) */
 /* CYCLE_COMBO(combo_en_is_2, KI KS, 80, 2, 1) */
