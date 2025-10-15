@@ -212,7 +212,7 @@
         magic: magic {
             compatible = "zmk,behavior-hold-tap";
             label = "MAGIC_HOLD_TAP";
-            #binding-cells = <2>;
+            #binding-cells = <1>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
             bindings = <&mo>, <&rgb_ug_status_macro>;
@@ -362,7 +362,7 @@
                 &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
                 &kp ESC     &kp A    &hml LGUI R     &hml LALT S      &hml LCTRL T   &kp G                                                                      &kp M   &hmr LCTRL N      &hmr LALT E     &hmr LGUI I     &kp O    &kp SQT
                 &kp GRAVE     &kp Z    &kp X     &kp C      &kp D   &kp V  &kp LCTRL &kp LALT &kp LGUI    &kp LC(A)     &mo SYM  &sk RSHFT   &kp K   &kp H  &kp COMMA   &kp DOT  &kp FSLH  &kp PG_UP
-                &magic MAGIC 0  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp SPACE  &kp RET   &mo ENGLISH_CHORDS  &none  &kp BSPC      &lt NUM LC(BSPC)          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
+                &magic MAGIC  &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp SPACE  &kp RET   &mo ENGLISH_CHORDS  &none  &kp BSPC      &lt NUM LC(BSPC)          &kp UP   &kp DOWN  &kp BSPC  &kp K_PP  &kp PG_DN
             >;
         };
 
