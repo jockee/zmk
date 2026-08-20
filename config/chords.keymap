@@ -32,11 +32,12 @@
     LAYER_CHORD(ch_hash, &kp LS(N3), KF KP, ALPHA SYM NUM, 40)
     LAYER_CHORD(ch_percentage, &kp LS(N5), KP KB, ALPHA SYM NUM, 60)
 
+    LAYER_CHORD(ch_ampersand, &kp LS(N6), KJ KL, ALPHA SYM NUM, 60)
     LAYER_CHORD(ch_slsh, &kp LS(N7), KL KU, ALPHA SYM NUM, 40)
   LAYER_CHORD(ch_eql, &kp LS(N0), KU KY, ALPHA SYM NUM, 40)
   LAYER_CHORD(ch_plus, &kp MINUS, KY KOUML, ALPHA SYM NUM, 40)
 
-  LAYER_CHORD(ch_bracesstart, &kp RA(N7), KA KR, ALPHA SYM NUM, 20)
+  LAYER_CHORD(ch_bracesstart, &kp RA(N7), KA KR, ALPHA SYM NUM, 10)
   LAYER_CHORD(ch_bracketstart, &kp RA(N8), KR KS, ALPHA SYM NUM, 10)
   LAYER_CHORD(ch_parenstart, &kp KP_LPAR, KS KT, ALPHA SYM NUM, 10)
   LAYER_CHORD(ch_pipe, &kp RA(NON_US_BSLH), KT KG, ALPHA SYM NUM, 60)
