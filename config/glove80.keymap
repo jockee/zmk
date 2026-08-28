@@ -55,6 +55,8 @@
 #define ARROWL 67 
 #define ARROWR 68
 #define KSPACE 70
+#define KBSPC 73
+#define KBSPC2 77
 #define KDUP 74
 #define KAPOS 999999
 
@@ -199,6 +201,20 @@
             hold-trigger-on-release;
         };
 
+        // SYM on hold of backspace (Miryoku-style thumb pairing).
+        // "hold-preferred": the layer engages as soon as another key goes
+        // down, regardless of release order -- "balanced" dropped to a tap
+        // whenever the thumb lifted before the symbol key on fast rolls.
+        // quick-tap-ms lets tap-then-hold repeat backspace as normal.
+        lt_bspc: layer_tap_bspc {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            bindings = <&mo>, <&kp>;
+        };
+
          hml: home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -207,7 +223,7 @@
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = < KJ KL KU KY KOUML KM KN KE KI KO KAUML KK KH KCOMMA KDOT KMINUS >;
+            hold-trigger-key-positions = < KJ KL KU KY KOUML KM KN KE KI KO KAUML KK KH KCOMMA KDOT KMINUS KBSPC KBSPC2 >;
             hold-trigger-on-release;
         };
         hmr: home_row_mod_right {
@@ -364,8 +380,8 @@
                 &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
                 &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
                 &kp ESC     &hml LALT A    &hml LSHIFT R     &hml LGUI S      &hml LCTRL T   &kp G                                                                      &kp M   &hmr LCTRL N      &hmr LGUI E     &hmr LSHIFT I     &hmr LALT O    &kp SQT
-                &kp GRAVE     &kp Z    &kp X     &ltl CMDNUM C      &ltl CTRLNUM D   &kp V  &trans &kp LGUI &trans &trans &mo SYM  &mt_shift_caps RSHFT &caps_word &kp K  &ltr CTRLNUM H  &ltr CMDNUM COMMA   &kp DOT  &kp FSLH  &kp PG_UP
-                &magic MAGIC  0 &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp SPACE  &kp RET   &none               &none  &kp BSPC      &lt NUM LA(BSPC)          &kp UP   &kp DOWN  &kp BSPC  &kp C_PP  &kp PG_DN
+                &kp GRAVE     &kp Z    &kp X     &ltl CMDNUM C      &ltl CTRLNUM D   &kp V  &trans &kp LGUI &trans &trans &caps_word  &kp RSHFT &kp K  &ltr CTRLNUM H  &ltr CMDNUM COMMA   &kp DOT  &kp FSLH  &kp PG_UP
+                &magic MAGIC  0 &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp SPACE  &kp RET   &none               &none  &lt_bspc SYM BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp C_PP  &kp PG_DN
             >;
         };
 
