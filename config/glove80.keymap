@@ -55,7 +55,7 @@
 #define ARROWL 67 
 #define ARROWR 68
 #define KSPACE 70
-#define KBSPC 73
+#define KBSPC 74
 #define KBSPC2 77
 #define KDUP 74
 #define KAPOS 999999
@@ -201,17 +201,18 @@
             hold-trigger-on-release;
         };
 
-        // SYM on hold of backspace (Miryoku-style thumb pairing).
-        // "hold-preferred": the layer engages as soon as another key goes
-        // down, regardless of release order -- "balanced" dropped to a tap
-        // whenever the thumb lifted before the symbol key on fast rolls.
-        // quick-tap-ms lets tap-then-hold repeat backspace as normal.
+        // Backspace paired with NUM, not SYM. SYM needs to engage instantly
+        // for a single bracket mid-flow, which no flavour could do without
+        // also turning fast backspacing into symbols -- so SYM is a plain
+        // &mo now. NUM is held deliberately while typing several digits, so
+        // "tap-preferred" suits it: other keypresses never resolve the hold,
+        // meaning a fast backspace tap always stays a backspace.
         lt_bspc: layer_tap_bspc {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor = "hold-preferred";
+            flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            quick-tap-ms = <200>;
+            quick-tap-ms = <300>;
             bindings = <&mo>, <&kp>;
         };
 
@@ -381,7 +382,7 @@
                 &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
                 &kp ESC     &hml LALT A    &hml LSHIFT R     &hml LGUI S      &hml LCTRL T   &kp G                                                                      &kp M   &hmr LCTRL N      &hmr LGUI E     &hmr LSHIFT I     &hmr LALT O    &kp SQT
                 &kp GRAVE     &kp Z    &kp X     &ltl CMDNUM C      &ltl CTRLNUM D   &kp V  &trans &kp LGUI &trans &trans &caps_word  &kp RSHFT &kp K  &ltr CTRLNUM H  &ltr CMDNUM COMMA   &kp DOT  &kp FSLH  &kp PG_UP
-                &magic MAGIC  0 &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp SPACE  &kp RET   &none               &none  &lt_bspc SYM BSPC      &mo NUM          &kp UP   &kp DOWN  &kp BSPC  &kp C_PP  &kp PG_DN
+                &magic MAGIC  0 &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp SPACE  &kp RET   &none               &none  &mo SYM      &lt_bspc NUM BSPC          &kp UP   &kp DOWN  &kp BSPC  &kp C_PP  &kp PG_DN
             >;
         };
 
