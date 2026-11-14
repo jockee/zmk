@@ -20,43 +20,43 @@
 #include <dt-bindings/zmk/rgb.h>
 
 #define KSFT 57
-#define KDOT 60
-#define KCOMMA 61
-#define KMINUS 62
-#define KA 35
+#define KDOT 61
+#define KCOMMA 60
+#define KMINUS 58
+#define KA 43
 #define KB 27
-#define KC 49
-#define KD 50
+#define KC 24
+#define KD 39
 #define KE 42
-#define KF 25
-#define KG 39
-#define KH 59
-#define KI 43
+#define KF 48
+#define KG 35
+#define KH 38
+#define KI 30
 #define KJ 28
-#define KK 58
+#define KK 50
 #define KL 29
-#define KM 40
+#define KM 25
 #define KN 41
-#define KO 44
+#define KO 74
 #define KAUML 45
 #define KP 26
 #define KQ 23
-#define KR 36
-#define KS 37
-#define KT 38
-#define KU 30
+#define KR 59
+#define KS 36
+#define KT 37
+#define KU 31
 #define KV 51
-#define KW 24
-#define KX 48
-#define KY 31
+#define KW 49
+#define KX 58
+#define KY 44
 #define KOUML 32
 #define KARING 33
 #define KZ 47
 #define ARROWL 67 
 #define ARROWR 68
-#define KSPACE 70
-#define KBSPC 74
-#define KBSPC2 77
+#define KSPACE 69
+#define KBSPC 73
+#define KBSPC2 73
 #define KDUP 74
 #define KAPOS 999999
 
@@ -67,6 +67,7 @@
 #define CTRLNUM 3
 #define CMDNUM 4
 #define MAGIC 5
+#define MOVE 6
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -156,6 +157,15 @@
 #define POS_RH_C6R6 79
 
 
+/* Physical positions: independent of whichever letters occupy these keys. */
+#define HRM_LEFT_TARGETS 0 1 2 3 4 10 11 12 13 14 15 22 23 24 25 26 27 34 35 36 37 38 39 46 47 48 49 50 51 52 53 54 64 65 66 67 68 69 70 71
+#define HRM_RIGHT_TARGETS 5 6 7 8 9 16 17 18 19 20 21 28 29 30 31 32 33 40 41 42 43 44 45 55 56 57 58 59 60 61 62 63 72 73 74 75 76 77 78 79
+
+/* Time to select a symbol after releasing the one-shot key. */
+&sl {
+    release-after-ms = <2000>;
+};
+
 / {
     underglow {
         compatible = "zmk,underglow";
@@ -168,6 +178,35 @@
     };
 
     behaviors {
+        // Cmd+Tab -> Alt+Tab (AeroSpace "next window on this desktop"; Karabiner
+        // disables real Cmd+Tab). Cmd is swallowed, Shift passes through for reverse.
+        tab_app: tab_app_switch {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp TAB>, <&kp LA(TAB)>;
+            mods = <(MOD_LGUI|MOD_RGUI)>;
+        };
+
+        // Cmd+Space -> Cmd+§ (Raycast hotkey; ZMK NON_US_BSLH is § after the
+        // Karabiner swap). macOS has nothing bound to Cmd+Space on this Mac.
+        spc_ray: space_raycast {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp SPACE>, <&kp NON_US_BSLH>;
+            mods = <(MOD_LGUI|MOD_RGUI)>;
+            keep-mods = <(MOD_LGUI|MOD_RGUI)>;
+        };
+
+        // Cmd+Esc -> Cmd+´ (macOS "next window of the same app"; ZMK EQUAL is the
+        // ´ key on the Swedish layout). Cmd is kept; Shift passes through for reverse.
+        esc_win: esc_window_switch {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp ESC>, <&kp EQUAL>;
+            mods = <(MOD_LGUI|MOD_RGUI)>;
+            keep-mods = <(MOD_LGUI|MOD_RGUI)>;
+        };
+
          mt_shift_caps: behavior_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -181,61 +220,52 @@
          ltl: layer_tap_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
+            // Balanced: a typing roll releases this key first, which forces a tap.
+            // hold-preferred fired the layer on the NEXT key's press, so r->s hit Ctrl+2.
             flavor = "balanced";
-            require-prior-idle-ms = <150>;
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
+            require-prior-idle-ms = <200>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
             bindings = <&mo>, <&kp>;
-            hold-trigger-key-positions = < KM KN KE KI KO >;
-            hold-trigger-on-release;
+            // Opposite home-row positions: digits 6..0 in CMDNUM/CTRLNUM.
+            hold-trigger-key-positions = <40 41 42 43 44>;
         };
         ltr: layer_tap_right {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            require-prior-idle-ms = <150>;
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            bindings = <&mo>, <&kp>;
-            hold-trigger-key-positions = < KA KR KS KT KG >;
-            hold-trigger-on-release;
-        };
-
-        // Backspace paired with NUM, not SYM. SYM needs to engage instantly
-        // for a single bracket mid-flow, which no flavour could do without
-        // also turning fast backspacing into symbols -- so SYM is a plain
-        // &mo now. NUM is held deliberately while typing several digits, so
-        // "tap-preferred" suits it: other keypresses never resolve the hold,
-        // meaning a fast backspace tap always stays a backspace.
-        lt_bspc: layer_tap_bspc {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
+            require-prior-idle-ms = <200>;
             tapping-term-ms = <200>;
-            quick-tap-ms = <300>;
+            quick-tap-ms = <0>;
             bindings = <&mo>, <&kp>;
+            // Opposite home-row positions: digits 1..5 in CMDNUM/CTRLNUM.
+            hold-trigger-key-positions = <35 36 37 38 39>;
         };
 
          hml: home_row_mod_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
+            // Balanced decides on the other key's release, so a long term costs
+            // nothing on real shortcuts and shrinks the timer-expiry misfire window.
             flavor = "balanced";
-            require-prior-idle-ms = <150>;
-            tapping-term-ms = <280>;
+            require-prior-idle-ms = <250>;
+            tapping-term-ms = <300>;
             quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = < KJ KL KU KY KOUML KM KN KE KI KO KAUML KK KH KCOMMA KDOT KMINUS KBSPC KBSPC2 >;
+            hold-trigger-key-positions = < HRM_RIGHT_TARGETS >;
             hold-trigger-on-release;
         };
         hmr: home_row_mod_right {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
+            // hold-trigger-on-release is kept so two same-hand mods (Cmd+Shift+key)
+            // still resolve; the cost is the timer hole, mitigated by the long term.
             flavor = "balanced";
-            require-prior-idle-ms = <150>;
-            tapping-term-ms = <280>;
+            require-prior-idle-ms = <250>;
+            tapping-term-ms = <300>;
             quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = < KQ KW KF KP KB KA KR KS KT KG KZ KX KC KD KV >; // List of keys on the left side of the keyboard
+            hold-trigger-key-positions = < HRM_LEFT_TARGETS >;
             hold-trigger-on-release;
         };
         /* cyc_wrk: cycle_work_working { */
@@ -295,6 +325,17 @@
     };
 
     macros {
+        // NUM layer: Esc and Enter do their thing, then drop back to the base layer
+        num_esc: num_esc {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp ESC &to ALPHA>;
+        };
+        num_ret: num_ret {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp RET &to ALPHA>;
+        };
         rgb_ug_status_macro: rgb_ug_status_macro {
             label = "RGB_UG_STATUS";
             compatible = "zmk,behavior-macro";
@@ -372,6 +413,27 @@
         #endif
     };
 
+    combos {
+        compatible = "zmk,combos";
+        // Hold W+K (left) or R+comma (right) together: MOVE layer, where the
+        // home row sends Ctrl+Shift+digit = AeroSpace "move window to workspace".
+        // Use the left pair for 6-0 and the right pair for 1-5 (opposite hand).
+        move_left {
+            timeout-ms = <50>;
+            require-prior-idle-ms = <150>;
+            key-positions = <49 50>;
+            layers = <ALPHA>;
+            bindings = <&mo MOVE>;
+        };
+        move_right {
+            timeout-ms = <50>;
+            require-prior-idle-ms = <150>;
+            key-positions = <59 60>;
+            layers = <ALPHA>;
+            bindings = <&mo MOVE>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -379,10 +441,10 @@
             bindings = <
                 &kp F1    &kp F2   &kp F3    &kp F4     &kp F5                                                                                     &kp F6     &kp F7    &kp F8    &kp F9    &kp F10
                 &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
-                &kp TAB     &kp Q    &kp W     &kp F      &kp P   &kp B                                                                      &kp J   &kp L      &kp U     &kp Y  &kp SEMI   &kp LBKT
-                &kp ESC     &hml LALT A    &hml LSHIFT R     &hml LGUI S      &hml LCTRL T   &kp G                                                                      &kp M   &hmr LCTRL N      &hmr LGUI E     &hmr LSHIFT I     &hmr LALT O    &kp SQT
-                &kp GRAVE     &kp Z    &kp X     &ltl CMDNUM C      &ltl CTRLNUM D   &kp V  &trans &kp LGUI &trans &trans &caps_word  &kp RSHFT &kp K  &ltr CTRLNUM H  &ltr CMDNUM COMMA   &kp DOT  &kp FSLH  &kp PG_UP
-                &magic MAGIC  0 &kp HOME  &kp END  &kp LEFT  &kp RIGHT            &kp SPACE  &kp RET   &none               &none  &mo SYM      &lt_bspc NUM BSPC          &kp UP   &kp DOWN  &kp BSPC  &kp C_PP  &kp PG_DN
+                &tab_app    &kp Q    &kp C     &kp M      &kp P   &kp B                                                                      &kp J   &kp L      &kp I     &kp U    &kp SEMI   &kp LBKT
+                &esc_win     &hml LALT G        &hml LSHIFT S     &hml LGUI T      &hml LCTRL H   &kp D                                                                      &sl SYM      &hmr LCTRL N      &hmr LGUI E     &hmr LSHIFT A     &hmr LALT Y    &kp SQT
+                &kp GRAVE     &kp Z    &kp F     &ltl CMDNUM W      &ltl CTRLNUM K   &kp V  &trans &kp LGUI &trans &trans &caps_word  &kp RSHFT &kp X  &ltr CTRLNUM R  &ltr CMDNUM COMMA   &kp DOT  &kp LBKT  &kp PG_UP
+                &magic MAGIC  0 &kp LC(LS(LG(N4)))  &kp END  &kp LEFT  &kp RIGHT            &spc_ray   &kp RET   &none               &none    &kp BSPC           &kp O                       &kp UP   &kp DOWN  &kp C_VOL_DN  &kp C_VOL_UP  &kp PG_DN
             >;
         };
 
@@ -391,20 +453,24 @@
                 &none                &none       &none       &none        &none                                                                                        &none          &none         &none         &none   &none
                 &none                &none       &none       &none        &none                &none                                                       &none       &none          &none         &none         &none   &none
                 &none           &kp LS(N1)  &kp LS(N2)  &kp LS(N3)   &kp LS(N4)           &kp LS(N5)                                                &kp LS(N6)  &kp LS(N7)     &kp LS(N0)     &kp MINUS         &none   &none
-                &none      &kp GRAVE  &kp RA(LS(N8))  &kp RA(N8)  &kp LS(N8)  &kp RA(N7)                                                   &kp BSLH  &kp RA(N2)  &kp LS(MINUS)  &kp LS(PIPE)  &kp LS(RBKT)   &none
-                &none  &kp LS(GRAVE)  &kp RA(LS(N9))  &kp RA(N9)  &kp LS(N9)        &kp RA(LS(N7))  &trans  &trans  &trans  &trans  &trans  &trans    &kp FSLH  &kp RA(N4)  &kp LS(EQUAL)     &kp EQUAL  &kp RA(RBKT)   &none
-                &none                &none       &none       &none        &none                       &trans  &trans  &trans  &trans  &trans  &trans                   &none          &none        &trans         &none   &none
+                &none      &kp GRAVE  &kp RA(LS(N8))  &kp RA(N8)  &kp LS(N8)  &kp RA(N7)                                                   &kp BSLH  &kp RA(N2)  &kp LS(MINUS)  &kp RA(RBKT)  &kp LS(RBKT)   &none
+                &none  &kp LS(GRAVE)  &kp RA(LS(N9))  &kp RA(N9)  &kp LS(N9)        &kp RA(LS(N7))  &trans  &trans  &trans  &trans  &trans  &trans    &kp FSLH  &kp RA(N4)  &kp LS(EQUAL)     &kp EQUAL  &kp LS(PIPE)   &none
+                &none   &none  &kp LG(NON_US_BSLH)  &kp LG(LS(EQUAL))  &kp LG(EQUAL)                  &trans  &trans  &trans  &trans  &kp BSPC  &tog NUM                   &none          &none        &trans         &none   &none
             >;
         };
 
+        // Sticky: SYM, then the right outermost thumb (O) turns NUM on; the same key turns it
+        // off. Comma and period where they are on the base layer, backspace on the thumb.
+        // Esc and Enter work and leave NUM. / = + - * sit where SYM has them
+        // (SYM's * and ~ were swapped for that). Brightness moved right by two.
         NUM {
             bindings = <
                 &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
                 &none   &none         &kp C_RW &none         &kp C_FF &none                                                   &none          &none         &none   &none   &none   &none
-                &none   &none    &kp C_PREV    &kp C_PP    &kp C_NEXT   &none                                                   &none   &kp C_BRI_DN  &kp C_BRI_UP   &none   &none   &none
-                &none  &kp N1        &kp N2      &kp N3        &kp N4  &kp N5                                                  &kp N6         &kp N7        &kp N8  &kp N9  &kp N0   &none
-                &none   &none  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP   &none  &trans &trans  &trans  &trans  &trans  &trans   &none          &none         &none   &none   &none   &none
-                &none   &none         &none       &none         &none          &kp LG(NON_US_BSLH)  &kp LG(EQUAL) &trans  &trans  &trans  &trans           &none         &none  &trans   &none   &none
+                &none   &none    &kp C_PREV    &kp C_PP    &kp C_NEXT   &none                                                   &none   &kp LS(N7)    &kp LS(N0)     &kp MINUS   &kp C_BRI_DN   &kp C_BRI_UP
+                &num_esc  &kp N1        &kp N2      &kp N3        &kp N4  &kp N5                                                  &kp N6         &kp N7        &kp N8  &kp N9  &kp N0   &none
+                &none   &none  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP   &none  &trans &trans  &trans  &trans  &trans  &trans   &kp FSLH       &none         &kp COMMA   &kp DOT   &kp LS(BSLH)   &none
+                &none   &none  &kp LG(NON_US_BSLH)  &kp LG(LS(EQUAL))  &kp LG(EQUAL)   &trans  &num_ret  &trans  &trans  &kp BSPC  &tog NUM           &none         &none  &trans   &none   &none
             >;
         };
 
@@ -438,6 +504,17 @@
                 &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
                 &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none      &sys_reset
                 &none            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &none
+            >;
+        };
+
+        MOVE {
+            bindings = <
+                &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
+                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
+                &none  &kp LC(LS(N1))        &kp LC(LS(N2))      &kp LC(LS(N3))        &kp LC(LS(N4))  &kp LC(LS(N5))                                                  &kp LC(LS(N6))         &kp LC(LS(N7))        &kp LC(LS(N8))  &kp LC(LS(N9))  &kp LC(LS(N0))   &none
+                &none   &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans    &none          &none         &none  &none &none   &none   
+                &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans     &none          &none         &none  &none &none   
             >;
         };
     };

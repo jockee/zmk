@@ -1,0 +1,146 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Glove80 cheat sheet</title>
+<style>
+  h2 { font-size: 15px; margin: 26px 0 6px; }
+  h2:first-child { margin-top: 0; }
+  p.note { color: var(--muted-foreground, gray); font-size: 13px; margin: 2px 0 10px; line-height: 1.45; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  td, th { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; line-height: 1.5; }
+  th { font-weight: 600; color: var(--muted-foreground, gray); font-size: 12px; }
+  td:first-child { white-space: nowrap; padding-right: 16px; }
+  kbd { font-family: var(--font-mono); font-size: 12px; padding: 1px 6px; border: 1px solid var(--border); border-radius: 5px; background: var(--secondary); white-space: nowrap; }
+  svg { width: 100%; height: auto; display: block; }
+  .k { fill: var(--card); stroke: var(--border); }
+  .k.empty { fill: none; stroke: var(--muted-foreground, gray); stroke-dasharray: 3 3; opacity: .35; }
+  .k.mod { stroke: var(--chart-1); fill: color-mix(in srgb, var(--chart-1) 16%, transparent); }
+  .k.layer { stroke: var(--chart-2); fill: color-mix(in srgb, var(--chart-2) 18%, transparent); }
+  .k.hot { stroke: var(--chart-3); fill: color-mix(in srgb, var(--chart-3) 20%, transparent); }
+  svg text { font-family: var(--font-sans); fill: var(--foreground); text-anchor: middle; }
+  svg text.t { font-weight: 600; }
+  svg text.h { font-size: 9.5px; fill: var(--muted-foreground, gray); font-weight: 500; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted-foreground, gray); margin: 8px 0 0; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; border: 1px solid var(--c); background: color-mix(in srgb, var(--c) 20%, transparent); }
+</style>
+
+<h2>Everyday shortcuts</h2>
+<table>
+  <tr><th>Action</th><th>Keys</th></tr>
+  <tr><td>Go to a desktop</td><td>Hold <kbd>K</kbd> + right home row (6–9), or hold <kbd>R</kbd> + left home row (1–5)</td></tr>
+  <tr><td>Back to the last desktop</td><td>Hold <kbd>K</kbd> + tap <kbd>Y</kbd></td></tr>
+  <tr><td>Move window to a desktop</td><td>Hold <kbd>W</kbd>+<kbd>K</kbd> together + right home row, or hold <kbd>R</kbd>+<kbd>,</kbd> together + left home row</td></tr>
+  <tr><td>Next app on this desktop</td><td>Hold <kbd>E</kbd> + tap <kbd>Tab</kbd>. Also hold <kbd>A</kbd> to go back</td></tr>
+  <tr><td>Next window, same app</td><td>Hold <kbd>E</kbd> + tap <kbd>Esc</kbd>. Also hold <kbd>A</kbd> to go back</td></tr>
+  <tr><td>Screenshot area to clipboard</td><td><kbd>Screenshot</kbd> key, left bottom row, 2nd from the outer edge</td></tr>
+  <tr><td>Raycast</td><td>Hold <kbd>E</kbd> + tap <kbd>Space</kbd></td></tr>
+  <tr><td>Type a symbol</td><td>Tap <kbd>SYM</kbd>, then the symbol key. SYM stays armed for 2 seconds</td></tr>
+  <tr><td>Media and brightness</td><td>Tap <kbd>SYM</kbd>, then hold <kbd>O</kbd> and press the key</td></tr>
+  <tr><td>Cmd + number</td><td>Hold <kbd>W</kbd> + right home row (6–0), or hold <kbd>,</kbd> + left home row (1–5)</td></tr>
+  <tr><td>Flash new firmware</td><td>Run <kbd>./flash.sh</kbd> in <kbd>~/web/zmk</kbd>, then hold <kbd>Magic</kbd> + tap <kbd>Esc</kbd></td></tr>
+</table>
+
+<h2>Your desktops</h2>
+<table>
+  <tr><th>Desktop</th><th>App</th><th>Go there</th><th>Move window there</th></tr>
+  <tr><td>1</td><td>Finder, System Settings</td><td><kbd>R</kbd> + <kbd>G</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>G</kbd></td></tr>
+  <tr><td>2</td><td>T3 Code</td><td><kbd>R</kbd> + <kbd>S</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>S</kbd></td></tr>
+  <tr><td>3</td><td>Brave</td><td><kbd>R</kbd> + <kbd>T</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>T</kbd></td></tr>
+  <tr><td>4</td><td>Feishin</td><td><kbd>R</kbd> + <kbd>H</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>H</kbd></td></tr>
+  <tr><td>5</td><td>Sublime Text</td><td><kbd>R</kbd> + <kbd>D</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>D</kbd></td></tr>
+  <tr><td>6</td><td>Ghostty</td><td><kbd>K</kbd> + <kbd>SYM</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>SYM</kbd></td></tr>
+  <tr><td>7</td><td>VLC, Zwift</td><td><kbd>K</kbd> + <kbd>N</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>N</kbd></td></tr>
+  <tr><td>8</td><td></td><td><kbd>K</kbd> + <kbd>E</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>E</kbd></td></tr>
+  <tr><td>9</td><td></td><td><kbd>K</kbd> + <kbd>A</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>A</kbd></td></tr>
+</table>
+
+<h2>Base layer</h2>
+<p class="note">Big label = tap. Small label = what the key does when held.</p>
+<div id="base"></div>
+<div class="legend">
+  <span style="--c: var(--chart-1)">Hold for a modifier</span>
+  <span style="--c: var(--chart-2)">Layer key</span>
+  <span style="--c: var(--chart-3)">Shortcut key</span>
+</div>
+
+<h2>SYM layer: symbols</h2>
+<p class="note">Tap SYM (right home row, inner key), then one of these.</p>
+<div id="sym"></div>
+
+<h2>NUM layer: digits and media</h2>
+<p class="note">Tap SYM, then hold O (right thumb) and press one of these.</p>
+<div id="num"></div>
+
+<script>
+  const P = 56, S = 50, RX = 360, TY = 6 * P + 6;
+  function xy(p) {
+    const L = c => c * P, R = c => RX + c * P;
+    if (p <= 4) return [L(p), 0];
+    if (p <= 9) return [R(p - 4), 0];
+    if (p <= 15) return [L(p - 10), P];
+    if (p <= 21) return [R(p - 16), P];
+    if (p <= 27) return [L(p - 22), 2 * P];
+    if (p <= 33) return [R(p - 28), 2 * P];
+    if (p <= 39) return [L(p - 34), 3 * P];
+    if (p <= 45) return [R(p - 40), 3 * P];
+    if (p <= 51) return [L(p - 46), 4 * P];
+    if (p <= 54) return [180 + (p - 52) * P, TY];
+    if (p <= 57) return [RX + (p - 55) * P, TY];
+    if (p <= 63) return [R(p - 58), 4 * P];
+    if (p <= 68) return [L(p - 64), 5 * P];
+    if (p <= 71) return [180 + (p - 69) * P, TY + P];
+    if (p <= 74) return [RX + (p - 72) * P, TY + P];
+    return [R(p - 74), 5 * P];
+  }
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  function draw(id, keys, top = 0) {
+    let out = "";
+    for (let p = 0; p < 80; p++) {
+      const [x, y] = xy(p), k = keys[p];
+      if (y < top * P) continue;
+      if (!k) { out += `<rect class="k empty" x="${x}" y="${y}" width="${S}" height="${S}" rx="8"/>`; continue; }
+      const [label, hold, cls] = k, lines = label.split("\n");
+      const longest = Math.max(...lines.map(l => l.length));
+      const fs = longest <= 2 ? 16 : longest <= 5 ? 12 : 9.5, lh = fs + 2;
+      const cy = y + S / 2 - (hold ? 5 : 0), y0 = cy - (lines.length - 1) * lh / 2 + fs * 0.35;
+      out += `<rect class="k ${cls || ""}" x="${x}" y="${y}" width="${S}" height="${S}" rx="8"/>`;
+      lines.forEach((l, i) => { out += `<text class="t" font-size="${fs}" x="${x + S / 2}" y="${y0 + i * lh}">${esc(l)}</text>`; });
+      if (hold) out += `<text class="h" x="${x + S / 2}" y="${y + S - 6}">${esc(hold)}</text>`;
+    }
+    document.getElementById(id).innerHTML =
+      `<svg viewBox="-1 ${top * P - 1} ${RX + 5 * P + S + 2} ${TY + P + S + 2 - top * P}" role="img" aria-label="${id} layer">${out}</svg>`;
+  }
+
+  const base = {};
+  for (let i = 0; i < 5; i++) { base[i] = ["F" + (i + 1)]; base[5 + i] = ["F" + (i + 6)]; }
+  for (let i = 0; i < 5; i++) { base[11 + i] = ["" + (i + 1)]; base[16 + i] = ["" + ((i + 6) % 10)]; }
+  Object.assign(base, {
+    10: ["´"], 21: ["+"],
+    22: ["Tab", "", "hot"], 23: ["Q"], 24: ["C"], 25: ["M"], 26: ["P"], 27: ["B"],
+    28: ["J"], 29: ["L"], 30: ["I"], 31: ["U"], 32: ["Ö"], 33: ["Å"],
+    34: ["Esc", "", "hot"], 35: ["G", "Alt", "mod"], 36: ["S", "Shift", "mod"], 37: ["T", "Cmd", "mod"], 38: ["H", "Ctrl", "mod"], 39: ["D"],
+    40: ["SYM", "", "layer"], 41: ["N", "Ctrl", "mod"], 42: ["E", "Cmd", "mod"], 43: ["A", "Shift", "mod"], 44: ["Y", "Alt", "mod"], 45: ["Ä"],
+    46: ["<"], 47: ["Z"], 48: ["F"], 49: ["W", "Cmd 6–0", "layer"], 50: ["K", "Ctrl 6–0", "layer"], 51: ["V"],
+    53: ["Cmd", "", "mod"], 56: ["Caps\nWord"], 57: ["Shift", "", "mod"],
+    58: ["X"], 59: ["R", "Ctrl 1–5", "layer"], 60: [",", "Cmd 1–5", "layer"], 61: ["."], 62: ["Å"], 63: ["PgUp"],
+    64: ["Magic", "", "layer"], 65: ["Screen\nshot", "", "hot"], 66: ["End"], 67: ["←"], 68: ["→"],
+    69: ["Space", "", "hot"], 70: ["Enter"], 73: ["Bksp"], 74: ["O"],
+    75: ["↑"], 76: ["↓"], 77: ["Vol −"], 78: ["Vol +"], 79: ["PgDn"],
+  });
+  draw("base", base);
+
+  draw("sym", {
+    23: ["!"], 24: ['"'], 25: ["#"], 26: ["€"], 27: ["%"], 28: ["&"], 29: ["/"], 30: ["="], 31: ["+"],
+    35: ["<"], 36: ["{"], 37: ["["], 38: ["("], 39: ["|"], 40: ["'"], 41: ["@"], 42: ["?"], 43: ["*"], 44: ["^"],
+    47: [">"], 48: ["}"], 49: ["]"], 50: [")"], 51: ["\\"], 58: ["-"], 59: ["$"], 60: ["`"], 61: ["´"], 62: ["~"],
+    66: ["Raycast", "", "hot"], 67: ["Prev\nwindow", "", "hot"], 68: ["Next\nwindow", "", "hot"],
+    73: ["Bksp"], 74: ["NUM", "hold", "layer"],
+  }, 2);
+
+  const num = {
+    12: ["Rewind"], 14: ["Fast\nfwd"], 24: ["Prev\ntrack"], 25: ["Play\nPause"], 26: ["Next\ntrack"],
+    29: ["Bright\n−"], 30: ["Bright\n+"], 48: ["Vol −"], 49: ["Mute"], 50: ["Vol +"],
+    66: ["Raycast", "", "hot"], 67: ["Prev\nwindow", "", "hot"], 68: ["Next\nwindow", "", "hot"], 73: ["Bksp"],
+  };
+  for (let i = 0; i < 5; i++) { num[35 + i] = ["" + (i + 1)]; num[40 + i] = ["" + ((i + 6) % 10)]; }
+  draw("num", num, 1);
+</script>
