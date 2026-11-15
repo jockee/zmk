@@ -442,7 +442,7 @@
                 &trans  &kp LS(N1)  &kp LS(N2)  &kp LS(N3)  &kp LS(N4)  &kp LS(N5)                                       &kp LS(N7)  &kp N7  &kp N8  &kp N9  &kp LS(N0)  &trans
                 &trans  &hml LALT GRAVE  &hml LSHIFT RA(LS(N8))  &hml LGUI RA(N8)  &hml LCTRL LS(N8)  &kp RA(N7)          &trans  &kp N4  &kp N5  &kp N6  &kp N0  &kp MINUS
                 &trans  &kp LS(GRAVE)  &kp RA(LS(N9))  &kp RA(N9)  &kp LS(N9)  &kp RA(LS(N7))  &trans  &trans  &trans  &trans  &trans  &trans  &kp FSLH  &kp N1  &kp N2  &kp N3  &kp LS(BSLH)  &trans
-                &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  &kp DOT       &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  &trans         &trans  &trans  &trans  &trans  &trans
             >;
         };
 
