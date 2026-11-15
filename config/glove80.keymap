@@ -186,19 +186,9 @@
             mods = <(MOD_LGUI|MOD_RGUI)>;
         };
 
-        // Cmd+Space -> Cmd+§ (Raycast hotkey; ZMK NON_US_BSLH is § after the
-        // Karabiner swap). macOS has nothing bound to Cmd+Space on this Mac.
-        spc_ray: space_raycast {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp SPACE>, <&kp NON_US_BSLH>;
-            mods = <(MOD_LGUI|MOD_RGUI)>;
-            keep-mods = <(MOD_LGUI|MOD_RGUI)>;
-        };
-
         // Cmd+Esc -> Cmd+´ (macOS "next window of the same app"; ZMK EQUAL is the
         // ´ key on the Swedish layout). Cmd is kept; Shift passes through for reverse.
-        // Space: tap = Space (Cmd+Space still Raycast), hold = NUM. Holds only after a
+        // Space: tap = Space (Cmd+Space is plain: T3 threads on NixOS), hold = NUM. Holds only after a
         // short pause and only when the next key is one NUM uses (numpad, left-hand
         // symbols, media, brightness, thumbs), so typing never triggers it; retro-tap keeps a long
         // lone press a space. quick-tap 0: tap Space then hold it for a number works.
@@ -210,7 +200,7 @@
             quick-tap-ms = <0>;
             require-prior-idle-ms = <100>;
             retro-tap;
-            bindings = <&mo>, <&spc_ray>;
+            bindings = <&mo>, <&kp>;
             hold-trigger-key-positions = <28 29 30 31 32 33 40 41 42 43 44 45 58 59 60 61 62 63 73 74 20 21 11 12 13 14 15 23 24 25 26 27 35 36 37 38 39 47 48 49 50 51>;
         };
         esc_win: esc_window_switch {
@@ -426,7 +416,7 @@
                 &tab_app    &kp Q    &kp C     &kp M      &kp P   &kp B                                                                      &kp J   &kp L      &kp I     &kp U    &kp SEMI   &kp LBKT
                 &esc_win     &hml LALT G        &hml LSHIFT S     &hml LGUI T      &hml LCTRL H   &kp D                                                                      &sl SYM      &hmr LCTRL N      &hmr LGUI E     &hmr LSHIFT A     &hmr LALT Y    &kp SQT
                 &kp GRAVE     &kp Z    &kp F     &ltl CMDNUM W      &ltl CTRLNUM K   &kp V  &none &none &none &none &none &none &kp X  &kp R  &kp COMMA   &kp DOT  &kp LBKT  &kp PG_UP
-                &magic MAGIC  0 &kp LC(LS(LG(N4)))  &kp END  &kp LEFT  &kp RIGHT            &lt_spc NUM 0   &kp RET   &none               &none    &kp BSPC           &kp O                       &kp UP   &kp DOWN  &kp C_VOL_DN  &kp C_VOL_UP  &kp PG_DN
+                &magic MAGIC  0 &kp LC(LS(LG(N4)))  &kp END  &kp LEFT  &kp RIGHT            &lt_spc NUM SPACE &kp RET   &none               &none    &kp BSPC           &kp O                       &kp UP   &kp DOWN  &kp C_VOL_DN  &kp C_VOL_UP  &kp PG_DN
             >;
         };
 
