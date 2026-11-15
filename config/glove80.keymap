@@ -199,8 +199,8 @@
         // Cmd+Esc -> Cmd+´ (macOS "next window of the same app"; ZMK EQUAL is the
         // ´ key on the Swedish layout). Cmd is kept; Shift passes through for reverse.
         // Space: tap = Space (Cmd+Space still Raycast), hold = NUM. Holds only after a
-        // short pause and only when the next key is the numpad, the right-hand keys or
-        // the left home-row mods, so typing never triggers it; retro-tap keeps a long
+        // short pause and only when the next key is one NUM uses (numpad, left-hand
+        // symbols, media, brightness, thumbs), so typing never triggers it; retro-tap keeps a long
         // lone press a space. quick-tap 0: tap Space then hold it for a number works.
         lt_spc: layer_tap_space {
             compatible = "zmk,behavior-hold-tap";
@@ -211,7 +211,7 @@
             require-prior-idle-ms = <100>;
             retro-tap;
             bindings = <&mo>, <&spc_ray>;
-            hold-trigger-key-positions = <28 29 30 31 32 33 40 41 42 43 44 45 58 59 60 61 62 63 73 74 35 36 37 38>;
+            hold-trigger-key-positions = <28 29 30 31 32 33 40 41 42 43 44 45 58 59 60 61 62 63 73 74 20 21 11 12 13 14 15 23 24 25 26 27 35 36 37 38 39 47 48 49 50 51>;
         };
         esc_win: esc_window_switch {
             compatible = "zmk,behavior-mod-morph";
