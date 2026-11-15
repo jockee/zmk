@@ -1,147 +1,265 @@
 <!doctype html>
+<html lang="en">
 <meta charset="utf-8">
-<title>Glove80 cheat sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glove80 keys</title>
+<!--
+  Cheat sheet for config/glove80.keymap, as typed on the Swedish (Mac) layout.
+  Self-contained: no network. Shown on sway workspace 1 (see ~/dotfiles/sway/config).
+  Keep it in step with the keymap: each layer below is one object keyed by ZMK key position.
+-->
 <style>
-  h2 { font-size: 15px; margin: 26px 0 6px; }
-  h2:first-child { margin-top: 0; }
-  p.note { color: var(--muted-foreground, gray); font-size: 13px; margin: 2px 0 10px; line-height: 1.45; }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  td, th { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; line-height: 1.5; }
-  th { font-weight: 600; color: var(--muted-foreground, gray); font-size: 12px; }
-  td:first-child { white-space: nowrap; padding-right: 16px; }
-  kbd { font-family: var(--font-mono); font-size: 12px; padding: 1px 6px; border: 1px solid var(--border); border-radius: 5px; background: var(--secondary); white-space: nowrap; }
-  svg { width: 100%; height: auto; display: block; }
-  .k { fill: var(--card); stroke: var(--border); }
-  .k.empty { fill: none; stroke: var(--muted-foreground, gray); stroke-dasharray: 3 3; opacity: .35; }
-  .k.mod { stroke: var(--chart-1); fill: color-mix(in srgb, var(--chart-1) 16%, transparent); }
-  .k.layer { stroke: var(--chart-2); fill: color-mix(in srgb, var(--chart-2) 18%, transparent); }
-  .k.hot { stroke: var(--chart-3); fill: color-mix(in srgb, var(--chart-3) 20%, transparent); }
-  svg text { font-family: var(--font-sans); fill: var(--foreground); text-anchor: middle; }
+  :root {
+    --bg: #101013;
+    --panel: #161619;
+    --key: #1c1c20;
+    --border: #3d3d47;
+    --faint: #2a2a31;
+    --fg: #ececf1;
+    --muted: #7d7d88;
+    --dim: #4c4c56;
+    --mod: #8f93ff;     /* Nocturne periwinkle */
+    --layer: #3fbf7f;
+    --shortcut: #f59a4a;
+    --digit: #3cc4d6;
+    --op: #f2c14e;
+    --media: #e070c8;
+    --flag: #f0635f;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font: 15px/1.4 Inter, "Inter Variable", system-ui, sans-serif;
+    display: grid; grid-template-rows: auto 1fr; gap: 10px; padding: 12px 16px 14px;
+    overflow: hidden;
+  }
+  header { display: flex; align-items: baseline; gap: 22px; flex-wrap: wrap; }
+  header h1 { font-size: 17px; font-weight: 600; margin: 0; letter-spacing: .01em; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13px; color: var(--muted); }
+  .legend span::before {
+    content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px;
+    border: 1.5px solid var(--c, var(--border)); background: color-mix(in srgb, var(--c, var(--border)) 22%, transparent);
+  }
+  .legend .dot::before { width: 8px; height: 8px; border-radius: 50%; border: 0; background: var(--op); vertical-align: 1px; }
+  main { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; min-height: 0; }
+  section {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 10px 14px 8px; display: flex; flex-direction: column; min-height: 0; min-width: 0;
+  }
+  section h2 { margin: 0; font-size: 16px; font-weight: 600; display: flex; gap: 12px; align-items: baseline; }
+  section h2 small { font-size: 13.5px; font-weight: 400; color: var(--muted); }
+  section h2 b { color: var(--layer); font-weight: 600; }
+  .kb { flex: 1; min-height: 0; display: flex; }
+  .kb svg { width: 100%; height: 100%; display: block; }
+  svg text { font-family: Inter, "Inter Variable", system-ui, sans-serif; text-anchor: middle; fill: var(--fg); }
+  svg .k { fill: var(--key); stroke: var(--border); stroke-width: 2; }
+  svg .k.none { fill: none; stroke: var(--faint); stroke-dasharray: 6 6; }
+  svg .k.trans { fill: none; stroke: var(--faint); }
+  svg text.trans { fill: var(--dim); }
+  svg .k.mod { stroke: var(--mod); fill: color-mix(in srgb, var(--mod) 14%, var(--key)); }
+  svg .k.layer { stroke: var(--layer); fill: color-mix(in srgb, var(--layer) 16%, var(--key)); }
+  svg .k.shortcut { stroke: var(--shortcut); fill: color-mix(in srgb, var(--shortcut) 14%, var(--key)); }
+  svg .k.digit { stroke: var(--digit); fill: color-mix(in srgb, var(--digit) 18%, var(--key)); }
+  svg .k.op { stroke: var(--op); fill: color-mix(in srgb, var(--op) 14%, var(--key)); }
+  svg .k.media { stroke: var(--media); fill: color-mix(in srgb, var(--media) 12%, var(--key)); }
+  svg .k.held { stroke-width: 5; }
   svg text.t { font-weight: 600; }
-  svg text.h { font-size: 9.5px; fill: var(--muted-foreground, gray); font-weight: 500; }
-  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted-foreground, gray); margin: 8px 0 0; }
-  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; border: 1px solid var(--c); background: color-mix(in srgb, var(--c) 20%, transparent); }
+  svg text.h { font-weight: 500; fill: var(--muted); }
+  svg text.h.mod { fill: var(--mod); }
+  svg text.h.layer { fill: var(--layer); }
+  svg text.h.shortcut { fill: var(--shortcut); }
+  svg text.h.flag { fill: var(--flag); }
+  svg .beatdot { fill: var(--op); }
+  svg .combo rect { fill: var(--panel); stroke: var(--layer); stroke-width: 2; }
+  svg .combo text { fill: var(--layer); font-weight: 600; }
+  .notes { overflow: hidden; font-size: 14.5px; }
+  .notes ul { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .notes li { padding-left: 15px; position: relative; }
+  .notes li::before { content: ""; position: absolute; left: 0; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: var(--c, var(--muted)); }
+  .notes .grp { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .07em; margin-top: 4px; }
+  kbd {
+    font: 600 13px/1 Inter, system-ui, sans-serif; padding: 2px 6px; border: 1px solid var(--border); border-radius: 5px;
+    background: var(--key); white-space: nowrap;
+  }
+  .flag { color: color-mix(in srgb, var(--flag) 80%, var(--muted)); font-size: 13px; }
+  @media (max-width: 1100px) {
+    body { overflow: auto; height: auto; }
+    main { grid-template-columns: 1fr; grid-template-rows: none; }
+    .kb { min-height: 300px; }
+  }
 </style>
 
-<h2>Everyday shortcuts</h2>
-<table>
-  <tr><th>Action</th><th>Keys</th></tr>
-  <tr><td>Go to a desktop</td><td>Hold <kbd>K</kbd> + right home row (6–9), or hold <kbd>R</kbd> + left home row (1–5)</td></tr>
-  <tr><td>Back to the last desktop</td><td>Hold <kbd>K</kbd> + tap <kbd>Y</kbd></td></tr>
-  <tr><td>Move window to a desktop</td><td>Hold <kbd>W</kbd>+<kbd>K</kbd> together + right home row, or hold <kbd>R</kbd>+<kbd>,</kbd> together + left home row</td></tr>
-  <tr><td>Next app on this desktop</td><td>Hold <kbd>E</kbd> + tap <kbd>Tab</kbd>. Also hold <kbd>A</kbd> to go back</td></tr>
-  <tr><td>Next window, same app</td><td>Hold <kbd>E</kbd> + tap <kbd>Esc</kbd>. Also hold <kbd>A</kbd> to go back</td></tr>
-  <tr><td>Screenshot area to clipboard</td><td><kbd>Screenshot</kbd> key, left bottom row, 2nd from the outer edge</td></tr>
-  <tr><td>Raycast</td><td>Hold <kbd>E</kbd> + tap <kbd>Space</kbd></td></tr>
-  <tr><td>Type a symbol</td><td>Tap <kbd>SYM</kbd>, then the symbol key. SYM stays armed for 2 seconds</td></tr>
-  <tr><td>Media and brightness</td><td>Tap <kbd>SYM</kbd>, then hold <kbd>O</kbd> and press the key</td></tr>
-  <tr><td>Cmd + number</td><td>Hold <kbd>W</kbd> + right home row (6–0), or hold <kbd>,</kbd> + left home row (1–5)</td></tr>
-  <tr><td>Flash new firmware</td><td>Run <kbd>./flash.sh</kbd> in <kbd>~/web/zmk</kbd>, then hold <kbd>Magic</kbd> + tap <kbd>Esc</kbd></td></tr>
-</table>
+<header>
+  <h1>Glove80</h1>
+  <div class="legend">
+    <span style="--c: var(--mod)">hold: modifier</span>
+    <span style="--c: var(--layer)">layer key</span>
+    <span style="--c: var(--shortcut)">shortcut</span>
+    <span style="--c: var(--digit)">digit</span>
+    <span style="--c: var(--op)">math</span>
+    <span style="--c: var(--media)">media</span>
+    <span class="dot">hold Space a beat first</span>
+    <span>big = tap, small = hold</span>
+  </div>
+</header>
 
-<h2>Your desktops</h2>
-<table>
-  <tr><th>Desktop</th><th>App</th><th>Go there</th><th>Move window there</th></tr>
-  <tr><td>1</td><td>Finder, System Settings</td><td><kbd>R</kbd> + <kbd>G</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>G</kbd></td></tr>
-  <tr><td>2</td><td>T3 Code</td><td><kbd>R</kbd> + <kbd>S</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>S</kbd></td></tr>
-  <tr><td>3</td><td>Brave</td><td><kbd>R</kbd> + <kbd>T</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>T</kbd></td></tr>
-  <tr><td>4</td><td>Feishin</td><td><kbd>R</kbd> + <kbd>H</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>H</kbd></td></tr>
-  <tr><td>5</td><td>Sublime Text</td><td><kbd>R</kbd> + <kbd>D</kbd></td><td><kbd>R</kbd>+<kbd>,</kbd> + <kbd>D</kbd></td></tr>
-  <tr><td>6</td><td>Ghostty</td><td><kbd>K</kbd> + <kbd>SYM</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>SYM</kbd></td></tr>
-  <tr><td>7</td><td>VLC, Zwift</td><td><kbd>K</kbd> + <kbd>N</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>N</kbd></td></tr>
-  <tr><td>8</td><td></td><td><kbd>K</kbd> + <kbd>E</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>E</kbd></td></tr>
-  <tr><td>9</td><td></td><td><kbd>K</kbd> + <kbd>A</kbd></td><td><kbd>W</kbd>+<kbd>K</kbd> + <kbd>A</kbd></td></tr>
-</table>
-
-<h2>Base layer</h2>
-<p class="note">Big label = tap. Small label = what the key does when held.</p>
-<div id="base"></div>
-<div class="legend">
-  <span style="--c: var(--chart-1)">Hold for a modifier</span>
-  <span style="--c: var(--chart-2)">Layer key</span>
-  <span style="--c: var(--chart-3)">Shortcut key</span>
-</div>
-
-<h2>SYM layer: symbols</h2>
-<p class="note">Tap SYM (right home row, inner key), then one of these.</p>
-<div id="sym"></div>
-
-<h2>NUM layer: digits, math and media</h2>
-<p class="note">Tap SYM, then tap O (right thumb): NUM stays on until you tap O again, or press Esc or Enter (they do their thing and leave NUM).</p>
-<div id="num"></div>
+<main>
+  <section>
+    <h2>Base <small>Home row: hold for Alt · Shift · Cmd · Ctrl</small></h2>
+    <div class="kb" id="alpha"></div>
+  </section>
+  <section>
+    <h2><b>NUM</b> <small>Hold Space. Right: numpad. Left: symbols, home row still holds the mods</small></h2>
+    <div class="kb" id="num"></div>
+  </section>
+  <section>
+    <h2><b>SYM</b> <small>Tap SYM, then one symbol within 2 s. Works inside NUM too</small></h2>
+    <div class="kb" id="sym"></div>
+  </section>
+  <section class="notes">
+    <h2>Holds and combos</h2>
+    <ul>
+      <li style="--c: var(--layer)">Workspace: hold <kbd>K</kbd> + right home row = <kbd>Ctrl</kbd> 6 7 8 9 0 · hold <kbd>R</kbd> + left home row = <kbd>Ctrl</kbd> 1 2 3 4 5</li>
+      <li style="--c: var(--layer)">Cmd + digit: hold <kbd>W</kbd> + right home row = 6–0 · hold <kbd>,</kbd> + left home row = 1–5</li>
+      <li style="--c: var(--layer)">Move window: hold <kbd>W</kbd>+<kbd>K</kbd> together + right home row (6–0), or <kbd>R</kbd>+<kbd>,</kbd> together + left home row (1–5)</li>
+      <li style="--c: var(--shortcut)">Cmd + <kbd>Tab</kbd> next window here · Cmd + <kbd>Esc</kbd> next window of this app · Cmd + <kbd>Space</kbd> launcher · add Shift to go back</li>
+      <li style="--c: var(--media)"><kbd>Vol −</kbd> + <kbd>Vol +</kbd> together: mute · play, skip, brightness: hold Space, number row</li>
+      <li style="--c: var(--op)">NUM: the dotted keys need Space held a beat first, otherwise you get a space · for <kbd>,</kbd> <kbd>:</kbd> let go of Space · <kbd>.</kbd> is on the <kbd>O</kbd> thumb</li>
+      <li style="--c: var(--mod)">Caps Word: upper right thumb, middle key · stops at the next non-letter</li>
+      <li class="grp">Magic — hold the bottom-left key</li>
+      <li>Bluetooth 0 1 on <kbd>Space</kbd> <kbd>Enter</kbd>, 2 3 on the two keys above them, USB right of <kbd>Enter</kbd> · forget host <kbd>F1</kbd>, all hosts <kbd>F10</kbd></li>
+      <li>Lights: left top and home rows · flash mode: <kbd>Esc</kbd> or <kbd>Ä</kbd> · restart: <kbd>&lt;</kbd> or <kbd>PgUp</kbd> · tap Magic alone: battery and status lights</li>
+      <li class="flag" style="--c: var(--flag)">€ is Shift+4. The Mac types €; on Linux the Swedish (Mac) layout likely types ¤ <i>(unverified)</i></li>
+    </ul>
+  </section>
+</main>
 
 <script>
-  const P = 56, S = 50, RX = 360, TY = 6 * P + 6;
-  function xy(p) {
-    const L = c => c * P, R = c => RX + c * P;
-    if (p <= 4) return [L(p), 0];
-    if (p <= 9) return [R(p - 4), 0];
-    if (p <= 15) return [L(p - 10), P];
-    if (p <= 21) return [R(p - 16), P];
-    if (p <= 27) return [L(p - 22), 2 * P];
-    if (p <= 33) return [R(p - 28), 2 * P];
-    if (p <= 39) return [L(p - 34), 3 * P];
-    if (p <= 45) return [R(p - 40), 3 * P];
-    if (p <= 51) return [L(p - 46), 4 * P];
-    if (p <= 54) return [180 + (p - 52) * P, TY];
-    if (p <= 57) return [RX + (p - 55) * P, TY];
-    if (p <= 63) return [R(p - 58), 4 * P];
-    if (p <= 68) return [L(p - 64), 5 * P];
-    if (p <= 71) return [180 + (p - 69) * P, TY + P];
-    if (p <= 74) return [RX + (p - 72) * P, TY + P];
-    return [R(p - 74), 5 * P];
+  // ---- Physical layout, in key pitches. Built for the left half, mirrored for the right. ----
+  const KS = 0.9;                                    // key face size
+  const STAG = [0.45, 0.45, 0.15, 0, 0.15, 0.25];    // column stagger, outer pinky .. inner index
+  const FAN = 25, W = 17, H = 8.25;                  // thumb fan angle (deg), total width, height
+  const T1 = [5.78, 5.72];                           // first (outer, upper) thumb key centre
+  function main(c, r) {                              // c 0 outer .. 5 inner; r 0 = F row, 1..5 = main rows
+    if (r === 0) return { x: c + 0.5, y: 0.32, h: 0.52 };
+    return { x: c + 0.5, y: 0.8 + (r - 1) + STAG[c] + 0.5 };
   }
-  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  function draw(id, keys, top = 0) {
+  function thumb(i, j) {                             // i 0..2 along the fan, j 0 upper / 1 lower
+    const a = FAN * Math.PI / 180;
+    return { x: T1[0] + i * Math.cos(a) - j * Math.sin(a), y: T1[1] + i * Math.sin(a) + j * Math.cos(a), rot: FAN };
+  }
+  function place(p) {                                // ZMK key position -> centre, height, rotation
+    let side, q;
+    if (p <= 4) [side, q] = ["L", main(p, 0)];
+    else if (p <= 9) [side, q] = ["R", main(9 - p, 0)];
+    else if (p <= 45) {
+      const o = p - 10, r = Math.floor(o / 12) + 1, c = o % 12;
+      [side, q] = c < 6 ? ["L", main(c, r)] : ["R", main(11 - c, r)];
+    }
+    else if (p <= 51) [side, q] = ["L", main(p - 46, 4)];
+    else if (p <= 54) [side, q] = ["L", thumb(p - 52, 0)];
+    else if (p <= 57) [side, q] = ["R", thumb(57 - p, 0)];
+    else if (p <= 63) [side, q] = ["R", main(63 - p, 4)];
+    else if (p <= 68) [side, q] = ["L", main(p - 64, 5)];
+    else if (p <= 71) [side, q] = ["L", thumb(p - 69, 1)];
+    else if (p <= 74) [side, q] = ["R", thumb(74 - p, 1)];
+    else [side, q] = ["R", main(79 - p, 5)];
+    const h = q.h || KS, rot = q.rot || 0;
+    return side === "L" ? { x: q.x, y: q.y, h, rot } : { x: W - q.x, y: q.y, h, rot: -rot };
+  }
+
+  // ---- Drawing ----
+  const S = 100;  // svg units per key pitch
+  const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  function size(lines) {
+    const n = Math.max(...lines.map(l => [...l].length));
+    return lines.length > 1 ? (n <= 5 ? 24 : 21) : n <= 1 ? 50 : n <= 3 ? 34 : n <= 5 ? 27 : 22;
+  }
+  // keys: pos -> [tap, hold, class, extra]. hold is text, or [text, class].
+  // class "trans" = passes through to the base layer (shown faint); a missing pos = does nothing.
+  // extra: "beat" = in NUM, needs Space held a beat first; "held" = the key holding this layer.
+  function draw(id, keys, combos = []) {
     let out = "";
     for (let p = 0; p < 80; p++) {
-      const [x, y] = xy(p), k = keys[p];
-      if (y < top * P) continue;
-      if (!k) { out += `<rect class="k empty" x="${x}" y="${y}" width="${S}" height="${S}" rx="8"/>`; continue; }
-      const [label, hold, cls] = k, lines = label.split("\n");
-      const longest = Math.max(...lines.map(l => l.length));
-      const fs = longest <= 2 ? 16 : longest <= 5 ? 12 : 9.5, lh = fs + 2;
-      const cy = y + S / 2 - (hold ? 5 : 0), y0 = cy - (lines.length - 1) * lh / 2 + fs * 0.35;
-      out += `<rect class="k ${cls || ""}" x="${x}" y="${y}" width="${S}" height="${S}" rx="8"/>`;
-      lines.forEach((l, i) => { out += `<text class="t" font-size="${fs}" x="${x + S / 2}" y="${y0 + i * lh}">${esc(l)}</text>`; });
-      if (hold) out += `<text class="h" x="${x + S / 2}" y="${y + S - 6}">${esc(hold)}</text>`;
+      const g = place(p), cx = g.x * S, cy = g.y * S, w = KS * S, h = g.h * S, k = keys[p];
+      const box = `transform="translate(${cx.toFixed(1)} ${cy.toFixed(1)}) rotate(${g.rot})" x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="12"`;
+      if (!k) { out += `<rect class="k none" ${box}/>`; continue; }
+      const [tap, hold, cls = "", extra = ""] = k;
+      out += `<rect class="k ${cls} ${extra}" ${box}/>`;
+      const lines = String(tap).split("\n");
+      let fs = size(lines);
+      if (h < 60) fs = Math.min(fs, 22);
+      const lh = fs * 1.05, top = cy - (hold && h >= 60 ? 12 : 0) - (lines.length - 1) * lh / 2 + fs * 0.36;
+      lines.forEach((l, i) => {
+        out += `<text class="t ${cls === "trans" ? "trans" : ""}" font-size="${fs}" x="${cx.toFixed(1)}" y="${(top + i * lh).toFixed(1)}">${esc(l)}</text>`;
+      });
+      if (hold) {
+        const [ht, hc] = Array.isArray(hold) ? hold : [hold, cls];
+        out += `<text class="h ${hc}" font-size="${[...ht].length > 8 ? 16 : 20}" x="${cx.toFixed(1)}" y="${(cy + h / 2 - 10).toFixed(1)}">${esc(ht)}</text>`;
+      }
+      if (extra.includes("beat")) out += `<circle class="beatdot" cx="${(cx + w / 2 - 13).toFixed(1)}" cy="${(cy - h / 2 + 13).toFixed(1)}" r="6"/>`;
+    }
+    for (const [a, b, label] of combos) {
+      const A = place(a), B = place(b), x = (A.x + B.x) / 2 * S, y = Math.max(A.y, B.y) * S + KS * S / 2 + 6;
+      const wd = label.length * 10 + 16;
+      out += `<g class="combo"><rect x="${x - wd / 2}" y="${y - 11}" width="${wd}" height="22" rx="11"/><text font-size="15" x="${x}" y="${y + 5}">${esc(label)}</text></g>`;
     }
     document.getElementById(id).innerHTML =
-      `<svg viewBox="-1 ${top * P - 1} ${RX + 5 * P + S + 2} ${TY + P + S + 2 - top * P}" role="img" aria-label="${id} layer">${out}</svg>`;
+      `<svg viewBox="-4 -4 ${W * S + 8} ${H * S + 8}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${id} layer">${out}</svg>`;
   }
 
-  const base = {};
-  for (let i = 0; i < 5; i++) { base[i] = ["F" + (i + 1)]; base[5 + i] = ["F" + (i + 6)]; }
-  for (let i = 0; i < 5; i++) { base[11 + i] = ["" + (i + 1)]; base[16 + i] = ["" + ((i + 6) % 10)]; }
-  Object.assign(base, {
+  // ---- Base layer (ALPHA) ----
+  const alpha = {};
+  for (let i = 0; i < 5; i++) { alpha[i] = ["F" + (i + 1)]; alpha[5 + i] = ["F" + (i + 6)]; }
+  for (let i = 0; i < 5; i++) { alpha[11 + i] = [String(i + 1)]; alpha[16 + i] = [String((i + 6) % 10)]; }
+  Object.assign(alpha, {
     10: ["´"], 21: ["+"],
-    22: ["Tab", "", "hot"], 23: ["Q"], 24: ["C"], 25: ["M"], 26: ["P"], 27: ["B"],
+    22: ["Tab", "Cmd: win", "shortcut"], 23: ["Q"], 24: ["C"], 25: ["M"], 26: ["P"], 27: ["B"],
     28: ["J"], 29: ["L"], 30: ["I"], 31: ["U"], 32: ["Ö"], 33: ["Å"],
-    34: ["Esc", "", "hot"], 35: ["G", "Alt", "mod"], 36: ["S", "Shift", "mod"], 37: ["T", "Cmd", "mod"], 38: ["H", "Ctrl", "mod"], 39: ["D"],
-    40: ["SYM", "", "layer"], 41: ["N", "Ctrl", "mod"], 42: ["E", "Cmd", "mod"], 43: ["A", "Shift", "mod"], 44: ["Y", "Alt", "mod"], 45: ["Ä"],
+    34: ["Esc", "Cmd: app", "shortcut"],
+    35: ["G", "Alt", "mod"], 36: ["S", "Shift", "mod"], 37: ["T", "Cmd", "mod"], 38: ["H", "Ctrl", "mod"], 39: ["D"],
+    40: ["SYM", "tap", "layer"], 41: ["N", "Ctrl", "mod"], 42: ["E", "Cmd", "mod"], 43: ["A", "Shift", "mod"], 44: ["Y", "Alt", "mod"], 45: ["Ä"],
     46: ["<"], 47: ["Z"], 48: ["F"], 49: ["W", "Cmd 6–0", "layer"], 50: ["K", "Ctrl 6–0", "layer"], 51: ["V"],
-    53: ["Cmd", "", "mod"], 56: ["Caps\nWord"], 57: ["Shift", "", "mod"],
+    53: ["Cmd", "", "mod"], 56: ["Caps\nWord", "", "mod"], 57: ["Shift", "", "mod"],
     58: ["X"], 59: ["R", "Ctrl 1–5", "layer"], 60: [",", "Cmd 1–5", "layer"], 61: ["."], 62: ["Å"], 63: ["PgUp"],
-    64: ["Magic", "", "layer"], 65: ["Screen\nshot", "", "hot"], 66: ["End"], 67: ["←"], 68: ["→"],
-    69: ["Space", "", "hot"], 70: ["Enter"], 73: ["Bksp"], 74: ["O"],
-    75: ["↑"], 76: ["↓"], 77: ["Vol −"], 78: ["Vol +"], 79: ["PgDn"],
+    64: ["Magic", "hold", "layer"], 65: ["Shot", "clipboard", "shortcut"], 66: ["Shot", "End key", "shortcut"], 67: ["←"], 68: ["→"],
+    69: ["Space", "NUM", "layer"], 70: ["Enter"], 73: ["Bksp"], 74: ["O"],
+    75: ["↑"], 76: ["↓"], 77: ["Vol −", "", "media"], 78: ["Vol +", "", "media"], 79: ["PgDn"],
   });
-  draw("base", base);
+  draw("alpha", alpha, [[49, 50, "MOVE"], [59, 60, "MOVE"], [77, 78, "Mute"]]);
 
+  // Faint copy of the base layer for keys that pass through.
+  const through = (...ps) => Object.fromEntries(ps.map(p => [p, [alpha[p][0], "", "trans"]]));
+  const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+
+  // ---- NUM (hold Space) ----
+  const B = "beat";
+  draw("num", {
+    ...through(...range(0, 10), 16, 17, 18, 19, 22, 33, 34, 46, 53, 56, 57, 63, ...range(64, 68), 70, 73, ...range(75, 79)),
+    11: ["Prev", "", "media"], 12: ["Play\nPause", "", "media"], 13: ["Next", "", "media"], 14: ["Vol −", "", "media"], 15: ["Vol +", "", "media"],
+    20: ["Bright\n−", "", "media"], 21: ["Bright\n+", "", "media"],
+    23: ["!", "", "", B], 24: ['"', "", "", B], 25: ["#", "", "", B], 26: ["€", ["Linux ¤?", "flag"], "", B], 27: ["%", "", "", B],
+    28: ["/", "", "op"], 29: ["7", "", "digit"], 30: ["8", "", "digit"], 31: ["9", "", "digit"], 32: ["=", "", "op"],
+    35: ["<", "Alt", "mod"], 36: ["{", "Shift", "mod"], 37: ["[", "Cmd", "mod"], 38: ["(", "Ctrl", "mod"], 39: ["|", "", "", B],
+    40: ["SYM", "tap", "layer"], 41: ["4", "", "digit"], 42: ["5", "", "digit"], 43: ["6", "", "digit"], 44: ["0", "", "digit"], 45: ["+", "", "op"],
+    47: [">", "", "", B], 48: ["}", "", "", B], 49: ["]", "", "", B], 50: [")", "", "", B], 51: ["\\", "", "", B],
+    58: ["-", "", "op"], 59: ["1", "", "digit"], 60: ["2", "", "digit"], 61: ["3", "", "digit"], 62: ["*", "", "op"],
+    69: ["Space", "held", "layer", "held"], 74: [".", "", "digit"],
+  });
+
+  // ---- SYM (tap the SYM key) ----
   draw("sym", {
-    23: ["!"], 24: ['"'], 25: ["#"], 26: ["€"], 27: ["%"], 28: ["&"], 29: ["/"], 30: ["="], 31: ["+"],
-    35: ["<"], 36: ["{"], 37: ["["], 38: ["("], 39: ["|"], 40: ["'"], 41: ["@"], 42: ["?"], 43: ["~"], 44: ["^"],
-    47: [">"], 48: ["}"], 49: ["]"], 50: [")"], 51: ["\\"], 58: ["-"], 59: ["$"], 60: ["`"], 61: ["´"], 62: ["*"],
-    66: ["Raycast", "", "hot"], 67: ["Prev\nwindow", "", "hot"], 68: ["Next\nwindow", "", "hot"],
-    73: ["Bksp"], 74: ["NUM", "tap: on", "layer"],
-  }, 2);
-
-  const num = {
-    12: ["Rewind"], 14: ["Fast\nfwd"], 24: ["Prev\ntrack"], 25: ["Play\nPause"], 26: ["Next\ntrack"],
-    29: ["/"], 30: ["="], 31: ["+"], 32: ["Bright\n−"], 33: ["Bright\n+"], 34: ["Esc", "leaves", "hot"],
-    58: ["-"], 60: [","], 61: ["."], 62: ["*"], 70: ["Enter", "leaves", "hot"], 74: ["NUM", "tap: off", "layer"], 48: ["Vol −"], 50: ["Vol +"],
-    66: ["Raycast", "", "hot"], 67: ["Prev\nwindow", "", "hot"], 68: ["Next\nwindow", "", "hot"], 73: ["Bksp"],
-  };
-  for (let i = 0; i < 5; i++) { num[35 + i] = ["" + (i + 1)]; num[40 + i] = ["" + ((i + 6) % 10)]; }
-  draw("num", num, 1);
+    ...through(53, 56, 57, 69, 70, 77),
+    23: ["!"], 24: ['"'], 25: ["#"], 26: ["€", ["Linux ¤?", "flag"]], 27: ["%"],
+    28: ["&"], 29: ["/"], 30: ["="], 31: ["+"],
+    35: ["<"], 36: ["{"], 37: ["["], 38: ["("], 39: ["|"],
+    40: ["'"], 41: ["@"], 42: ["?"], 43: ["~"], 44: ["^"],
+    47: [">"], 48: ["}"], 49: ["]"], 50: [")"], 51: ["\\"],
+    58: ["-"], 59: ["$"], 60: ["`"], 61: ["´"], 62: ["*"],
+    66: ["Launch", "", "shortcut"], 67: ["Prev\nwindow", ["same app", "shortcut"], "shortcut"], 68: ["Next\nwindow", ["same app", "shortcut"], "shortcut"],
+    73: ["Bksp"],
+  });
 </script>
+</html>
