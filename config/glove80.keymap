@@ -67,7 +67,6 @@
 #define CTRLNUM 3
 #define CMDNUM 4
 #define MAGIC 5
-#define MOVE 6
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -242,19 +241,8 @@
             tapping-term-ms = <200>;
             quick-tap-ms = <0>;
             bindings = <&mo>, <&kp>;
-            // Opposite home-row positions: digits 6..0 in CMDNUM/CTRLNUM.
-            hold-trigger-key-positions = <40 41 42 43 44>;
-        };
-        ltr: layer_tap_right {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            require-prior-idle-ms = <200>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <0>;
-            bindings = <&mo>, <&kp>;
-            // Opposite home-row positions: digits 1..5 in CMDNUM/CTRLNUM.
-            hold-trigger-key-positions = <35 36 37 38 39>;
+            // The right-hand numpad in CMDNUM/CTRLNUM.
+            hold-trigger-key-positions = <29 30 31 41 42 43 44 59 60 61>;
         };
 
          hml: home_row_mod_left {
@@ -419,23 +407,6 @@
 
     combos {
         compatible = "zmk,combos";
-        // Hold W+K (left) or R+comma (right) together: MOVE layer, where the
-        // home row sends Ctrl+Shift+digit = AeroSpace "move window to workspace".
-        // Use the left pair for 6-0 and the right pair for 1-5 (opposite hand).
-        move_left {
-            timeout-ms = <50>;
-            require-prior-idle-ms = <150>;
-            key-positions = <49 50>;
-            layers = <ALPHA>;
-            bindings = <&mo MOVE>;
-        };
-        move_right {
-            timeout-ms = <50>;
-            require-prior-idle-ms = <150>;
-            key-positions = <59 60>;
-            layers = <ALPHA>;
-            bindings = <&mo MOVE>;
-        };
         // Vol- and Vol+ (bottom row, right hand) together: mute / unmute
         mute_vol {
             timeout-ms = <50>;
@@ -454,7 +425,7 @@
                 &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
                 &tab_app    &kp Q    &kp C     &kp M      &kp P   &kp B                                                                      &kp J   &kp L      &kp I     &kp U    &kp SEMI   &kp LBKT
                 &esc_win     &hml LALT G        &hml LSHIFT S     &hml LGUI T      &hml LCTRL H   &kp D                                                                      &sl SYM      &hmr LCTRL N      &hmr LGUI E     &hmr LSHIFT A     &hmr LALT Y    &kp SQT
-                &kp GRAVE     &kp Z    &kp F     &ltl CMDNUM W      &ltl CTRLNUM K   &kp V  &trans &kp LGUI &trans &trans &caps_word  &kp RSHFT &kp X  &ltr CTRLNUM R  &ltr CMDNUM COMMA   &kp DOT  &kp LBKT  &kp PG_UP
+                &kp GRAVE     &kp Z    &kp F     &ltl CMDNUM W      &ltl CTRLNUM K   &kp V  &trans &kp LGUI &trans &trans &caps_word  &kp RSHFT &kp X  &kp R  &kp COMMA   &kp DOT  &kp LBKT  &kp PG_UP
                 &magic MAGIC  0 &kp LC(LS(LG(N4)))  &kp END  &kp LEFT  &kp RIGHT            &lt_spc NUM 0   &kp RET   &none               &none    &kp BSPC           &kp O                       &kp UP   &kp DOWN  &kp C_VOL_DN  &kp C_VOL_UP  &kp PG_DN
             >;
         };
@@ -486,25 +457,27 @@
             >;
         };
 
+        // Hold K: Ctrl + right-hand numpad (workspaces).
         CTRLNUM {
             bindings = <
-                &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
-                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
-                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
-                &none  &kp LC(N1)        &kp LC(N2)      &kp LC(N3)        &kp LC(N4)  &kp LC(N5)                                                  &kp LC(N6)         &kp LC(N7)        &kp LC(N8)  &kp LC(N9)  &kp LC(N0)   &none
-                &none   &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans    &none          &none         &none  &none &none   &none   
-                &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans     &none          &none         &none  &none &none   
+                &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none &none &none &none &kp LC(N7) &kp LC(N8) &kp LC(N9) &none &none
+                &none &none &none &none &none &none &none &kp LC(N4) &kp LC(N5) &kp LC(N6) &kp LC(N0) &none
+                &none &none &none &none &none &none &trans &trans &trans &trans &trans &trans &none &kp LC(N1) &kp LC(N2) &kp LC(N3) &none &none
+                &none &none &none &none &none &trans &trans &trans &trans &trans &trans &none &none &none &none &none
             >;
         };
 
+        // Hold W: Cmd + right-hand numpad (tabs).
         CMDNUM {
             bindings = <
-                &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
-                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
-                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
-                &none  &kp LG(N1)        &kp LG(N2)      &kp LG(N3)        &kp LG(N4)  &kp LG(N5)                                                  &kp LG(N6)         &kp LG(N7)        &kp LG(N8)  &kp LG(N9)  &kp LG(N0)   &none
-                &none   &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans    &none          &none         &none  &none &none   &none   
-                &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans     &none          &none         &none  &none &none   
+                &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none &none &none &none &kp LG(N7) &kp LG(N8) &kp LG(N9) &none &none
+                &none &none &none &none &none &none &none &kp LG(N4) &kp LG(N5) &kp LG(N6) &kp LG(N0) &none
+                &none &none &none &none &none &none &trans &trans &trans &trans &trans &trans &none &kp LG(N1) &kp LG(N2) &kp LG(N3) &none &none
+                &none &none &none &none &none &trans &trans &trans &trans &trans &trans &none &none &none &none &none
             >;
         };
 
@@ -519,15 +492,5 @@
             >;
         };
 
-        MOVE {
-            bindings = <
-                &none   &none         &none       &none         &none                                                                          &none         &none   &none   &none   &none
-                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
-                &none   &none         &none       &none         &none   &none                                                   &none          &none         &none   &none   &none   &none
-                &none  &kp LC(LS(N1))        &kp LC(LS(N2))      &kp LC(LS(N3))        &kp LC(LS(N4))  &kp LC(LS(N5))                                                  &kp LC(LS(N6))         &kp LC(LS(N7))        &kp LC(LS(N8))  &kp LC(LS(N9))  &kp LC(LS(N0))   &none
-                &none   &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans    &none          &none         &none  &none &none   &none   
-                &none         &none       &none         &none   &none &trans  &trans  &trans  &trans  &trans  &trans     &none          &none         &none  &none &none   
-            >;
-        };
     };
 };
