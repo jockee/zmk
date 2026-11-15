@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
+<meta http-equiv="refresh" content="60"> <!-- picks up keymap edits on the open window -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glove80 keys</title>
 <!--
@@ -100,7 +101,6 @@
     <span style="--c: var(--digit)">digit</span>
     <span style="--c: var(--op)">math</span>
     <span style="--c: var(--media)">media</span>
-    <span class="dot">hold Space a beat first</span>
     <span>big = tap, small = hold</span>
   </div>
 </header>
@@ -124,11 +124,10 @@
       <li style="--c: var(--layer)">Go to workspace: hold <kbd>K</kbd> + a NUM digit (right-hand numpad) = <kbd>Ctrl</kbd>+digit</li>
       <li style="--c: var(--layer)">Cmd + digit (tab): hold <kbd>W</kbd> + a NUM digit</li>
       <li style="--c: var(--layer)">Move window: hold <kbd>Space</kbd>, hold <kbd>S</kbd>+<kbd>H</kbd> (Shift+Ctrl), tap the digit</li>
-      <li style="--c: var(--muted)">Workspaces: 1 misc · 2 terminal · 3 monitor · 4 music · 5 T3 Code · 6 Brave · 7 Slack · 8 media · 9 chat</li>
+      <li style="--c: var(--muted)">Workspaces: 1 misc · 2 terminal · 3 monitor · 4 T3 Code · 5 Brave · 6 music · 7 Slack · 8 media · 9 chat</li>
       <li style="--c: var(--shortcut)">Cmd + <kbd>Tab</kbd> next window here · Cmd + <kbd>Esc</kbd> next window of this app · Cmd + <kbd>Space</kbd> launcher · add Shift to go back</li>
       <li style="--c: var(--media)"><kbd>Vol −</kbd> + <kbd>Vol +</kbd> together: mute · play, skip, brightness: hold Space, number row</li>
-      <li style="--c: var(--op)">NUM: the dotted keys need Space held a beat first, otherwise you get a space · for <kbd>,</kbd> <kbd>:</kbd> let go of Space · <kbd>.</kbd> is on the <kbd>O</kbd> thumb</li>
-      <li style="--c: var(--mod)">Caps Word: upper right thumb, middle key · stops at the next non-letter</li>
+      <li style="--c: var(--op)">NUM: for <kbd>,</kbd> <kbd>:</kbd> let go of Space · <kbd>.</kbd> is on the <kbd>O</kbd> thumb</li>
       <li class="grp">Magic — hold the bottom-left key</li>
       <li>Bluetooth 0 1 on <kbd>Space</kbd> <kbd>Enter</kbd>, 2 3 on the two keys above them, USB right of <kbd>Enter</kbd> · forget host <kbd>F1</kbd>, all hosts <kbd>F10</kbd></li>
       <li>Lights: left top and home rows · flash mode: <kbd>Esc</kbd> or <kbd>Ä</kbd> · restart: <kbd>&lt;</kbd> or <kbd>PgUp</kbd> · tap Magic alone: battery and status lights</li>
@@ -223,7 +222,6 @@
     35: ["G", "Alt", "mod"], 36: ["S", "Shift", "mod"], 37: ["T", "Cmd", "mod"], 38: ["H", "Ctrl", "mod"], 39: ["D"],
     40: ["SYM", "tap", "layer"], 41: ["N", "Ctrl", "mod"], 42: ["E", "Cmd", "mod"], 43: ["A", "Shift", "mod"], 44: ["Y", "Alt", "mod"], 45: ["Ä"],
     46: ["<"], 47: ["Z"], 48: ["F"], 49: ["W", "Cmd #", "layer"], 50: ["K", "Ctrl #", "layer"], 51: ["V"],
-    53: ["Cmd", "", "mod"], 56: ["Caps\nWord", "", "mod"], 57: ["Shift", "", "mod"],
     58: ["X"], 59: ["R"], 60: [","], 61: ["."], 62: ["Å"], 63: ["PgUp"],
     64: ["Magic", "hold", "layer"], 65: ["Shot", "clipboard", "shortcut"], 66: ["Shot", "End key", "shortcut"], 67: ["←"], 68: ["→"],
     69: ["Space", "NUM", "layer"], 70: ["Enter"], 73: ["Bksp"], 74: ["O"],
@@ -236,25 +234,24 @@
   const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 
   // ---- NUM (hold Space) ----
-  const B = "beat";
   draw("num", {
-    ...through(...range(0, 10), 16, 17, 18, 19, 22, 33, 34, 46, 53, 56, 57, 63, ...range(64, 68), 70, 73, ...range(75, 79)),
+    ...through(...range(0, 10), 16, 17, 18, 19, 22, 33, 34, 46, 63, ...range(64, 68), 70, 73, ...range(75, 79)),
     11: ["Prev", "", "media"], 12: ["Play\nPause", "", "media"], 13: ["Next", "", "media"], 14: ["Vol −", "", "media"], 15: ["Vol +", "", "media"],
     20: ["Bright\n−", "", "media"], 21: ["Bright\n+", "", "media"],
-    23: ["!", "", "", B], 24: ['"', "", "", B], 25: ["#", "", "", B], 26: ["€", ["Linux ¤?", "flag"], "", B], 27: ["%", "", "", B],
+    23: ["!"], 24: ['"'], 25: ["#"], 26: ["€", ["Linux ¤?", "flag"], ""], 27: ["%"],
     28: ["/", "", "op"], 29: ["7", "", "digit"], 30: ["8", "", "digit"], 31: ["9", "", "digit"], 32: ["=", "", "op"],
-    35: ["<", "Alt", "mod"], 36: ["{", "Shift", "mod"], 37: ["[", "Cmd", "mod"], 38: ["(", "Ctrl", "mod"], 39: ["|", "", "", B],
+    35: ["<", "Alt", "mod"], 36: ["{", "Shift", "mod"], 37: ["[", "Cmd", "mod"], 38: ["(", "Ctrl", "mod"], 39: ["|"],
     40: ["SYM", "tap", "layer"], 41: ["4", "", "digit"], 42: ["5", "", "digit"], 43: ["6", "", "digit"], 44: ["0", "", "digit"], 45: ["+", "", "op"],
-    47: [">", "", "", B], 48: ["}", "", "", B], 49: ["]", "", "", B], 50: [")", "", "", B], 51: ["\\", "", "", B],
+    47: [">"], 48: ["}"], 49: ["]"], 50: [")"], 51: ["\\"],
     58: ["-", "", "op"], 59: ["1", "", "digit"], 60: ["2", "", "digit"], 61: ["3", "", "digit"], 62: ["*", "", "op"],
     69: ["Space", "held", "layer", "held"], 74: [".", "", "digit"],
   });
 
   // ---- SYM (tap the SYM key) ----
   draw("sym", {
-    ...through(53, 56, 57, 69, 70, 77),
+    ...through(69, 70, 77),
     23: ["!"], 24: ['"'], 25: ["#"], 26: ["€", ["Linux ¤?", "flag"]], 27: ["%"],
-    28: ["&"], 29: ["/"], 30: ["="], 31: ["+"],
+    28: ["&"], 29: ["/"], 30: ["="], 31: ["+"], 32: ["_"],
     35: ["<"], 36: ["{"], 37: ["["], 38: ["("], 39: ["|"],
     40: ["'"], 41: ["@"], 42: ["?"], 43: ["~"], 44: ["^"],
     47: [">"], 48: ["}"], 49: ["]"], 50: [")"], 51: ["\\"],
