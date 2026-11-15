@@ -121,9 +121,10 @@
   <section class="notes">
     <h2>Holds and combos</h2>
     <ul>
-      <li style="--c: var(--layer)">Workspace: hold <kbd>K</kbd> + right home row = <kbd>Ctrl</kbd> 6 7 8 9 0 · hold <kbd>R</kbd> + left home row = <kbd>Ctrl</kbd> 1 2 3 4 5</li>
-      <li style="--c: var(--layer)">Cmd + digit: hold <kbd>W</kbd> + right home row = 6–0 · hold <kbd>,</kbd> + left home row = 1–5</li>
-      <li style="--c: var(--layer)">Move window: hold <kbd>W</kbd>+<kbd>K</kbd> together + right home row (6–0), or <kbd>R</kbd>+<kbd>,</kbd> together + left home row (1–5)</li>
+      <li style="--c: var(--layer)">Go to workspace: hold <kbd>K</kbd> + a NUM digit (right-hand numpad) = <kbd>Ctrl</kbd>+digit</li>
+      <li style="--c: var(--layer)">Cmd + digit (tab): hold <kbd>W</kbd> + a NUM digit</li>
+      <li style="--c: var(--layer)">Move window: hold <kbd>Space</kbd>, hold <kbd>S</kbd>+<kbd>H</kbd> (Shift+Ctrl), tap the digit</li>
+      <li style="--c: var(--muted)">Workspaces: 1 misc · 2 terminal · 3 monitor · 4 music · 5 T3 Code · 6 Brave · 7 Slack · 8 media · 9 chat</li>
       <li style="--c: var(--shortcut)">Cmd + <kbd>Tab</kbd> next window here · Cmd + <kbd>Esc</kbd> next window of this app · Cmd + <kbd>Space</kbd> launcher · add Shift to go back</li>
       <li style="--c: var(--media)"><kbd>Vol −</kbd> + <kbd>Vol +</kbd> together: mute · play, skip, brightness: hold Space, number row</li>
       <li style="--c: var(--op)">NUM: the dotted keys need Space held a beat first, otherwise you get a space · for <kbd>,</kbd> <kbd>:</kbd> let go of Space · <kbd>.</kbd> is on the <kbd>O</kbd> thumb</li>
@@ -221,14 +222,14 @@
     34: ["Esc", "Cmd: app", "shortcut"],
     35: ["G", "Alt", "mod"], 36: ["S", "Shift", "mod"], 37: ["T", "Cmd", "mod"], 38: ["H", "Ctrl", "mod"], 39: ["D"],
     40: ["SYM", "tap", "layer"], 41: ["N", "Ctrl", "mod"], 42: ["E", "Cmd", "mod"], 43: ["A", "Shift", "mod"], 44: ["Y", "Alt", "mod"], 45: ["Ä"],
-    46: ["<"], 47: ["Z"], 48: ["F"], 49: ["W", "Cmd 6–0", "layer"], 50: ["K", "Ctrl 6–0", "layer"], 51: ["V"],
+    46: ["<"], 47: ["Z"], 48: ["F"], 49: ["W", "Cmd #", "layer"], 50: ["K", "Ctrl #", "layer"], 51: ["V"],
     53: ["Cmd", "", "mod"], 56: ["Caps\nWord", "", "mod"], 57: ["Shift", "", "mod"],
-    58: ["X"], 59: ["R", "Ctrl 1–5", "layer"], 60: [",", "Cmd 1–5", "layer"], 61: ["."], 62: ["Å"], 63: ["PgUp"],
+    58: ["X"], 59: ["R"], 60: [","], 61: ["."], 62: ["Å"], 63: ["PgUp"],
     64: ["Magic", "hold", "layer"], 65: ["Shot", "clipboard", "shortcut"], 66: ["Shot", "End key", "shortcut"], 67: ["←"], 68: ["→"],
     69: ["Space", "NUM", "layer"], 70: ["Enter"], 73: ["Bksp"], 74: ["O"],
     75: ["↑"], 76: ["↓"], 77: ["Vol −", "", "media"], 78: ["Vol +", "", "media"], 79: ["PgDn"],
   });
-  draw("alpha", alpha, [[49, 50, "MOVE"], [59, 60, "MOVE"], [77, 78, "Mute"]]);
+  draw("alpha", alpha, [[77, 78, "Mute"]]);
 
   // Faint copy of the base layer for keys that pass through.
   const through = (...ps) => Object.fromEntries(ps.map(p => [p, [alpha[p][0], "", "trans"]]));
