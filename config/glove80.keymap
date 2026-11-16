@@ -221,6 +221,16 @@
             bindings = <&kp >, <&caps_word>;
         };
 
+        // 3: dictation (F13; sway and dictate tell a hold from a tap). With any modifier it stays
+        // 3, so Shift+3 (#), Cmd+3 and the Cmd+Shift+3 screenshot work; digits: the NUM layer.
+        dict3: dictate_three {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp F13>, <&kp N3>;
+            mods = <(MOD_LSFT|MOD_RSFT|MOD_LGUI|MOD_RGUI|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT|MOD_LGUI|MOD_RGUI|MOD_LCTL|MOD_RCTL|MOD_LALT|MOD_RALT)>;
+        };
+
          ltl: layer_tap_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -438,7 +448,7 @@
         ALPHA {
             bindings = <
                 &kp F1    &kp F2   &kp F3    &kp F4     &kp F5                                                                                     &kp F6     &kp F7    &kp F8    &kp F9    &kp F10
-                &kp EQUAL    &kp N1   &kp N2    &kp N3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
+                &kp EQUAL    &kp N1   &kp N2    &dict3     &kp N4  &kp N5                                                                  &kp N6  &kp N7     &kp N8    &kp N9    &kp N0  &kp MINUS
                 &tab_app    &kp Q    &kp C     &kp M      &kp P   &kp B                                                                      &kp J   &kp L      &kp I     &kp U    &kp SEMI   &kp LBKT
                 &esc_win     &hml LALT G        &hml LSHIFT S     &hml LGUI T      &hml LCTRL H   &kp D                                                                      &sl SYM      &hmr LCTRL N      &hmr LGUI E     &hmr LSHIFT A     &hmr LALT Y    &kp SQT
                 &kp GRAVE     &kp Z    &kp F     &ltw 0 W      &ltl CTRLNUM K   &kp V  &none &none &none &none &none &none &kp X  &kp R  &kp COMMA   &kp DOT  &kp LBKT  &kp PG_UP
